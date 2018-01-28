@@ -51,22 +51,22 @@ public class TeleOpDrive extends Drive {
                     talons[2].set(PercentOutput, 0);
                     talons[3].set(PercentOutput, 0);
                 }
+
+                //Manual Gear Switch
+                if (controller.getAButton()) {
+                    shiftUp();
+                } else if (controller.getBButton()) {
+                    shiftDown();
+                }
+
+                //Manual Gear Hold : Will Override Switch Mode
+                if (controller.getTriggerAxis(kRight) >= 0.2) {
+                    shiftDown();
+                } else {
+                    shiftUp();
+                }
             } else if (driveType == 1) {  //Arcade Drive
                 //TODO Arcade Drive
-            }
-
-            //Manual Gear Switch
-            if (controller.getAButton()) {
-                shiftUp();
-            } else if (controller.getBButton()) {
-                shiftDown();
-            }
-
-            //Manual Gear Hold : Will Override Switch Mode
-            if (controller.getTriggerAxis(kRight) >= 0.2) {
-                shiftDown();
-            } else {
-                shiftUp();
             }
 
 
