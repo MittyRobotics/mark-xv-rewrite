@@ -105,6 +105,7 @@ public class TeleOpDrive extends Drive {
 
     @Override
     public void kill() {
-
+        dThread = null;
+        killHardware();
     }
 }

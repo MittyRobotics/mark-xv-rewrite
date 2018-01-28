@@ -49,6 +49,7 @@ public class Robot extends SampleRobot {
 
         //Drive
         drive.kill();
+        drive = null;
     }
 
     private void setupOperatorControl() {

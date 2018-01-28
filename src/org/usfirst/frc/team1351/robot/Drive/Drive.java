@@ -23,6 +23,12 @@ public abstract class Drive {
         }
     }
 
+    void killHardware() {
+        talons = null;
+        driveSolenoid = null;
+        controller = null;
+    }
+
     void shiftDown() {
         driveSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
