@@ -12,8 +12,8 @@ public abstract class Drive {
     private DoubleSolenoid driveSolenoid;
     XboxController controller = new XboxController(0);
 
-    private static byte[] LEFTDRIVETALONS = {};
-    private static byte[] RIGHTDRIVETALONS = {};
+    private static byte[] LEFTDRIVETALONS = {0, 1};
+    private static byte[] RIGHTDRIVETALONS = {2, 3};
 
 
 
