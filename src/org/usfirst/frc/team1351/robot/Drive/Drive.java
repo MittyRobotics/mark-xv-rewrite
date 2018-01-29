@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1351.robot.Drive;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
@@ -8,8 +9,13 @@ public abstract class Drive {
     static byte TALONCOUNT = 4;
 
     TalonSRX[] talons;
-    DoubleSolenoid driveSolenoid;
+    private DoubleSolenoid driveSolenoid;
     XboxController controller = new XboxController(0);
+
+    private static byte[] LEFTDRIVETALONS = {};
+    private static byte[] RIGHTDRIVETALONS = {};
+
+
 
     public abstract void kill();
 
@@ -29,11 +35,26 @@ public abstract class Drive {
         controller = null;
     }
 
+    void setLeft(ControlMode controlMode, double value) {
+        talons[0].set(controlMode, value);
+        talons[1].set(controlMode, value);
+    }
+
+    void setRight() {
+
+    }
+
     void shiftDown() {
         driveSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
     void shiftUp() {
         driveSolenoid.set(DoubleSolenoid.Value.kForward);
+    }
+
+    void ramp(double seconds) {
+        for (TalonSRX talon : talons) {
+            talon.configOpenloopRamp(seconds, 0);
+        }
     }
 }

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team1351.robot.Drive;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-
 import static com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
@@ -15,7 +13,6 @@ public class TeleOpDrive extends Drive {
         init();
 
         //Setups the Thread
-        //TODO Change Thread Priority Based on Thread Priority List
         dThread = new Thread(this::teleOp);
         dThread.setPriority(9);
         dThread.setName("Drive Thread");
@@ -35,11 +32,9 @@ public class TeleOpDrive extends Drive {
                 //Left Side Tank Drive
                 if (controller.getY(kLeft) < -0.05 || controller.getY(kLeft) > 0.05) {
                     double yValue = controller.getY(kLeft);
-                    talons[0].set(PercentOutput, -1 * yValue);
-                    talons[1].set(PercentOutput, -1 * yValue);
+                    setLeft(PercentOutput, -1 * yValue);
                 } else {
-                    talons[0].set(PercentOutput, 0);
-                    talons[1].set(PercentOutput, 0);
+                    setLeft(PercentOutput, 0);
                 }
 
                 //Right Side Tank Drive
@@ -72,16 +67,12 @@ public class TeleOpDrive extends Drive {
 
             //Ramping Toggle On
             if (controller.getXButton()) {
-                for (TalonSRX talon : talons) {
-                    talon.configOpenloopRamp(0.5, 0);
-                }
+                ramp(0.5);
             }
 
             //Ramping Toggle Off
             if (controller.getYButton()) {
-                for (TalonSRX talon : talons) {
-                    talon.configOpenloopRamp(0, 0);
-                }
+                ramp(0);
             }
 
             //Activate Tank Drive
