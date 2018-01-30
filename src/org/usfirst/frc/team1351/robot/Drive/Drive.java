@@ -15,6 +15,8 @@ public abstract class Drive {
 
 
     public abstract void kill();
+    public abstract void start();
+    public abstract void stop();
 
     void init() {
         controller = new XboxController(0);

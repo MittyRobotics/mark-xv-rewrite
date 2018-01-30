@@ -18,10 +18,12 @@ public class TeleOpDrive extends Drive {
         dThread.setName("Drive Thread");
     }
 
+    @Override
     public void start() {
         dThread.start();
     }
 
+    @Override
     public void stop() {
         dThread.interrupt();
     }

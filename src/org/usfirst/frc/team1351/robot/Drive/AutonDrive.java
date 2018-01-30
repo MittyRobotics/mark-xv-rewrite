@@ -21,4 +21,14 @@ public class AutonDrive extends Drive {
     public void kill() {
 
     }
+
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void stop() {
+
+    }
 }
