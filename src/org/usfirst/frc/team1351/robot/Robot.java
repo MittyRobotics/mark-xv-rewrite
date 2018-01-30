@@ -49,6 +49,7 @@ public class Robot extends SampleRobot {
         compressor.stop();
 
         //Drive
+        drive.stop();
         drive.kill();
         drive = null;
     }
