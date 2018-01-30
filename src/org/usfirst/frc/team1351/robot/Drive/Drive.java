@@ -27,6 +27,10 @@ public abstract class Drive {
         for (int i = 0; i < talons.length; i++) {
             talons[i] = new TalonSRX(i);
         }
+        //Inverts Left Talons
+        for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
+            talons[LEFTDRIVETALON].setInverted(true);
+        }
     }
 
     void killHardware() {
