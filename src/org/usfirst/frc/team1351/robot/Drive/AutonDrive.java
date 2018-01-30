@@ -9,12 +9,12 @@ public class AutonDrive extends Drive {
         //TODO Use a PID Loop to Drive Backwards {distance} Inches Using the Encoders
     }
 
-    public void turnLeft(byte degrees) {
+    public void turnLeft(int degrees) {
         //TODO Use a PID Loop to Turn Left {degrees} Degrees Using the Gyro
     }
 
-    public void turnRight(byte degrees) {
         //TODO Use a PID Loop to Turn Right {degrees} Degrees Using the Gyro
+    public void turnRight(int degrees) {
     }
 
     @Override
