@@ -14,7 +14,6 @@ public abstract class Drive {
     private static byte[] RIGHTDRIVETALONS = {2, 3};
 
 
-
     public abstract void kill();
 
     void init() {
