@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 
 public abstract class Drive {
-    static byte TALONCOUNT = 4;
-
     TalonSRX[] talons;
     private DoubleSolenoid driveSolenoid;
     XboxController controller = new XboxController(0);
@@ -23,7 +21,7 @@ public abstract class Drive {
         controller = new XboxController(0);
         driveSolenoid = new DoubleSolenoid(0, 1);
 
-        talons = new TalonSRX[TALONCOUNT];
+        talons = new TalonSRX[LEFTDRIVETALONS.length + RIGHTDRIVETALONS.length];
         for (int i = 0; i < talons.length; i++) {
             talons[i] = new TalonSRX(i);
         }
