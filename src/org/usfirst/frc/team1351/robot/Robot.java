@@ -33,6 +33,7 @@ public class Robot extends SampleRobot {
         compressor.start();
 
         //Starts Drive
+        drive.start();
     }
 
     @Override
