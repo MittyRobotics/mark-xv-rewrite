@@ -63,4 +63,13 @@ public abstract class Drive {
             talon.configOpenloopRamp(seconds, 0);
         }
     }
+
+    void setPIDF(double P, double I, double D, double F) {
+        for (TalonSRX talon : talons) {
+            talon.config_kP(0, P, 0);
+            talon.config_kI(0, I, 0);
+            talon.config_kD(0, D, 0);
+            talon.config_kF(0, F, 0);
+        }
+    }
 }
