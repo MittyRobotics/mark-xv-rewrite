@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 
 public abstract class Drive {
-    TalonSRX[] talons;
+    private TalonSRX[] talons;
     private DoubleSolenoid driveSolenoid;
     XboxController controller = new XboxController(0);
 

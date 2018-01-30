@@ -40,11 +40,9 @@ public class TeleOpDrive extends Drive {
                 //Right Side Tank Drive
                 if(controller.getY(kRight) < -0.05 || controller.getY(kRight) > 0.05) {
                     double yValue = controller.getY(kRight);
-                    talons[2].set(PercentOutput, yValue);
-                    talons[3].set(PercentOutput, yValue);
+                    setRight(PercentOutput, yValue);
                 } else {
-                    talons[2].set(PercentOutput, 0);
-                    talons[3].set(PercentOutput, 0);
+                    setRight(PercentOutput, 0);
                 }
 
                 //Manual Gear Switch
