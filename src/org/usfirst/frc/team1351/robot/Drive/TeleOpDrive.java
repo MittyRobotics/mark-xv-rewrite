@@ -32,7 +32,7 @@ public class TeleOpDrive extends Drive {
                 //Left Side Tank Drive
                 if (controller.getY(kLeft) < -0.05 || controller.getY(kLeft) > 0.05) {
                     double yValue = controller.getY(kLeft);
-                    setLeft(PercentOutput, -1 * yValue);
+                    setLeft(PercentOutput, yValue);
                 } else {
                     setLeft(PercentOutput, 0);
                 }

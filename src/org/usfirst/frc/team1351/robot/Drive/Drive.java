@@ -36,8 +36,9 @@ public abstract class Drive {
     }
 
     void setLeft(ControlMode controlMode, double value) {
-        talons[0].set(controlMode, value);
-        talons[1].set(controlMode, value);
+        for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
+            talons[LEFTDRIVETALON].set(controlMode, value);
+        }
     }
 
     void setRight() {
