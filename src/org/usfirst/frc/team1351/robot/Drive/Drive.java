@@ -5,13 +5,11 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.XboxController;
 
 public abstract class Drive {
     private TalonSRX[] talons;
     private DoubleSolenoid driveSolenoid;
     private FeedbackDevice ENCODER =FeedbackDevice.QuadEncoder;
-    XboxController controller = new XboxController(0);
     private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     private static byte[] LEFTDRIVETALONS = {0, 1};
@@ -23,7 +21,6 @@ public abstract class Drive {
     public abstract void stop();
 
     void init() {
-        controller = new XboxController(0);
         driveSolenoid = new DoubleSolenoid(0, 1);
 
         talons = new TalonSRX[LEFTDRIVETALONS.length + RIGHTDRIVETALONS.length];

@@ -1,15 +1,20 @@
 package org.usfirst.frc.team1351.robot.Drive;
 
+import edu.wpi.first.wpilibj.XboxController;
+
 import static com.ctre.phoenix.motorcontrol.ControlMode.PercentOutput;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
 public class TeleOpDrive extends Drive {
+    private XboxController controller;
+
     private byte driveType = 0;
 
     private Thread dThread;
 
     public TeleOpDrive() {
+        controller = new XboxController(0);
         init();
 
         //Setups the Thread
