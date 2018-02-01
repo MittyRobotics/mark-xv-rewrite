@@ -26,3 +26,4 @@ build.xml
 *.idea
 .classpath
 .project
+/bin/

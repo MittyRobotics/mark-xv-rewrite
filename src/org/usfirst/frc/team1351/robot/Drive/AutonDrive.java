@@ -17,7 +17,7 @@ public class AutonDrive extends Drive {
 		proportionalConstant = 0; // SmartDashboard.getNumber("Drive P: " 0.f);
 		integralConstant = 0; // SmartDashboard.getNumber("Drive I: " 0.f);
 		derivativeConstant = 0; // SmartDashboard.getNumber("Drive D: " 0.f);
-        shift(true);
+        shiftDown();
 	}
 	
     public void forward(byte distance) {
@@ -57,13 +57,4 @@ public class AutonDrive extends Drive {
 
     }
 
-    public void shift(boolean low) {
-	    isLowGear = low;
-
-	    if (isLowGear) {
-	        shiftDown();
-        } else {
-	        shiftUp();
-        }
-    }
 }
