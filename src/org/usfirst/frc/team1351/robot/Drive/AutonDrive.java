@@ -4,9 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 
 public class AutonDrive extends Drive {
-    private static final float TICKPERINCHHIGH = 487.5f; //TODO Fix Value
-    private static final float TICKPERINCHLOW = 487.5f; //TODO Fix Value
-
+    private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1)
 	private float proportionalConstant, integralConstant, derivativeConstant;
 	private boolean isLowGear; // T - Low : F - High
 	
@@ -17,7 +15,7 @@ public class AutonDrive extends Drive {
 		proportionalConstant = 0; // SmartDashboard.getNumber("Drive P: " 0.f);
 		integralConstant = 0; // SmartDashboard.getNumber("Drive I: " 0.f);
 		derivativeConstant = 0; // SmartDashboard.getNumber("Drive D: " 0.f);
-        shift(true);
+        shiftDown();
 	}
 	
     public void forward(byte distance) {
@@ -57,13 +55,4 @@ public class AutonDrive extends Drive {
 
     }
 
-    public void shift(boolean low) {
-	    isLowGear = low;
-
-	    if (isLowGear) {
-	        shiftDown();
-        } else {
-	        shiftUp();
-        }
-    }
 }
