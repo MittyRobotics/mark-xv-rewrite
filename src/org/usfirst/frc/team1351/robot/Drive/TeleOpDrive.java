@@ -66,12 +66,12 @@ public class TeleOpDrive extends Drive {
 
 
             //Ramping Toggle On
-            if (controller.getXButton()) {
+            if (controller.getXButton() && controller.getStickButton(kLeft)) {
                 ramp(0.5);
             }
 
             //Ramping Toggle Off
-            if (controller.getYButton()) {
+            if (controller.getYButton() && controller.getStickButton(kLeft)) {
                 ramp(0);
             }
 
