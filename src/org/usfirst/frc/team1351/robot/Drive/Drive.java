@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 public abstract class Drive {
     private TalonSRX[] talons;
     private DoubleSolenoid driveSolenoid;
+    private FeedbackDevice ENCODER =FeedbackDevice.QuadEncoder;
     XboxController controller = new XboxController(0);
 
     private static byte[] LEFTDRIVETALONS = {0, 1};
@@ -78,12 +80,28 @@ public abstract class Drive {
         }
     }
 
+    /**
+     * Sets the left and right encoder talons PIDF values and default encoder.
+     * @param P Proportional Constant
+     * @param I Integral Constant
+     * @param D Derivative Constant 
+     * @param F Feedforward Constant
+     */
     void setPIDF(double P, double I, double D, double F) {
-        for (TalonSRX talon : talons) {
-            talon.config_kP(0, P, 0);
-            talon.config_kI(0, I, 0);
-            talon.config_kD(0, D, 0);
-            talon.config_kF(0, F, 0);
-        }
+        
+        talons[RIGHTDRIVETALONS[0]].config_kP(0, P, 0);
+        talons[RIGHTDRIVETALONS[0]].config_kI(0, I, 0);
+        talons[RIGHTDRIVETALONS[0]].config_kD(0, D, 0);
+        talons[RIGHTDRIVETALONS[0]].config_kF(0, F, 0);
+        talons[RIGHTDRIVETALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+        
+        
+        talons[LEFTDRIVETALONS[0]].config_kP(0, P, 0);
+        talons[LEFTDRIVETALONS[0]].config_kI(0, I, 0);
+        talons[LEFTDRIVETALONS[0]].config_kD(0, D, 0);
+        talons[LEFTDRIVETALONS[0]].config_kF(0, F, 0);
+        talons[LEFTDRIVETALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+
+        
     }
 }
