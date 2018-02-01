@@ -54,7 +54,6 @@ public abstract class Drive {
     void killHardware() {
         talons = null;
         driveSolenoid = null;
-        controller = null;
     }
 
     void setLeft(ControlMode controlMode, double value) {
