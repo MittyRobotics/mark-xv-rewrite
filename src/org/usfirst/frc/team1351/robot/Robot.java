@@ -11,22 +11,19 @@ public class Robot extends SampleRobot {
 
 
     @Override
-    public void robotInit() 
-    {
+    public void robotInit() {
         //Initializes Auton and TeleOp Objects
         compressor = new Compressor(0);
     }
 
     @Override
-    public void autonomous() 
-    {
+    public void autonomous() {
         setupAutonomous();
 
     }
 
     @Override
-    public void operatorControl() 
-    {
+    public void operatorControl() {
         setupOperatorControl();
 
         //Starts Compressor
@@ -37,8 +34,7 @@ public class Robot extends SampleRobot {
     }
 
     @Override
-    public void test() 
-    {
+    public void test() {
         //Starts Compressor (Use to Pressurize Before Running Teleop / Matches)
         compressor.start();
     }
