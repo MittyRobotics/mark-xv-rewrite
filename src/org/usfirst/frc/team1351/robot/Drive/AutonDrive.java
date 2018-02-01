@@ -4,9 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 
 public class AutonDrive extends Drive {
-    private static final float TICKPERINCHHIGH = 487.5f; //TODO Fix Value
-    private static final float TICKPERINCHLOW = 487.5f; //TODO Fix Value
-
+    private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1)
 	private float proportionalConstant, integralConstant, derivativeConstant;
 	private boolean isLowGear; // T - Low : F - High
 	
