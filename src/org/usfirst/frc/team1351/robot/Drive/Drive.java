@@ -3,6 +3,7 @@ package org.usfirst.frc.team1351.robot.Drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -11,6 +12,7 @@ public abstract class Drive {
     private DoubleSolenoid driveSolenoid;
     private FeedbackDevice ENCODER =FeedbackDevice.QuadEncoder;
     XboxController controller = new XboxController(0);
+    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     private static byte[] LEFTDRIVETALONS = {0, 1};
     private static byte[] RIGHTDRIVETALONS = {2, 3};
@@ -103,5 +105,9 @@ public abstract class Drive {
         talons[LEFTDRIVETALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
 
         
+    }
+
+    double getGyro() {
+        return gyro.getAngle();
     }
 }
