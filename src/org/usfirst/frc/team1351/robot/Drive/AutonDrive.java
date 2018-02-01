@@ -1,23 +1,23 @@
 package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+
+
 public class AutonDrive extends Drive {
-	private double incrementer, ticksPerInch, threshold;
-	private double proportionalConstant, integralConstant, derivativeConstant;
-	private int gear; // 0 - Low; 1 - High
+    private static final float TICKPERINCHHIGH = 487.5f; //TODO Fix Value
+    private static final float TICKPERINCHLOW = 487.5f; //TODO Fix Value
+
+	private float proportionalConstant, integralConstant, derivativeConstant;
+	private boolean isLowGear; // T - Low : F - High
 	
 	/**
 	 * Converts distance into ticks, sets the gear ratio, and sets the threshold
-	 * @param threshold The distance in tick off
-	 * @param gear The setting that the gear is in (0 - Low; 1 - High)
 	 */
-	private AutonDrive(double distance, double threshold, int gear){
-		ticksPerInch = 487.5; //TODO: Get correct values and update for High and Low Gear
+	public AutonDrive() {
 		proportionalConstant = 0; // SmartDashboard.getNumber("Drive P: " 0.f);
 		integralConstant = 0; // SmartDashboard.getNumber("Drive I: " 0.f);
 		derivativeConstant = 0; // SmartDashboard.getNumber("Drive D: " 0.f);
-		this.gear = gear;
-		this.threshold = threshold;
+        shift(true);
 	}
 	
     public void forward(byte distance) {
@@ -55,5 +55,15 @@ public class AutonDrive extends Drive {
     @Override
     public void stop() {
 
+    }
+
+    public void shift(boolean low) {
+	    isLowGear = low;
+
+	    if (isLowGear) {
+	        shiftDown();
+        } else {
+	        shiftUp();
+        }
     }
 }
