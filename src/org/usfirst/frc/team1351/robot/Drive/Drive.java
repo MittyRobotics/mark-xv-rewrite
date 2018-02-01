@@ -26,6 +26,24 @@ public abstract class Drive {
         for (int i = 0; i < talons.length; i++) {
             talons[i] = new TalonSRX(i);
         }
+        
+        
+        //Sets Left encoder talon and sets the rest as Followers
+        talons[LEFTDRIVETALONS[0]].set(ControlMode.PercentOutput,0);
+        for(int i = 1; i < LEFTDRIVETALONS.length; i++)
+        {
+        	talons[LEFTDRIVETALONS[i]].set(ControlMode.Follower,talons[0].getDeviceID());
+        }
+        
+        
+        //Sets Right encoder talons and sets the rest as Followers
+        talons[RIGHTDRIVETALONS[0]].set(ControlMode.PercentOutput, 0);
+        for(int i = 1; i < LEFTDRIVETALONS.length; i++)
+        {
+        	talons[LEFTDRIVETALONS[i]].set(ControlMode.Follower,talons[0].getDeviceID());
+        }
+        
+        
         //Inverts Left Talons
         for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
             talons[LEFTDRIVETALON].setInverted(true);
@@ -39,15 +57,11 @@ public abstract class Drive {
     }
 
     void setLeft(ControlMode controlMode, double value) {
-        for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
-            talons[LEFTDRIVETALON].set(controlMode, value);
-        }
+        talons[LEFTDRIVETALONS[0]].set(controlMode, value);
     }
 
     void setRight(ControlMode controlMode, double value) {
-        for (byte RIGHTDRIVETALON : RIGHTDRIVETALONS) {
-            talons[RIGHTDRIVETALON].set(controlMode, value);
-        }
+        talons[RIGHTDRIVETALONS[0]].set(controlMode, value);
     }
 
     void shiftDown() {
