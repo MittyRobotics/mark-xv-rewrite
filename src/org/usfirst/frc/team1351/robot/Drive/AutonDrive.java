@@ -24,12 +24,12 @@ public class AutonDrive extends Drive {
 	
 	@Override
     public void forward(byte distance, byte gear) {
-    	double leftSetpoint = distance* TICKSPERINCH[gear];
-    	double rightSetpoint = distance* TICKSPERINCH[gear];
+    	double leftSetpoint = distance * TICKSPERINCH[gear];
+    	double rightSetpoint = distance * TICKSPERINCH[gear];
     	leftSetpoint += getLeftEncoder();
     	rightSetpoint += getRightEncoder();
-    	if(leftSetpoint > 0){
-	    	while(DriverStation.getInstance().isEnabled() && getRightTarget() < rightSetpoint && getLeftTarget() < leftSetpoint){
+    	if (leftSetpoint > 0) {
+	    	while (DriverStation.getInstance().isEnabled() && getRightTarget() < rightSetpoint && getLeftTarget() < leftSetpoint){
 	    		setRight(ControlMode.Position, getRightTarget() + incrementer);
 	    		setLeft(ControlMode.Position, getLeftTarget() + incrementer);
 	    		Timer.delay(0.01);
@@ -39,12 +39,12 @@ public class AutonDrive extends Drive {
 
     @Override
     public void backwards(byte distance, byte gear) {
-    	double leftSetpoint = distance* TICKSPERINCH[gear];
-    	double rightSetpoint = distance* TICKSPERINCH[gear];
+    	double leftSetpoint = distance * TICKSPERINCH[gear];
+    	double rightSetpoint = distance * TICKSPERINCH[gear];
     	leftSetpoint += getLeftEncoder();
     	rightSetpoint += getRightEncoder();
-    	if(leftSetpoint > 0){
-	    	while(DriverStation.getInstance().isEnabled() && getRightTarget() > rightSetpoint && getLeftTarget() > leftSetpoint){
+    	if (leftSetpoint > 0) {
+	    	while (DriverStation.getInstance().isEnabled() && getRightTarget() > rightSetpoint && getLeftTarget() > leftSetpoint){
 	    		setRight(ControlMode.Position, getRightTarget() - incrementer);
 	    		setLeft(ControlMode.Position, getLeftTarget() - incrementer);
 	    		Timer.delay(0.01);
