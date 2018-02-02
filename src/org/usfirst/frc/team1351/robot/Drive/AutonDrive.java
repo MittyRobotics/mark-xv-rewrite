@@ -71,7 +71,7 @@ public class AutonDrive extends Drive {
     private void initAuton() {
     	setRight(ControlMode.Position, 0);
     	setLeft(ControlMode.Position, 0);
-    	setPIDF(proportionalConstant, integralConstant, derivativeConstant, 0);
+    	setPIDF(proportionalConstant, integralConstant, derivativeConstant);
     }
 
     private void setGear(byte gear) {
