@@ -36,8 +36,18 @@ public class AutonDrive extends Drive {
     	}
     }
 
-    public void backwards(byte distance) {
-        //TODO Use a PID Loop to Drive Backwards {distance} Inches Using the Encoders
+    public void backwards(byte distance, byte gear) {
+    	double leftSetpoint = distance* TICKSPERINCH[gear];
+    	double rightSetpoint = distance* TICKSPERINCH[gear];
+    	leftSetpoint += getLeftEncoder();
+    	rightSetpoint += getRightEncoder();
+    	if(leftSetpoint > 0){
+	    	while(DriverStation.getInstance().isEnabled() && getRightTarget() > rightSetpoint && getLeftTarget() > leftSetpoint){
+	    		setRight(ControlMode.Position, getRightTarget() - incrementer);
+	    		setLeft(ControlMode.Position, getLeftTarget() - incrementer);
+	    		Timer.delay(0.01);
+	    	}
+    	}
     }
 
     public void turnLeft(int degrees) {
