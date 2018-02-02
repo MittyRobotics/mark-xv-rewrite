@@ -34,22 +34,22 @@ public class TeleOpDrive extends Drive {
     }
 
     @Override
-    public void forward(byte distance) {
+    public void forward(byte distance, byte gear) {
         System.out.println("Method {forward} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
     }
 
     @Override
-    public void backwards(byte distance) {
+    public void backwards(byte distance, byte gear) {
         System.out.println("Method {backwards} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
     }
 
     @Override
-    public void turnLeft(int degrees) {
+    public void turnLeft(int degrees, byte gear) {
         System.out.println("Method {turnLeft} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
     }
 
     @Override
-    public void turnRight(int degrees) {
+    public void turnRight(int degrees, byte gear) {
         System.out.println("Method {turnRight} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
     }
 
