@@ -89,7 +89,6 @@ public abstract class Drive {
      * @param F Feedforward Constant
      */
     void setPIDF(double P, double I, double D, double F) {
-        
         talons[RIGHTDRIVETALONS[0]].config_kP(0, P, 0);
         talons[RIGHTDRIVETALONS[0]].config_kI(0, I, 0);
         talons[RIGHTDRIVETALONS[0]].config_kD(0, D, 0);
@@ -102,8 +101,6 @@ public abstract class Drive {
         talons[LEFTDRIVETALONS[0]].config_kD(0, D, 0);
         talons[LEFTDRIVETALONS[0]].config_kF(0, F, 0);
         talons[LEFTDRIVETALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
-
-        
     }
 
     double getGyro() {
