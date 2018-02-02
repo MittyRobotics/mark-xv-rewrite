@@ -11,7 +11,7 @@ public abstract class Drive {
 
     private TalonSRX[] talons;
     private DoubleSolenoid driveSolenoid;
-    private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+    private ADXRS450_Gyro gyro;
 
     private static byte[] LEFTDRIVETALONS = {0, 1};
     private static byte[] RIGHTDRIVETALONS = {2, 3};
@@ -23,6 +23,8 @@ public abstract class Drive {
 
     void init() {
         driveSolenoid = new DoubleSolenoid(0, 1);
+        gyro = new ADXRS450_Gyro();
+
 
         talons = new TalonSRX[LEFTDRIVETALONS.length + RIGHTDRIVETALONS.length];
         for (int i = 0; i < talons.length; i++) {
