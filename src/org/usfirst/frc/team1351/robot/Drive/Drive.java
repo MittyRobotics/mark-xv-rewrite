@@ -85,7 +85,6 @@ public abstract class Drive {
      * Sets the left and right encoder talons PIDF values and default encoder.
      * @param P Proportional Constant
      * @param I Integral Constant
-     * @param F Feedforward Constant
      * @param D Derivative Constant
      */
     void setPIDF(double P, double I, double D) {
