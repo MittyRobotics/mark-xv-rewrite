@@ -27,10 +27,12 @@ public class AutonDrive extends Drive {
     	double rightSetpoint = distance* TICKSPERINCH[gear];
     	leftSetpoint += getLeftEncoder();
     	rightSetpoint += getRightEncoder();
-    	while(DriverStation.getInstance().isEnabled() && getRightTarget() < rightSetpoint && getLeftTarget() < leftSetpoint){
-    		setRight(ControlMode.Position, getRightTarget());
-    		setLeft(ControlMode.Position, getLeftTarget());
-    		Timer.delay(0.01);
+    	if(leftSetpoint > 0){
+	    	while(DriverStation.getInstance().isEnabled() && getRightTarget() < rightSetpoint && getLeftTarget() < leftSetpoint){
+	    		setRight(ControlMode.Position, getRightTarget() + incrementer);
+	    		setLeft(ControlMode.Position, getLeftTarget() + incrementer);
+	    		Timer.delay(0.01);
+	    	}
     	}
     }
 
