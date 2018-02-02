@@ -106,6 +106,10 @@ public abstract class Drive {
         return gyro.getAngle();
     }
 
+    void resetGyro() {
+    	gyro.reset();
+    }
+
     int getLeftEncoder() {
         return talons[LEFTDRIVETALONS[0]].getSelectedSensorPosition(0);
     }
