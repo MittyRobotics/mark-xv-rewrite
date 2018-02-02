@@ -114,20 +114,20 @@ public abstract class Drive {
     int getRightEncoder() {
         return talons[RIGHTDRIVETALONS[0]].getSelectedSensorPosition(0);
     }
-    int getLeftError(){
+
+    int getLeftError() {
 		return talons[LEFTDRIVETALONS[0]].getClosedLoopError(0);
-    	
     }
     
-    int getRightError(){
+    int getRightError() {
 		return talons[RIGHTDRIVETALONS[0]].getClosedLoopError(0);
     }
     
-    int getLeftTarget(){
+    int getLeftTarget() {
 		return talons[LEFTDRIVETALONS[0]].getClosedLoopTarget(0);
     }
     
-    int getRightTarget(){
+    int getRightTarget() {
 		return talons[RIGHTDRIVETALONS[0]].getClosedLoopTarget(0);
     }
 
