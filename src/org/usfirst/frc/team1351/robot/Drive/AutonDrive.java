@@ -9,6 +9,7 @@ public class AutonDrive extends Drive {
     private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1)
 	private float proportionalConstant, integralConstant, derivativeConstant;
 	private boolean isLowGear; // T - Low : F - High
+	private int incrementer;
 	
 	/**
 	 * Converts distance into ticks, sets the gear ratio, and sets the threshold
@@ -17,6 +18,7 @@ public class AutonDrive extends Drive {
 		proportionalConstant = 0; // SmartDashboard.getNumber("Drive P: " 0.f);
 		integralConstant = 0; // SmartDashboard.getNumber("Drive I: " 0.f);
 		derivativeConstant = 0; // SmartDashboard.getNumber("Drive D: " 0.f);
+		incrementer = 500;
         shiftDown();
 	}
 	
