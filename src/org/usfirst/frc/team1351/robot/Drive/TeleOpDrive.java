@@ -33,6 +33,26 @@ public class TeleOpDrive extends Drive {
         dThread.interrupt();
     }
 
+    @Override
+    public void forward(byte distance) {
+        System.out.println("Method {forward} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
+    }
+
+    @Override
+    public void backwards(byte distance) {
+        System.out.println("Method {backwards} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
+    }
+
+    @Override
+    public void turnLeft(int degrees) {
+        System.out.println("Method {turnLeft} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
+    }
+
+    @Override
+    public void turnRight(int degrees) {
+        System.out.println("Method {turnRight} should not be used on TeleOpDrive. If this message is not on purpose, check if this method is being called in the right spot.");
+    }
+
     private void teleOp() {
         while (!dThread.isInterrupted()) {
             if (driveType == 0) {  //Tank Drive

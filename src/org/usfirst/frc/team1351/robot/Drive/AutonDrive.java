@@ -22,6 +22,7 @@ public class AutonDrive extends Drive {
         shiftDown();
 	}
 	
+	@Override
     public void forward(byte distance, byte gear) {
     	double leftSetpoint = distance* TICKSPERINCH[gear];
     	double rightSetpoint = distance* TICKSPERINCH[gear];
@@ -36,6 +37,7 @@ public class AutonDrive extends Drive {
     	}
     }
 
+    @Override
     public void backwards(byte distance, byte gear) {
     	double leftSetpoint = distance* TICKSPERINCH[gear];
     	double rightSetpoint = distance* TICKSPERINCH[gear];
@@ -50,11 +52,13 @@ public class AutonDrive extends Drive {
     	}
     }
 
-    public void turnLeft(int degrees) {
+    @Override
+    public void turnLeft(int degrees, byte gear) {
         //TODO Use a PID Loop to Turn Left {degrees} Degrees Using the Gyro
     }
 
-    public void turnRight(int degrees) {
+    @Override
+    public void turnRight(int degrees, byte gear) {
         //TODO Use a PID Loop to Turn Right {degrees} Degrees Using the Gyro
     }
     

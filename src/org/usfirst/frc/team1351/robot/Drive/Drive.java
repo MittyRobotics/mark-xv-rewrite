@@ -130,5 +130,12 @@ public abstract class Drive {
     int getRightTarget(){
 		return talons[RIGHTDRIVETALONS[0]].getClosedLoopTarget(0);
     }
-    
+
+    public abstract void forward(byte distance, byte gear);
+
+    public abstract void backwards(byte distance, byte gear);
+
+    public abstract void turnLeft(int degrees, byte gear);
+
+    public abstract void turnRight(int degrees, byte gear);
 }
