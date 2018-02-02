@@ -7,9 +7,10 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public abstract class Drive {
+    private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
+
     private TalonSRX[] talons;
     private DoubleSolenoid driveSolenoid;
-    private FeedbackDevice ENCODER =FeedbackDevice.QuadEncoder;
     private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
     private static byte[] LEFTDRIVETALONS = {0, 1};
