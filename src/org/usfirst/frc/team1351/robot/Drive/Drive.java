@@ -106,4 +106,12 @@ public abstract class Drive {
     double getGyro() {
         return gyro.getAngle();
     }
+
+    int getLeftEncoder() {
+        return 0; //TODO REPLACE!!!
+    }
+
+    int getRightEncoder() {
+        return 0; //TODO REPLACE!!!
+    }
 }
