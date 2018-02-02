@@ -77,11 +77,11 @@ public class AutonDrive extends Drive {
     private void setGear(byte gear) {
 	    this.gear = gear;
 	     switch (gear) {
-             case 1:
+             case 0:
                  shiftDown();
                  break;
 
-             case 2:
+             case 1:
                  shiftUp();
                  break;
 
