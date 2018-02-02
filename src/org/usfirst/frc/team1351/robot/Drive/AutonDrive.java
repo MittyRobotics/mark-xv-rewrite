@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.Timer;
 public class AutonDrive extends Drive {
     private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1)
 	private float proportionalConstant, integralConstant, derivativeConstant;
-	private byte gear;
 	private int incrementer;
 	
 	/**
@@ -75,7 +74,6 @@ public class AutonDrive extends Drive {
     }
 
     private void setGear(byte gear) {
-	    this.gear = gear;
 	     switch (gear) {
              case 0:
                  shiftDown();
