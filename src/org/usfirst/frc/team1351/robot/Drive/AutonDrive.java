@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class AutonDrive extends Drive {
     private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1)
 	private float proportionalConstant, integralConstant, derivativeConstant;
-	private boolean isLowGear; // T - Low : F - High
+	private byte gear;
 	private int incrementer;
 	
 	/**
@@ -24,6 +24,8 @@ public class AutonDrive extends Drive {
 	
 	@Override
     public void forward(byte distance, byte gear) {
+        setGear(gear);
+
     	double leftSetpoint = distance * TICKSPERINCH[gear];
     	double rightSetpoint = distance * TICKSPERINCH[gear];
     	leftSetpoint += getLeftEncoder();
@@ -39,6 +41,8 @@ public class AutonDrive extends Drive {
 
     @Override
     public void backwards(byte distance, byte gear) {
+	    setGear(gear);
+
     	double leftSetpoint = distance * TICKSPERINCH[gear];
     	double rightSetpoint = distance * TICKSPERINCH[gear];
     	leftSetpoint += getLeftEncoder();
@@ -54,11 +58,13 @@ public class AutonDrive extends Drive {
 
     @Override
     public void turnLeft(int degrees, byte gear) {
+        setGear(gear);
         //TODO Use a PID Loop to Turn Left {degrees} Degrees Using the Gyro
     }
 
     @Override
     public void turnRight(int degrees, byte gear) {
+        setGear(gear);
         //TODO Use a PID Loop to Turn Right {degrees} Degrees Using the Gyro
     }
     
@@ -68,6 +74,22 @@ public class AutonDrive extends Drive {
     	setPIDF(proportionalConstant, integralConstant, derivativeConstant, 0);
     }
 
+    private void setGear(byte gear) {
+	    this.gear = gear;
+	     switch (gear) {
+             case 1:
+                 shiftDown();
+                 break;
+
+             case 2:
+                 shiftUp();
+                 break;
+
+             default:
+                 System.out.println("Gear Not Found");
+                 break;
+         }
+    }
     @Override
     public void kill() {
 
