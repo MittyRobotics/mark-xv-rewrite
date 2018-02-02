@@ -2,6 +2,8 @@ package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 public class AutonDrive extends Drive {
     private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1)
@@ -18,8 +20,16 @@ public class AutonDrive extends Drive {
         shiftDown();
 	}
 	
-    public void forward(byte distance) {
-        //TODO Use a PID Loop to Drive Forward {distance} Inches Using the Encoders
+    public void forward(byte distance, byte gear) {
+    	double leftSetpoint = distance* TICKSPERINCH[gear];
+    	double rightSetpoint = distance* TICKSPERINCH[gear];
+    	leftSetpoint += getLeftEncoder();
+    	rightSetpoint += getRightEncoder();
+    	while(DriverStation.getInstance().isEnabled() && getRightTarget() < rightSetpoint && getLeftTarget() < leftSetpoint){
+    		setRight(ControlMode.Position, getRightTarget());
+    		setLeft(ControlMode.Position, getLeftTarget());
+    		Timer.delay(0.01);
+    	}
     }
 
     public void backwards(byte distance) {
