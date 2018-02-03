@@ -1,14 +1,11 @@
 package org.usfirst.frc.team1351.robot;
 
-import edu.wpi.first.wpilibj.*;
-import org.usfirst.frc.team1351.robot.Drive.AutonDrive;
-import org.usfirst.frc.team1351.robot.Drive.Drive;
-import org.usfirst.frc.team1351.robot.Drive.TeleOpDrive;
+import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.Compressor;
+
 
 public class Robot extends SampleRobot {
-    private Compressor compressor;
-    private Drive drive;
-
+	private Compressor compressor;
 
     @Override
     public void robotInit() {
@@ -19,7 +16,6 @@ public class Robot extends SampleRobot {
     @Override
     public void autonomous() {
         setupAutonomous();
-
     }
 
     @Override
@@ -28,33 +24,24 @@ public class Robot extends SampleRobot {
 
         //Starts Compressor
         compressor.start();
-
-        //Starts Drive
-        drive.start();
     }
 
     @Override
     public void test() {
-        //Starts Compressor (Use to Pressurize Before Running Teleop / Matches)
-        compressor.start();
+    	//TODO USE THIS FOR ANY TESTING OF CODE
     }
 
     @Override
     public void disabled() {
         //Turns Off Aspects
         compressor.stop();
-
-        //Drive
-        drive.stop();
-        drive.kill();
-        drive = null;
     }
 
     private void setupOperatorControl() {
-        drive = new TeleOpDrive();
+
     }
 
     private void setupAutonomous() {
-        drive = new AutonDrive();
+
     }
 }
