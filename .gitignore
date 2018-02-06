@@ -14,3 +14,6 @@ build.properties
 build.xml
 *.iml
 *.idea
+.classpath
+.project
+/bin/
