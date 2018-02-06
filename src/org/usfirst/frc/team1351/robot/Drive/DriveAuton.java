@@ -27,7 +27,7 @@ public class DriveAuton extends Drive {
 		}
 	}
 
-	public void backwards(int distance) {
+	public static void backwards(int distance) {
 		double leftSetpoint = distance * TICKSPERINCH[gear];
 		double rightSetpoint = distance * TICKSPERINCH[gear];
 		leftSetpoint += getLeftEncoder();
