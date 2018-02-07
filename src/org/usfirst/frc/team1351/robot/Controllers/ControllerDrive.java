@@ -10,7 +10,7 @@ import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 class ControllerDrive {
 	private static final XboxController controller = new XboxController(0);
 
-	static void driverInit() {
+	static void init() {
 		Thread driverThread = new Thread(ControllerDrive::dThread);
 		driverThread.setName("Driver Controller Thread");
 		driverThread.setPriority(5); //TODO Set Priority
