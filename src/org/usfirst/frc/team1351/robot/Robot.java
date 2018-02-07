@@ -2,10 +2,10 @@ package org.usfirst.frc.team1351.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
+
 import org.usfirst.frc.team1351.robot.Autonomous.Autonomous;
 import org.usfirst.frc.team1351.robot.Controllers.Controller;
 import org.usfirst.frc.team1351.robot.Drive.Drive;
-
 
 public class Robot extends SampleRobot {
 	private Compressor compressor;
