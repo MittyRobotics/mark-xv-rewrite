@@ -26,6 +26,8 @@ public class Robot extends SampleRobot {
 		ThreadHandler.setEnabled(true);
 
 		compressor.start();
+
+		Autonomous.run();
 	}
 
 	@Override
