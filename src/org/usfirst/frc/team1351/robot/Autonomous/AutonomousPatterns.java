@@ -88,4 +88,12 @@ class AutonomousPatterns {
 		DriveAuton.forward(38);
 		//TODO Release
 	}
+
+	public static void middleLeftScale() {
+		//TODO Fill Out middleLeftScale
+	}
+
+	public static void middleRightScale() {
+		//TODO Fill Out middleRightScale
+	}
 }
