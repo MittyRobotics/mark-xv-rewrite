@@ -16,7 +16,20 @@ class AutonomousChooser {
 
 		byte command;
 
-		command = 0; //TODO Change this to Driver Station Input
+		if (targetIsScale) {
+			command = 6;    // Range: 6 - 11
+			if (matchConfigMessage.charAt(1) == 'r') {
+				command++;  // Range: 7, 9, 11  ELSE  Range: 6, 8, 10
+			}
+		} else {
+			command = 0;    // Range: 0 - 5
+			if (matchConfigMessage.charAt(0) == 'r') {
+				command++;  // Range: 1, 3, 5  ELSE  Range: 0, 2, 4
+			} else {
+				command = command;
+			}
+		}
+		command += 2 * startingSpotID;  // Chooses Either the First, Second, or Third Number in the Range Based on Starting Spot
 
 		AutonomousRunner.runCommand(command);
 	}
