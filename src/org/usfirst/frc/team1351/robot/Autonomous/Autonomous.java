@@ -5,4 +5,8 @@ public class Autonomous {
 		AutonomousChooser.init();
 		AutonomousRunner.init();
 	}
+
+	public static void run() {
+		AutonomousChooser.choose();
+	}
 }

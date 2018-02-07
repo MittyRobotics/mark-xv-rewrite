@@ -15,13 +15,13 @@ public class AutonomousRunner {
 		autonomousPatterns.put((byte) 5, new Thread(AutonomousPatterns::rightRightSwitch));
 		autonomousPatterns.put((byte) 6, new Thread(AutonomousPatterns::leftLeftScale));
 		autonomousPatterns.put((byte) 7, new Thread(AutonomousPatterns::leftRightScale));
-//		autonomousPatterns.put((byte) 8, new Thread(AutonomousPatterns::middleLeftScale));
-//		autonomousPatterns.put((byte) 9, new Thread(AutonomousPatterns::middleRightScale));
+		autonomousPatterns.put((byte) 8, new Thread(AutonomousPatterns::middleLeftScale));
+		autonomousPatterns.put((byte) 9, new Thread(AutonomousPatterns::middleRightScale));
 		autonomousPatterns.put((byte) 10, new Thread(AutonomousPatterns::rightLeftScale));
 		autonomousPatterns.put((byte) 11, new Thread(AutonomousPatterns::rightRightScale));
 	}
 
 	public static void runCommand(byte commandID) {
-		//autonomousPatterns.get(commandID).start();
+		autonomousPatterns.get(commandID).start();
 	}
 }

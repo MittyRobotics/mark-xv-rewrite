@@ -25,6 +25,8 @@ public class Robot extends SampleRobot {
 	@Override
 	public void autonomous() {
 		compressor.start();
+
+		Autonomous.run();
 	}
 
 	@Override
