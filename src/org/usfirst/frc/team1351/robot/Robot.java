@@ -6,6 +6,7 @@ import org.usfirst.frc.team1351.robot.Autonomous.Autonomous;
 import org.usfirst.frc.team1351.robot.Controllers.Controller;
 import org.usfirst.frc.team1351.robot.Drive.Drive;
 import org.usfirst.frc.team1351.robot.Threading.ThreadHandler;
+import org.usfirst.frc.team1351.robot.Vision.Vision;
 
 
 public class Robot extends SampleRobot {
@@ -16,6 +17,7 @@ public class Robot extends SampleRobot {
 		compressor = new Compressor(0);
 
 		Drive.init();
+		Vision.init();
 
 		Autonomous.init();
 		Controller.init();
