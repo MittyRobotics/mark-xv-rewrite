@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.SampleRobot;
 import org.usfirst.frc.team1351.robot.Autonomous.Autonomous;
 import org.usfirst.frc.team1351.robot.Controllers.Controller;
 import org.usfirst.frc.team1351.robot.Drive.Drive;
-import org.usfirst.frc.team1351.robot.Threading.ThreadHandler;
 
 
 public class Robot extends SampleRobot {
@@ -23,16 +22,11 @@ public class Robot extends SampleRobot {
 
 	@Override
 	public void autonomous() {
-		ThreadHandler.setEnabled(true);
-
 		compressor.start();
 	}
 
 	@Override
 	public void operatorControl() {
-		ThreadHandler.setEnabled(true);
-		ThreadHandler.setTeleOp(true);
-
 		compressor.start();
 	}
 
@@ -43,9 +37,6 @@ public class Robot extends SampleRobot {
 
 	@Override
 	public void disabled() {
-		ThreadHandler.setEnabled(false);
-		ThreadHandler.setTeleOp(false);
-
 		compressor.stop();
 	}
 }
