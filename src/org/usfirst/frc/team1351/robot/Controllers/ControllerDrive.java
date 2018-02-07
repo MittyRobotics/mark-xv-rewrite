@@ -7,7 +7,7 @@ import org.usfirst.frc.team1351.robot.Drive.DriveTeleOp;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
-class ControllerDrive extends Controller {
+class ControllerDrive {
 	private static final XboxController controller = new XboxController(0);
 
 	static void driverInit() {
