@@ -1,16 +1,16 @@
 package org.usfirst.frc.team1351.robot.Controllers;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import org.usfirst.frc.team1351.robot.Drive.DriveTeleOp;
-import org.usfirst.frc.team1351.robot.Threading.ThreadHandler;
 
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
-class ControllerDrive extends Controller {
+class ControllerDrive {
 	private static final XboxController controller = new XboxController(0);
 
-	static void driverInit() {
+	static void init() {
 		Thread driverThread = new Thread(ControllerDrive::dThread);
 		driverThread.setName("Driver Controller Thread");
 		driverThread.setPriority(5); //TODO Set Priority
@@ -18,7 +18,7 @@ class ControllerDrive extends Controller {
 	}
 
 	private static void dThread() {
-		while (ThreadHandler.getTeleOp()) {
+		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isOperatorControl()) {
 			//Left Side Tank Drive
 			if (controller.getY(kLeft) < -0.05 || controller.getY(kLeft) > 0.05) {
 				double yValue = controller.getY(kLeft);
