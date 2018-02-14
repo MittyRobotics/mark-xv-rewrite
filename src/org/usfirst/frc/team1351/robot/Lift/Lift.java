@@ -1,4 +1,5 @@
 package org.usfirst.frc.team1351.robot.Lift;
 
-public class Lift {
+class Lift {
+	private static byte[] LIFTTALONS
 }
