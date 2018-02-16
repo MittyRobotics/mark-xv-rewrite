@@ -5,6 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
 
 public abstract class Drive {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
@@ -19,7 +21,7 @@ public abstract class Drive {
 	private static byte gear;
 
 	public static void init() {
-		driveSolenoid = new DoubleSolenoid(0, 1);
+//		driveSolenoid = new DoubleSolenoid(0, 1);
 		gyro = new ADXRS450_Gyro();
 
 
@@ -44,16 +46,13 @@ public abstract class Drive {
 
 
 		//Inverts Left Talons
-		for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
-			talons[LEFTDRIVETALON].setInverted(true);
-		}
-
-		DriveAuton.init();
+		invertLeftTalon(true);
 	}
 
-	static void killHardware() {
-		talons = null;
-		driveSolenoid = null;
+	static void invertLeftTalon(boolean shouldInvert) {
+		for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
+			talons[LEFTDRIVETALON].setInverted(shouldInvert);
+		}
 	}
 
 	static void setLeft(ControlMode controlMode, double value) {
@@ -139,5 +138,25 @@ public abstract class Drive {
 
 	static int getRightTarget() {
 		return talons[RIGHTDRIVETALONS[0]].getClosedLoopTarget(0);
+	}
+
+	static PIDOutput getLeftTalonInstance() {
+		return (PIDOutput) talons[LEFTDRIVETALONS[0]];
+	}
+
+	static PIDOutput getRightTalonInstance() {
+		return (PIDOutput) talons[RIGHTDRIVETALONS[0]];
+	}
+
+	static PIDSource getGyroInstance() {
+		return gyro;
+	}
+
+	static void setRightFollower(boolean isFollower) {
+		if (isFollower) {
+			talons[RIGHTDRIVETALONS[0]].set(ControlMode.Follower, talons[LEFTDRIVETALONS[0]].getDeviceID());
+		} else {
+			talons[RIGHTDRIVETALONS[0]].set(ControlMode.PercentOutput, 0);
+		}
 	}
 }

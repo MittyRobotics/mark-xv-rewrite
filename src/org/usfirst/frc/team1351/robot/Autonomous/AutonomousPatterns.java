@@ -12,80 +12,80 @@ class AutonomousPatterns {
 	 */
 
 	static void leftLeftSwitch() {
-		DriveAuton.forward(12);
-		DriveAuton.turnRight(90);
-		DriveAuton.forward(20);
+		DriveAuton.move(12);
+		DriveAuton.turn(-90);
+		DriveAuton.move(20);
 		//TODO Release
 	}
 
 	static void middleLeftSwitch() {
-		DriveAuton.forward(12);
-		DriveAuton.turnLeft(30);
-		DriveAuton.forward(115);
-		DriveAuton.turnRight(30);
+		DriveAuton.move(12);
+		DriveAuton.turn(30);
+		DriveAuton.move(115);
+		DriveAuton.turn(-30);
 		//TODO Realease
 	}
 
 	static void leftRightSwitch() {
-		DriveAuton.forward(12);
-		DriveAuton.turnRight(37);
-		DriveAuton.forward(165);
-		DriveAuton.turnLeft(37);
+		DriveAuton.move(12);
+		DriveAuton.turn(-37);
+		DriveAuton.move(165);
+		DriveAuton.turn(37);
 		//TODO Release
 	}
 
 	static void middleRightSwitch() {
-		DriveAuton.forward(12);
-		DriveAuton.turnRight(40);
-		DriveAuton.forward(128);
-		DriveAuton.turnLeft(40);
+		DriveAuton.move(12);
+		DriveAuton.turn(-40);
+		DriveAuton.move(128);
+		DriveAuton.turn(40);
 		//TODO Release
 	}
 
 	static void rightRightSwitch() {
-		DriveAuton.forward(141);
-		DriveAuton.turnLeft(90);
-		DriveAuton.forward(20);
+		DriveAuton.move(141);
+		DriveAuton.turn(90);
+		DriveAuton.move(20);
 		//TODO Release
 	}
 
 	static void rightLeftSwitch() {
-		DriveAuton.forward(18);
-		DriveAuton.turnLeft(63);
-		DriveAuton.forward(187);
-		DriveAuton.turnRight(63);
+		DriveAuton.move(18);
+		DriveAuton.turn(63);
+		DriveAuton.move(187);
+		DriveAuton.turn(-63);
 		//TODO Release
 	}
 
 	static void rightLeftScale() {
-		DriveAuton.forward(221);
-		DriveAuton.turnLeft(90);
-		DriveAuton.forward(162);
-		DriveAuton.turnRight(90);
-		DriveAuton.forward(38);
+		DriveAuton.move(221);
+		DriveAuton.turn(90);
+		DriveAuton.move(162);
+		DriveAuton.turn(-90);
+		DriveAuton.move(38);
 		//TODO Release
 	}
 
 	static void rightRightScale() {
-		DriveAuton.forward(283);
-		DriveAuton.turnLeft(90);
-		DriveAuton.forward(1);
+		DriveAuton.move(283);
+		DriveAuton.turn(90);
+		DriveAuton.move(1);
 		//Todo Release
 	}
 
 	static void leftLeftScale() {
-		DriveAuton.forward(283);
-		DriveAuton.turnRight(90);
-		DriveAuton.forward(1);
+		DriveAuton.move(283);
+		DriveAuton.turn(-90);
+		DriveAuton.move(1);
 		//TODO Release
 	}
 
 	static void leftRightScale() {
-		DriveAuton.forward(221);
-		DriveAuton.turnRight(90);
-		DriveAuton.forward(162);
-		DriveAuton.turnLeft(90);
-		DriveAuton.forward(38);
+		DriveAuton.move(221);
+		DriveAuton.turn(-90);
+		DriveAuton.move(162);
+		DriveAuton.turn(90);
+		DriveAuton.move(38);
 		//TODO Release
 	}
 }

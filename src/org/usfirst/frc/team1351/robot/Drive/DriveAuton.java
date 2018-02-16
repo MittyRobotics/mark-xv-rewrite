@@ -2,60 +2,119 @@ package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class DriveAuton extends Drive {
+public class DriveAuton {
 	private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
-	private static double proportionalConstant = SmartDashboard.getNumber("Drive P: ", 0);
-	private static double integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
-	private static double derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
-	private static final int incrementer = 500;
+	private static final float TALONMOVETHRESHOLD = 2.5f;
+	private static final float TALONTURNTHRESHOLD = 0.5f;
+	private static final float MOVETHRESHOLD = 10f;
+	private static final float TURNTHRESHOLD = 3f;
+
+	private static double proportionalConstant;
+	private static double integralConstant;
+	private static double derivativeConstant;
 	private static byte gear;
+	private static PIDController pid;
 
-	public static void forward(int distance) {
-		double leftSetpoint = distance * TICKSPERINCH[gear];
-		double rightSetpoint = distance * TICKSPERINCH[gear];
-		leftSetpoint += getLeftEncoder();
-		rightSetpoint += getRightEncoder();
-		if (leftSetpoint > 0) {
-			while (DriverStation.getInstance().isEnabled() && getRightTarget() < rightSetpoint && getLeftTarget() < leftSetpoint) {
-				setRight(ControlMode.Position, getRightTarget() + incrementer);
-				setLeft(ControlMode.Position, getLeftTarget() + incrementer);
-				Timer.delay(0.01);
+	public static void move(int distance) {
+		distance *= TICKSPERINCH[gear];
+		prepMove();
+
+		pid.setSetpoint(distance);
+		pid.enable();
+
+		int count = 0;
+		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
+			if (Math.abs(pid.getError()) < MOVETHRESHOLD) {
+				if (count > 1000) {
+					break;
+				}
+				count++;
+			} else {
+				count = 0;
+			}
+
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
+
+
+		endAuton();
 	}
 
-	public static void backwards(int distance) {
-		double leftSetpoint = distance * TICKSPERINCH[gear];
-		double rightSetpoint = distance * TICKSPERINCH[gear];
-		leftSetpoint += getLeftEncoder();
-		rightSetpoint += getRightEncoder();
-		if (leftSetpoint > 0) {
-			while (DriverStation.getInstance().isEnabled() && getRightTarget() > rightSetpoint && getLeftTarget() > leftSetpoint) {
-				setRight(ControlMode.Position, getRightTarget() - incrementer);
-				setLeft(ControlMode.Position, getLeftTarget() - incrementer);
-				Timer.delay(0.01);
+	public static void turn(int degrees) {
+		System.out.println("Executing gyro turn");
+
+		prepTurn();
+		System.out.println(Drive.getGyro());
+
+		pid.setSetpoint(degrees);
+		pid.enable();
+
+		int count = 0;
+		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
+			if (Math.abs(pid.getError()) < TURNTHRESHOLD) {
+				if (count > 1000) {
+					break;
+				}
+				count++;
+			} else {
+				count = 0;
+			}
+
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
+
+		endAuton();
+
+		System.out.println("Done executing gyro turn");
 	}
 
-	public static void turnLeft(int degrees) {
-		//TODO Use a PID Loop to Turn Left {degrees} Degrees Using the Gyro
+	private static void prepMove() {
+		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
+		pid.setOutputRange(-1, 1);
+		pid.setAbsoluteTolerance(TALONMOVETHRESHOLD);
+
+		Drive.setRightFollower(true);
 	}
 
-	public static void turnRight(int degrees) {
-		//TODO Use a PID Loop to Turn Right {degrees} Degrees Using the Gyro
+	private static void prepTurn() {
+		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
+		pid.setOutputRange(-1, 1);
+		pid.setAbsoluteTolerance(TALONTURNTHRESHOLD);
+		pid.setContinuous(true);
+
+		Drive.invertLeftTalon(false);
+		Drive.setRightFollower(true);
 	}
 
-	private void initAuton() {
-		setRight(ControlMode.Position, 0);
-		setLeft(ControlMode.Position, 0);
-		setPIDF(proportionalConstant, integralConstant, derivativeConstant);
+	private static void endAuton() {
+		pid.free();
+
+		Drive.invertLeftTalon(true);
+		Drive.setRightFollower(false);
 	}
 
-	public void setGear(byte gear) {
+	public static void init() {
+		proportionalConstant = SmartDashboard.getNumber("Drive P: ", 0);
+		integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
+		derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
+
+		Drive.setRight(ControlMode.Position, 0);
+		Drive.setLeft(ControlMode.Position, 0);
+		Drive.setPIDF(proportionalConstant, integralConstant, derivativeConstant);
+	}
+
+	public static void setGear(byte gear) {
 		DriveAuton.gear = gear;
 		Drive.changeGear(gear);
 	}
