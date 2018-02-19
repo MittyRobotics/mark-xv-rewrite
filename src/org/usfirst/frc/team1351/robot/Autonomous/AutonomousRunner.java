@@ -22,6 +22,6 @@ public class AutonomousRunner {
 	}
 
 	public static void runCommand(byte commandID) {
-		//autonomousPatterns.get(commandID).start();
+		autonomousPatterns.get(commandID).start();
 	}
 }
