@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-class Winch {
+public class Winch {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 
 	private static WPI_TalonSRX[] talons;
