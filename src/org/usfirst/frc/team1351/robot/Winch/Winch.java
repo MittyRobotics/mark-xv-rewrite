@@ -2,19 +2,19 @@ package org.usfirst.frc.team1351.robot.Winch;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public abstract class Winch {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 
-	private static TalonSRX[] talons;
+	private static WPI_TalonSRX[] talons;
 
 	private static final byte[] WINCHTALONS = {4, 5};
 
 	public static void init() {
-		talons = new TalonSRX[WINCHTALONS.length];
+		talons = new WPI_TalonSRX[WINCHTALONS.length];
 		for (int i = 0; i < talons.length; i++) {
-			talons[i] = new TalonSRX(WINCHTALONS[i]);
+			talons[i] = new WPI_TalonSRX(WINCHTALONS[i]);
 		}
 
 		talons[WINCHTALONS[0]].set(ControlMode.PercentOutput, 0);
