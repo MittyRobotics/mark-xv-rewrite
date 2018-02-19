@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
 
-public abstract class Drive {
+public class Drive {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 
 	private static TalonSRX[] talons;
