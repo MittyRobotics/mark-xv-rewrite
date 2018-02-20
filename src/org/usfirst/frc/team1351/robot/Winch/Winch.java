@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Winch {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 	private static final byte[] WINCHTALONS = {4, 5};
+	private static final float WINCHSIZE = 0.5f;
 
 	private static WPI_TalonSRX[] talons;
 
@@ -33,5 +34,7 @@ public class Winch {
 
 	}
 
+	static float getWinchSize() {
+		return WINCHSIZE;
 	}
 }
