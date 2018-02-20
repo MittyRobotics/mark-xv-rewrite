@@ -22,8 +22,12 @@ public class ControllerOperator {
 
 	private static void oThread() {
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isOperatorControl()) {
+			if (joysticks[0].getTrigger()) {
+				WinchTeleOp.climb();
 			}
 
+			if (joysticks[1].getTrigger()) {
+				WinchAuton.climb();
 			}
 
 			//Throttle Thread
