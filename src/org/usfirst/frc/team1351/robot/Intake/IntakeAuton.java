@@ -14,6 +14,10 @@ public class IntakeAuton {
         Intake.set(ControlMode.PercentOutput, OUTPUTSPEED);
     }
 
+    static void stop() {
+        Intake.set(ControlMode.PercentOutput, 0);
+    }
+
     static void up() {
         Intake.extend(true);
     }
