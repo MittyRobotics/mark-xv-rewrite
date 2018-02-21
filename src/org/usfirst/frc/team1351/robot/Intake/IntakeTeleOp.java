@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 public class IntakeTeleOp {
     private static double INTAKESPEED = 0.4;
     private static double OUTPUTSPEED = 0.4;
+
     static void intake() {
         Intake.set(ControlMode.PercentOutput, INTAKESPEED);
     }
