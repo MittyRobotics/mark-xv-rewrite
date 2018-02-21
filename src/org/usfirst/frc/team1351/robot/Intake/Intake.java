@@ -25,11 +25,6 @@ public class Intake {
             }
         }
     }
-    static void killHardware() {
-        talons = null;
-        intakeExtend = null;
-        intakeClose = null;
-    }
 
     static void set(ControlMode controlMode, double value) {
         talons[0].set(controlMode, value);
