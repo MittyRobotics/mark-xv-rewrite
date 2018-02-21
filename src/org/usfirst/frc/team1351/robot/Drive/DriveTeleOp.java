@@ -2,7 +2,7 @@ package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-public class DriveTeleOp extends Drive {
+public class DriveTeleOp {
     public static void setLeft(double value) {
     	Drive.setLeft(ControlMode.PercentOutput, value);
     }
@@ -12,10 +12,10 @@ public class DriveTeleOp extends Drive {
 	}
 
 	public static void setGear(byte gear) {
-    	changeGear(gear);
+    	Drive.changeGear(gear);
 	}
 
 	public static void setRamp(double seconds) {
-    	ramp(seconds);
+    	Drive.ramp(seconds);
 	}
 }
