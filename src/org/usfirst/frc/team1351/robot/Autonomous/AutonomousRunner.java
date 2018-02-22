@@ -21,7 +21,7 @@ public class AutonomousRunner {
 		autonomousPatterns.put(11, new Thread(AutonomousPatterns::rightRightScale));
 	}
 
-	public static void runCommand(byte commandID) {
+	public static void runCommand(int commandID) {
 		autonomousPatterns.get(commandID).start();
 	}
 }
