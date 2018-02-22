@@ -55,11 +55,11 @@ public class Drive {
 		}
 	}
 
-	static void setLeft(ControlMode controlMode, double value) {
+	static void setLeftDriveEncoderTalon(ControlMode controlMode, double value) {
 		talons[LEFTDRIVETALONS[0]].set(controlMode, value);
 	}
 
-	static void setRight(ControlMode controlMode, double value) {
+	static void setRightDriveEncoderTalon(ControlMode controlMode, double value) {
 		talons[RIGHTDRIVETALONS[0]].set(controlMode, value);
 	}
 

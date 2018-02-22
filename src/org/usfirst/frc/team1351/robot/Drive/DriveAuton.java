@@ -109,8 +109,8 @@ public class DriveAuton {
 		integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
 		derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
 
-		Drive.setRight(ControlMode.Position, 0);
-		Drive.setLeft(ControlMode.Position, 0);
+		Drive.setRightDriveEncoderTalon(ControlMode.Position, 0);
+		Drive.setLeftDriveEncoderTalon(ControlMode.Position, 0);
 		Drive.setPIDF(proportionalConstant, integralConstant, derivativeConstant);
 	}
 
