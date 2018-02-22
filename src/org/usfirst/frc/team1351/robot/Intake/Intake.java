@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
 public class Intake {
-    private static final int[] INTAKETALONS = {8, 9};
+    private static final int[] INTAKE_TALONS = {8, 9};
 
     private static WPI_TalonSRX[] talons;
     private static DoubleSolenoid intakeExtend,  intakeClose;
@@ -15,9 +15,9 @@ public class Intake {
     public static void init() {
         intakeClose = new DoubleSolenoid(1, 0);
         intakeExtend = new DoubleSolenoid(3, 2);
-        talons = new WPI_TalonSRX[INTAKETALONS.length];
+        talons = new WPI_TalonSRX[INTAKE_TALONS.length];
         for (int i = 0; i < talons.length; i++) {
-            talons[i] = new WPI_TalonSRX(INTAKETALONS[i]);
+            talons[i] = new WPI_TalonSRX(INTAKE_TALONS[i]);
         }
         if(talons.length > 1) {
             for(int i = 1; i < talons.length; i++){

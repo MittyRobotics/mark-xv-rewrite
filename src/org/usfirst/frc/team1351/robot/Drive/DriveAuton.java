@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveAuton {
-	private static final double[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
-	private static final double TALONMOVETHRESHOLD = 2.5f;
-	private static final double TALONTURNTHRESHOLD = 0.5f;
-	private static final double MOVETHRESHOLD = 10f;
-	private static final double TURNTHRESHOLD = 3f;
+	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
+	private static final double TALON_MOVE_THRESHOLD = 2.5f;
+	private static final double TALON_TURN_THRESHOLD = 0.5f;
+	private static final double MOVE_THRESHOLD = 10f;
+	private static final double TURN_THRESHOLD = 3f;
 
 	private static double proportionalConstant;
 	private static double integralConstant;
@@ -19,7 +19,7 @@ public class DriveAuton {
 	private static PIDController pid;
 
 	public static void move(int distance) {
-		distance *= TICKSPERINCH[gear];
+		distance *= TICKS_PER_INCH[gear];
 		prepMove();
 
 		pid.setSetpoint(distance);
@@ -27,7 +27,7 @@ public class DriveAuton {
 
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			if (Math.abs(pid.getError()) < MOVETHRESHOLD) {
+			if (Math.abs(pid.getError()) < MOVE_THRESHOLD) {
 				if (count > 1000) {
 					break;
 				}
@@ -58,7 +58,7 @@ public class DriveAuton {
 
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			if (Math.abs(pid.getError()) < TURNTHRESHOLD) {
+			if (Math.abs(pid.getError()) < TURN_THRESHOLD) {
 				if (count > 1000) {
 					break;
 				}
@@ -82,7 +82,7 @@ public class DriveAuton {
 	private static void prepMove() {
 		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
 		pid.setOutputRange(-1, 1);
-		pid.setAbsoluteTolerance(TALONMOVETHRESHOLD);
+		pid.setAbsoluteTolerance(TALON_MOVE_THRESHOLD);
 
 		Drive.setRightFollower(true);
 	}
@@ -90,7 +90,7 @@ public class DriveAuton {
 	private static void prepTurn() {
 		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
 		pid.setOutputRange(-1, 1);
-		pid.setAbsoluteTolerance(TALONTURNTHRESHOLD);
+		pid.setAbsoluteTolerance(TALON_TURN_THRESHOLD);
 		pid.setContinuous(true);
 
 		Drive.invertLeftTalon(false);

@@ -7,25 +7,25 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 
 public class Winch {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
-	private static final int[] WINCHTALONS = {4, 5};
-	private static final double WINCHSIZE = 0.5f;
+	private static final int[] WINCH_TALONS = {4, 5};
+	private static final double WINCH_SIZE = 0.5f;
 
 	private static WPI_TalonSRX[] talons;
 	private static Ultrasonic ultrasonic;
 
 
 	public static void init() {
-		talons = new WPI_TalonSRX[WINCHTALONS.length];
+		talons = new WPI_TalonSRX[WINCH_TALONS.length];
 		for (int i = 0; i < talons.length; i++) {
-			talons[i] = new WPI_TalonSRX(WINCHTALONS[i]);
+			talons[i] = new WPI_TalonSRX(WINCH_TALONS[i]);
 		}
 
-		talons[WINCHTALONS[0]].set(ControlMode.PercentOutput, 0);
-		for (int i = 1; i < WINCHTALONS.length; i++) {
+		talons[WINCH_TALONS[0]].set(ControlMode.PercentOutput, 0);
+		for (int i = 1; i < WINCH_TALONS.length; i++) {
 			talons[i].set(ControlMode.Follower, talons[0].getDeviceID());
 		}
 
-		for (int LEFTDRIVETALON : WINCHTALONS) {
+		for (int LEFTDRIVETALON : WINCH_TALONS) {
 			talons[LEFTDRIVETALON].setInverted(true);
 		}
 
@@ -41,6 +41,6 @@ public class Winch {
 	}
 
 	static double getWinchSize() {
-		return WINCHSIZE;
+		return WINCH_SIZE;
 	}
 }
