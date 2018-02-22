@@ -8,7 +8,7 @@ class AutonomousChooser {
 		SmartDashboard.putNumber("Starting Spot", 0);
 		SmartDashboard.putBoolean("Scale?", false);
 	}
-
+	//TODO: Change all of this into a simpler method. READABLE!
 	static void choose() {
 		String matchConfigMessage = DriverStation.getInstance().getGameSpecificMessage().toLowerCase();
 		byte startingSpotID = (byte) SmartDashboard.getNumber("Starting Spot", 0);

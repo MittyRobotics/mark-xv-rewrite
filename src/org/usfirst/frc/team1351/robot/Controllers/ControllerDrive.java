@@ -11,6 +11,7 @@ class ControllerDrive {
 	private static final XboxController controller = new XboxController(0);
 
 	static void init() {
+		//TODO: No C++ / Talk about the importance of teaching ::
 		Thread driverThread = new Thread(ControllerDrive::dThread);
 		driverThread.setName("Driver Controller Thread");
 		driverThread.setPriority(5); //TODO Set Priority
