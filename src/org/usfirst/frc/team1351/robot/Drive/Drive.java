@@ -15,8 +15,8 @@ public class Drive {
 	private static DoubleSolenoid driveSolenoid;
 	private static ADXRS450_Gyro gyro;
 
-	private static final int[] LEFTDRIVETALONS = {0, 1};
-	private static final int[] RIGHTDRIVETALONS = {2, 3};
+	private static final int[] LEFT_DRIVE_TALONS = {0, 1};
+	private static final int[] RIGHT_DRIVE_TALONS = {2, 3};
 
 	private static int gear;
 
@@ -25,23 +25,23 @@ public class Drive {
 		gyro = new ADXRS450_Gyro();
 
 
-		talons = new WPI_TalonSRX[LEFTDRIVETALONS.length + RIGHTDRIVETALONS.length];
+		talons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length + RIGHT_DRIVE_TALONS.length];
 		for (int i = 0; i < talons.length; i++) {
 			talons[i] = new WPI_TalonSRX(i);
 		}
 
 
 		//Sets Left encoder talon and sets the rest as Followers
-		talons[LEFTDRIVETALONS[0]].set(ControlMode.PercentOutput, 0);
-		for (int i = 1; i < LEFTDRIVETALONS.length; i++) {
-			talons[LEFTDRIVETALONS[i]].set(ControlMode.Follower, talons[0].getDeviceID());
+		talons[LEFT_DRIVE_TALONS[0]].set(ControlMode.PercentOutput, 0);
+		for (int i = 1; i < LEFT_DRIVE_TALONS.length; i++) {
+			talons[LEFT_DRIVE_TALONS[i]].set(ControlMode.Follower, talons[0].getDeviceID());
 		}
 
 
 		//Sets Right encoder talons and sets the rest as Followers
-		talons[RIGHTDRIVETALONS[0]].set(ControlMode.PercentOutput, 0);
-		for (int i = 1; i < LEFTDRIVETALONS.length; i++) {
-			talons[LEFTDRIVETALONS[i]].set(ControlMode.Follower, talons[0].getDeviceID());
+		talons[RIGHT_DRIVE_TALONS[0]].set(ControlMode.PercentOutput, 0);
+		for (int i = 1; i < LEFT_DRIVE_TALONS.length; i++) {
+			talons[LEFT_DRIVE_TALONS[i]].set(ControlMode.Follower, talons[0].getDeviceID());
 		}
 
 
@@ -50,17 +50,17 @@ public class Drive {
 	}
 
 	static void invertLeftTalon(boolean shouldInvert) {
-		for (int LEFTDRIVETALON : LEFTDRIVETALONS) {
+		for (int LEFTDRIVETALON : LEFT_DRIVE_TALONS) {
 			talons[LEFTDRIVETALON].setInverted(shouldInvert);
 		}
 	}
 
 	static void setLeftDriveEncoderTalon(ControlMode controlMode, double value) {
-		talons[LEFTDRIVETALONS[0]].set(controlMode, value);
+		talons[LEFT_DRIVE_TALONS[0]].set(controlMode, value);
 	}
 
 	static void setRightDriveEncoderTalon(ControlMode controlMode, double value) {
-		talons[RIGHTDRIVETALONS[0]].set(controlMode, value);
+		talons[RIGHT_DRIVE_TALONS[0]].set(controlMode, value);
 	}
 
 	static void changeGear(int gear) {
@@ -94,18 +94,18 @@ public class Drive {
 	 * @param D Derivative Constant
 	 */
 	static void setPIDF(double P, double I, double D) {
-		talons[RIGHTDRIVETALONS[0]].config_kP(0, P, 0);
-		talons[RIGHTDRIVETALONS[0]].config_kI(0, I, 0);
-		talons[RIGHTDRIVETALONS[0]].config_kD(0, D, 0);
-		talons[RIGHTDRIVETALONS[0]].config_kF(0, 0, 0);
-		talons[RIGHTDRIVETALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+		talons[RIGHT_DRIVE_TALONS[0]].config_kP(0, P, 0);
+		talons[RIGHT_DRIVE_TALONS[0]].config_kI(0, I, 0);
+		talons[RIGHT_DRIVE_TALONS[0]].config_kD(0, D, 0);
+		talons[RIGHT_DRIVE_TALONS[0]].config_kF(0, 0, 0);
+		talons[RIGHT_DRIVE_TALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
 
 
-		talons[LEFTDRIVETALONS[0]].config_kP(0, P, 0);
-		talons[LEFTDRIVETALONS[0]].config_kI(0, I, 0);
-		talons[LEFTDRIVETALONS[0]].config_kD(0, D, 0);
-		talons[LEFTDRIVETALONS[0]].config_kF(0, 0, 0);
-		talons[LEFTDRIVETALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+		talons[LEFT_DRIVE_TALONS[0]].config_kP(0, P, 0);
+		talons[LEFT_DRIVE_TALONS[0]].config_kI(0, I, 0);
+		talons[LEFT_DRIVE_TALONS[0]].config_kD(0, D, 0);
+		talons[LEFT_DRIVE_TALONS[0]].config_kF(0, 0, 0);
+		talons[LEFT_DRIVE_TALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
 	}
 
 	static double getGyro() {
@@ -117,35 +117,35 @@ public class Drive {
 	}
 
 	static int getLeftEncoder() {
-		return talons[LEFTDRIVETALONS[0]].getSelectedSensorPosition(0);
+		return talons[LEFT_DRIVE_TALONS[0]].getSelectedSensorPosition(0);
 	}
 
 	static int getRightEncoder() {
-		return talons[RIGHTDRIVETALONS[0]].getSelectedSensorPosition(0);
+		return talons[RIGHT_DRIVE_TALONS[0]].getSelectedSensorPosition(0);
 	}
 
 	static int getLeftError() {
-		return talons[LEFTDRIVETALONS[0]].getClosedLoopError(0);
+		return talons[LEFT_DRIVE_TALONS[0]].getClosedLoopError(0);
 	}
 
 	static int getRightError() {
-		return talons[RIGHTDRIVETALONS[0]].getClosedLoopError(0);
+		return talons[RIGHT_DRIVE_TALONS[0]].getClosedLoopError(0);
 	}
 
 	static int getLeftTarget() {
-		return talons[LEFTDRIVETALONS[0]].getClosedLoopTarget(0);
+		return talons[LEFT_DRIVE_TALONS[0]].getClosedLoopTarget(0);
 	}
 
 	static int getRightTarget() {
-		return talons[RIGHTDRIVETALONS[0]].getClosedLoopTarget(0);
+		return talons[RIGHT_DRIVE_TALONS[0]].getClosedLoopTarget(0);
 	}
 
 	static PIDOutput getLeftTalonInstance() {
-		return (PIDOutput) talons[LEFTDRIVETALONS[0]];
+		return (PIDOutput) talons[LEFT_DRIVE_TALONS[0]];
 	}
 
 	static PIDOutput getRightTalonInstance() {
-		return (PIDOutput) talons[RIGHTDRIVETALONS[0]];
+		return (PIDOutput) talons[RIGHT_DRIVE_TALONS[0]];
 	}
 
 	static PIDSource getGyroInstance() {
@@ -154,9 +154,9 @@ public class Drive {
 
 	static void setRightFollower(boolean isFollower) {
 		if (isFollower) {
-			talons[RIGHTDRIVETALONS[0]].set(ControlMode.Follower, talons[LEFTDRIVETALONS[0]].getDeviceID());
+			talons[RIGHT_DRIVE_TALONS[0]].set(ControlMode.Follower, talons[LEFT_DRIVE_TALONS[0]].getDeviceID());
 		} else {
-			talons[RIGHTDRIVETALONS[0]].set(ControlMode.PercentOutput, 0);
+			talons[RIGHT_DRIVE_TALONS[0]].set(ControlMode.PercentOutput, 0);
 		}
 	}
 }
