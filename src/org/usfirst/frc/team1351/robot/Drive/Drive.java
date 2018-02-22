@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.PIDSource;
 public class Drive {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 
-	private static TalonSRX[] talons;
+	private static WPI_TalonSRX[] talons;
 	private static DoubleSolenoid driveSolenoid;
 	private static ADXRS450_Gyro gyro;
 
