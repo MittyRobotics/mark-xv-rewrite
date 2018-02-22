@@ -11,7 +11,7 @@ public class DriveTeleOp {
 		Drive.setLeftDriveEncoderTalon(ControlMode.PercentOutput, value);
 	}
 
-	public static void setGear(byte gear) {
+	public static void setGear(int gear) {
     	Drive.changeGear(gear);
 	}
 

@@ -15,7 +15,7 @@ public class DriveAuton {
 	private static double proportionalConstant;
 	private static double integralConstant;
 	private static double derivativeConstant;
-	private static byte gear;
+	private static int gear;
 	private static PIDController pid;
 
 	public static void move(int distance) {
@@ -114,7 +114,7 @@ public class DriveAuton {
 		Drive.setPIDF(proportionalConstant, integralConstant, derivativeConstant);
 	}
 
-	public static void setGear(byte gear) {
+	public static void setGear(int gear) {
 		DriveAuton.gear = gear;
 		Drive.changeGear(gear);
 	}
