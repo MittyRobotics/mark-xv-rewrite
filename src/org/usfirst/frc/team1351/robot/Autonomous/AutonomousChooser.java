@@ -11,10 +11,10 @@ class AutonomousChooser {
 	//TODO: Change all of this into a simpler method. READABLE!
 	static void choose() {
 		String matchConfigMessage = DriverStation.getInstance().getGameSpecificMessage().toLowerCase();
-		byte startingSpotID = (byte) SmartDashboard.getNumber("Starting Spot", 0);
+		double startingSpotID = SmartDashboard.getNumber("Starting Spot", 0);
 		boolean targetIsScale = SmartDashboard.putBoolean("Scale?", false);
 
-		byte command;
+		int command;
 
 		if (targetIsScale) {
 			command = 6;    // Range: 6 - 11

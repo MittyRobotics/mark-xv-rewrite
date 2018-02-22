@@ -38,16 +38,16 @@ class ControllerDrive {
 
 			//Manual Gear Switch
 			if (controller.getAButton()) {
-				DriveTeleOp.setGear((byte) 1);
+				DriveTeleOp.setGear(1);
 			} else if (controller.getBButton()) {
-				DriveTeleOp.setGear((byte) 0);
+				DriveTeleOp.setGear(0);
 			}
 
 			//Manual Gear Hold : Will Override Switch Mode
 			if (controller.getTriggerAxis(kRight) >= 0.2) {
-				DriveTeleOp.setGear((byte) 0);
+				DriveTeleOp.setGear(0);
 			} else {
-				DriveTeleOp.setGear((byte) 1);
+				DriveTeleOp.setGear(1);
 			}
 
 			//Ramping Toggle On
