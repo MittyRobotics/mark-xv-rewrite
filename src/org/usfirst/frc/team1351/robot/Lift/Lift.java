@@ -5,8 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 class Lift {
-	private static byte[] LIFTTALONS = {6, 7};
-	private static byte[] LIMITSWITCHES = {0, 1, 2};
+	private static int[] LIFTTALONS = {6, 7};
+	private static int[] LIMITSWITCHES = {0, 1, 2};
 
 	private static WPI_TalonSRX[] talons;
 	private static DigitalInput[] limitSwitches;

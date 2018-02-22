@@ -7,55 +7,49 @@ import org.usfirst.frc.team1351.robot.Drive.DriveTeleOp;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
-class ControllerDrive {
-	private static final XboxController controller = new XboxController(0);
+class ControllerDrive implements Runnable {
+	@Override
+	public void run() {
+		XboxController xboxController = new XboxController(0);
 
-	static void init() {
-		Thread driverThread = new Thread(ControllerDrive::dThread);
-		driverThread.setName("Driver Controller Thread");
-		driverThread.setPriority(5); //TODO Set Priority
-		driverThread.start();
-	}
-
-	private static void dThread() {
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isOperatorControl()) {
 			//Left Side Tank Drive
-			if (controller.getY(kLeft) < -0.05 || controller.getY(kLeft) > 0.05) {
-				double yValue = controller.getY(kLeft);
+			if (xboxController.getY(kLeft) < -0.05 || xboxController.getY(kLeft) > 0.05) {
+				double yValue = xboxController.getY(kLeft);
 				DriveTeleOp.setLeft(yValue);
 			} else {
 				DriveTeleOp.setLeft(0);
 			}
 
 			//Right Side Tank Drive
-			if (controller.getY(kRight) < -0.05 || controller.getY(kRight) > 0.05) {
-				double yValue = controller.getY(kLeft);
+			if (xboxController.getY(kRight) < -0.05 || xboxController.getY(kRight) > 0.05) {
+				double yValue = xboxController.getY(kLeft);
 				DriveTeleOp.setRight(yValue);
 			} else {
 				DriveTeleOp.setRight(0);
 			}
 
 			//Manual Gear Switch
-			if (controller.getAButton()) {
-				DriveTeleOp.setGear((byte) 1);
-			} else if (controller.getBButton()) {
-				DriveTeleOp.setGear((byte) 0);
+			if (xboxController.getAButton()) {
+				DriveTeleOp.setGear(1);
+			} else if (xboxController.getBButton()) {
+				DriveTeleOp.setGear(0);
 			}
 
 			//Manual Gear Hold : Will Override Switch Mode
-			if (controller.getTriggerAxis(kRight) >= 0.2) {
-				DriveTeleOp.setGear((byte) 0);
+			if (xboxController.getTriggerAxis(kRight) >= 0.2) {
+				DriveTeleOp.setGear(0);
 			} else {
-				DriveTeleOp.setGear((byte) 1);
+				DriveTeleOp.setGear(1);
 			}
 
 			//Ramping Toggle On
-			if (controller.getXButton() && controller.getStickButton(kLeft)) {
+			if (xboxController.getXButton() && xboxController.getStickButton(kLeft)) {
 				DriveTeleOp.setRamp(0.5);
 			}
 
 			//Ramping Toggle Off
-			if (controller.getYButton() && controller.getStickButton(kLeft)) {
+			if (xboxController.getYButton() && xboxController.getStickButton(kLeft)) {
 				DriveTeleOp.setRamp(0);
 			}
 
@@ -66,6 +60,5 @@ class ControllerDrive {
 				e.printStackTrace();
 			}
 		}
-
 	}
 }

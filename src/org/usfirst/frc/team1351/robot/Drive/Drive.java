@@ -2,7 +2,7 @@ package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDOutput;
@@ -11,23 +11,23 @@ import edu.wpi.first.wpilibj.PIDSource;
 public class Drive {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 
-	private static TalonSRX[] talons;
+	private static WPI_TalonSRX[] talons;
 	private static DoubleSolenoid driveSolenoid;
 	private static ADXRS450_Gyro gyro;
 
-	private static final byte[] LEFTDRIVETALONS = {0, 1};
-	private static final byte[] RIGHTDRIVETALONS = {2, 3};
+	private static final int[] LEFTDRIVETALONS = {0, 1};
+	private static final int[] RIGHTDRIVETALONS = {2, 3};
 
-	private static byte gear;
+	private static int gear;
 
 	public static void init() {
 //		driveSolenoid = new DoubleSolenoid(0, 1);
 		gyro = new ADXRS450_Gyro();
 
 
-		talons = new TalonSRX[LEFTDRIVETALONS.length + RIGHTDRIVETALONS.length];
+		talons = new WPI_TalonSRX[LEFTDRIVETALONS.length + RIGHTDRIVETALONS.length];
 		for (int i = 0; i < talons.length; i++) {
-			talons[i] = new TalonSRX(i);
+			talons[i] = new WPI_TalonSRX(i);
 		}
 
 
@@ -50,20 +50,20 @@ public class Drive {
 	}
 
 	static void invertLeftTalon(boolean shouldInvert) {
-		for (byte LEFTDRIVETALON : LEFTDRIVETALONS) {
+		for (int LEFTDRIVETALON : LEFTDRIVETALONS) {
 			talons[LEFTDRIVETALON].setInverted(shouldInvert);
 		}
 	}
 
-	static void setLeft(ControlMode controlMode, double value) {
+	static void setLeftDriveEncoderTalon(ControlMode controlMode, double value) {
 		talons[LEFTDRIVETALONS[0]].set(controlMode, value);
 	}
 
-	static void setRight(ControlMode controlMode, double value) {
+	static void setRightDriveEncoderTalon(ControlMode controlMode, double value) {
 		talons[RIGHTDRIVETALONS[0]].set(controlMode, value);
 	}
 
-	static void changeGear(byte gear) {
+	static void changeGear(int gear) {
 		switch (gear) {
 			case 0:
 				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -81,7 +81,7 @@ public class Drive {
 	}
 
 	static void ramp(double seconds) {
-		for (TalonSRX talon : talons) {
+		for (WPI_TalonSRX talon : talons) {
 			talon.configOpenloopRamp(seconds, 0);
 		}
 	}

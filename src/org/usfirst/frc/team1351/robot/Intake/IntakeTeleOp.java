@@ -33,6 +33,7 @@ public class IntakeTeleOp {
     static void close() {
         Intake.close(true);
     }
+
     public static void init() {
 
     }

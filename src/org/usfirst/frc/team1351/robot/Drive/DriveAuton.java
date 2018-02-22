@@ -6,16 +6,16 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveAuton {
-	private static final float[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
-	private static final float TALONMOVETHRESHOLD = 2.5f;
-	private static final float TALONTURNTHRESHOLD = 0.5f;
-	private static final float MOVETHRESHOLD = 10f;
-	private static final float TURNTHRESHOLD = 3f;
+	private static final double[] TICKSPERINCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
+	private static final double TALONMOVETHRESHOLD = 2.5f;
+	private static final double TALONTURNTHRESHOLD = 0.5f;
+	private static final double MOVETHRESHOLD = 10f;
+	private static final double TURNTHRESHOLD = 3f;
 
 	private static double proportionalConstant;
 	private static double integralConstant;
 	private static double derivativeConstant;
-	private static byte gear;
+	private static int gear;
 	private static PIDController pid;
 
 	public static void move(int distance) {
@@ -109,12 +109,12 @@ public class DriveAuton {
 		integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
 		derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
 
-		Drive.setRight(ControlMode.Position, 0);
-		Drive.setLeft(ControlMode.Position, 0);
+		Drive.setRightDriveEncoderTalon(ControlMode.Position, 0);
+		Drive.setLeftDriveEncoderTalon(ControlMode.Position, 0);
 		Drive.setPIDF(proportionalConstant, integralConstant, derivativeConstant);
 	}
 
-	public static void setGear(byte gear) {
+	public static void setGear(int gear) {
 		DriveAuton.gear = gear;
 		Drive.changeGear(gear);
 	}

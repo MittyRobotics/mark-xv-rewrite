@@ -11,26 +11,45 @@ class AutonomousChooser {
 
 	static void choose() {
 		String matchConfigMessage = DriverStation.getInstance().getGameSpecificMessage().toLowerCase();
-		byte startingSpotID = (byte) SmartDashboard.getNumber("Starting Spot", 0);
-		boolean targetIsScale = SmartDashboard.putBoolean("Scale?", false);
+		double startingSpotID = SmartDashboard.getNumber("Starting Spot", 0);
+		boolean targetIsSwitch = SmartDashboard.putBoolean("Switch?", false);
 
-		byte command;
-
-		if (targetIsScale) {
-			command = 6;    // Range: 6 - 11
-			if (matchConfigMessage.charAt(1) == 'r') {
-				command++;  // Range: 7, 9, 11  ELSE  Range: 6, 8, 10
+		if (targetIsSwitch) {
+			if (matchConfigMessage.charAt(0) == 'l') {
+				if (startingSpotID == 0) {
+					AutonomousPatterns.leftLeftSwitch();
+				} else if (startingSpotID == 1) {
+					AutonomousPatterns.middleLeftSwitch();
+				} else {
+					AutonomousPatterns.rightLeftSwitch();
+				}
+			} else {
+				if (startingSpotID == 0) {
+					AutonomousPatterns.leftRightSwitch();
+				} else if (startingSpotID == 1) {
+					AutonomousPatterns.middleLeftSwitch();
+				} else {
+					AutonomousPatterns.rightLeftSwitch();
+				}
 			}
 		} else {
-			command = 0;    // Range: 0 - 5
-			if (matchConfigMessage.charAt(0) == 'r') {
-				command++;  // Range: 1, 3, 5  ELSE  Range: 0, 2, 4
+			if (matchConfigMessage.charAt(1) == 'l') {
+				if (startingSpotID == 0) {
+					AutonomousPatterns.leftLeftScale();
+				} else if (startingSpotID == 1) {
+					AutonomousPatterns.middleLeftScale();
+				} else {
+					AutonomousPatterns.rightLeftScale();
+				}
 			} else {
-				command = command;
+				if (startingSpotID == 0) {
+					AutonomousPatterns.leftRightScale();
+				} else if (startingSpotID == 1) {
+					AutonomousPatterns.middleRightScale();
+				} else {
+					AutonomousPatterns.rightRightScale();
+				}
 			}
 		}
-		command += 2 * startingSpotID;  // Chooses Either the First, Second, or Third Number in the Range Based on Starting Spot
-
-		AutonomousRunner.runCommand(command);
 	}
 }

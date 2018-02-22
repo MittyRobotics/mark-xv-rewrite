@@ -4,14 +4,14 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class DriveTeleOp {
     public static void setLeft(double value) {
-    	Drive.setLeft(ControlMode.PercentOutput, value);
+    	Drive.setLeftDriveEncoderTalon(ControlMode.PercentOutput, value);
     }
 
     public static void setRight(double value) {
-		Drive.setLeft(ControlMode.PercentOutput, value);
+		Drive.setLeftDriveEncoderTalon(ControlMode.PercentOutput, value);
 	}
 
-	public static void setGear(byte gear) {
+	public static void setGear(int gear) {
     	Drive.changeGear(gear);
 	}
 
