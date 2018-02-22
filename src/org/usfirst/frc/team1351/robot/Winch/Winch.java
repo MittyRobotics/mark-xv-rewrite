@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.Ultrasonic;
 public class Winch {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
 	private static final int[] WINCHTALONS = {4, 5};
-	private static final float WINCHSIZE = 0.5f;
+	private static final double WINCHSIZE = 0.5f;
 
 	private static WPI_TalonSRX[] talons;
 	private static Ultrasonic ultrasonic;
@@ -40,7 +40,7 @@ public class Winch {
 		return ultrasonic.getRangeInches();
 	}
 
-	static float getWinchSize() {
+	static double getWinchSize() {
 		return WINCHSIZE;
 	}
 }
