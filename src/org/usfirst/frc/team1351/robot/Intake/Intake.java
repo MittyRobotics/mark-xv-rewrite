@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Intake {
     private static final int[] INTAKE_TALONS = {8, 9};
+	private static final double INTAKE_SPEED = 0.4;
+	private static final double RELEASE_SPEED = 0.4;
 
     private static WPI_TalonSRX[] talons;
     private static DoubleSolenoid intakeExtend,  intakeClose;
