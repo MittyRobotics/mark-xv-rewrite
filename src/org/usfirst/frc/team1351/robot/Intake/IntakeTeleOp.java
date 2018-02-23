@@ -11,24 +11,12 @@ public class IntakeTeleOp {
         Intake.set(ControlMode.PercentOutput, Intake.getReleaseSpeed());
     }
 
-    static void stop() {
-        Intake.set(ControlMode.PercentOutput, 0);
-    }
-
-    static void up() {
-        Intake.extend(true);
-    }
-
-    static void down() {
+    static void enable() {
         Intake.extend(false);
     }
 
-    static void open() {
-        Intake.close(false);
-    }
-
-    static void close() {
-        Intake.close(true);
+    static void disable() {
+        Intake.extend(true);
     }
 
     public static void init() {
