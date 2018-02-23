@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 class AutonomousChooser {
 	static void init() {
 		SmartDashboard.putNumber("Starting Spot", 0);
-		SmartDashboard.putBoolean("Scale?", false);
+		SmartDashboard.putBoolean("Scale:", false);
 	}
 
 	static void choose() {
