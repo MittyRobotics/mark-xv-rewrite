@@ -47,4 +47,12 @@ public class Intake {
             intakeClose.set(DoubleSolenoid.Value.kReverse);
         }
     }
+
+	public static double getReleaseSpeed() {
+		return RELEASE_SPEED;
+	}
+
+	public static double getIntakeSpeed() {
+		return INTAKE_SPEED;
+	}
 }

@@ -4,11 +4,11 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class IntakeTeleOp {
     static void intake() {
-        Intake.set(ControlMode.PercentOutput, INTAKE_SPEED);
+        Intake.set(ControlMode.PercentOutput, Intake.getIntakeSpeed());
     }
 
-    static void outtake() {
-        Intake.set(ControlMode.PercentOutput, OUTPUT_SPEED);
+    static void release() {
+        Intake.set(ControlMode.PercentOutput, Intake.getReleaseSpeed());
     }
 
     static void stop() {
