@@ -5,6 +5,8 @@ import org.usfirst.frc.team1351.robot.Intake.IntakeAuton;
 
 class AutonomousPatterns {
 
+	// TODO Confirm All Macros
+
 	//Naming Convention
 	/*
 	First Term: Starting Side
