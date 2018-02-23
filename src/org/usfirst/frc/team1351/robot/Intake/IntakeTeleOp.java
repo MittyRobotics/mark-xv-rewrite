@@ -22,5 +22,4 @@ public class IntakeTeleOp {
     public static void init() {
 
     }
-
 }
