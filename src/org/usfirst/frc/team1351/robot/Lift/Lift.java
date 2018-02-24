@@ -11,7 +11,10 @@ class Lift {
 	private static WPI_TalonSRX[] talons;
 	private static DigitalInput[] limitSwitches;
 
-
+	/**
+	 * Initializes the lift talons and limit switches.
+	 */
+	//TODO: Set talon[0] as master
 	public static void init () {
 		talons = new WPI_TalonSRX[LIFT_TALONS.length];
 		for (int i = 0; i < LIFT_TALONS.length; i++) {
@@ -24,10 +27,19 @@ class Lift {
 		}
 	}
 
+	/**
+	 * Sets the master talon to a control mode and value
+	 * @param controlMode Control Mode that value should be run in
+	 * @param value Value that you want to set motor to
+	 */
 	static void set(ControlMode controlMode, double value) {
 		talons[0].set(controlMode, value);
 	}
 
+	/** TODO: Finish this method
+	 * WIP
+	 * @return
+	 */
 	public static boolean checkLimitSwitches() {
 		return true;
 	}
