@@ -2,15 +2,15 @@ package org.usfirst.frc.team1351.robot.Autonomous;
 
 import org.usfirst.frc.team1351.robot.Drive.DriveAuton;
 
+/**
+ * Class that holds all of the patterns for autonomous.
+ *
+ * Naming Convention:
+ * First Term: Starting Side
+ * Second Term: Target Side
+ * Third Term: Target Structure
+ */
 class AutonomousPatterns {
-
-	//Naming Convention
-	/*
-	First Term: Starting Side
-	Second Term: Target Side
-	Third Term: Target Structure
-	 */
-
 	static void leftLeftSwitch() {
 		DriveAuton.move(12);
 		DriveAuton.turn(-90);
