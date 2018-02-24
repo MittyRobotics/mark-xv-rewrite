@@ -10,7 +10,7 @@ import org.usfirst.frc.team1351.robot.Winch.WinchTeleOp;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
-class Controller implements Runnable {
+public class Controller implements Runnable {
 	@Override
 	public void run() {
 		XboxController xboxController = new XboxController(0);
