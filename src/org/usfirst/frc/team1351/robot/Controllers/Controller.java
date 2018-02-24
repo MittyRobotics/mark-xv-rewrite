@@ -10,7 +10,15 @@ import org.usfirst.frc.team1351.robot.Winch.WinchTeleOp;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
+/**
+ * This class uses the runnable interface. In order to run it, use the corresponding run sub-methods.
+ * The run sub-method must be run every time teleop is started as it exits when the robot leaved teleop.
+ */
 public class Controller implements Runnable {
+
+	/**
+	 * Run sub-method which starts the controller thread. Run every time teleop begins.
+	 */
 	@Override
 	public void run() {
 		XboxController xboxController = new XboxController(0);
