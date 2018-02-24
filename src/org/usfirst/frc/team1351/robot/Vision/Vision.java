@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 public class Vision {
 	static UsbCamera camera;
+
+	/**
+	 * Initializes the camera with the intended Quality and Famerate.
+	 */
 	public static void init() {
 		camera = CameraServer.getInstance().startAutomaticCapture("camera", 0);
 		camera.setResolution(360, 280);
