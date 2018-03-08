@@ -22,12 +22,11 @@ public class DriveAuton {
 		distance *= TICKS_PER_INCH[gear];
 		prepMove();
 
-		pid.setSetpoint(distance);
-		pid.enable();
 
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			if (Math.abs(pid.getError()) < MOVE_THRESHOLD) {
+			Drive.setLeftDriveEncoderTalon(ControlMode.Position, distance);
+			if (Math.abs(Drive.getLeftError()) < MOVE_THRESHOLD) {
 				if (count > 1000) {
 					break;
 				}
@@ -42,7 +41,6 @@ public class DriveAuton {
 				e.printStackTrace();
 			}
 		}
-
 
 		endAuton();
 	}
