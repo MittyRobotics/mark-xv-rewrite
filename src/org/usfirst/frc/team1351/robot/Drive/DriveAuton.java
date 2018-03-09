@@ -16,7 +16,6 @@ public class DriveAuton {
 	private static double integralConstant;
 	private static double derivativeConstant;
 	private static int gear;
-	private static PIDController pid;
 
 	public static void move(int distance) {
 		distance *= TICKS_PER_INCH[gear];
@@ -51,12 +50,10 @@ public class DriveAuton {
 		prepTurn();
 		System.out.println(Drive.getGyro());
 
-		pid.setSetpoint(degrees);
-		pid.enable();
-
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			if (Math.abs(pid.getError()) < TURN_THRESHOLD) {
+			Drive.setLeftDriveEncoderTalon(ControlMode.Position, degrees);
+			if (Math.abs(Drive.getLeftError()) < TURN_THRESHOLD) {
 				if (count > 1000) {
 					break;
 				}
@@ -78,26 +75,15 @@ public class DriveAuton {
 	}
 
 	private static void prepMove() {
-		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
-		pid.setOutputRange(-1, 1);
-		pid.setAbsoluteTolerance(TALON_MOVE_THRESHOLD);
-
 		Drive.setRightFollower(true);
 	}
 
 	private static void prepTurn() {
-		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
-		pid.setOutputRange(-1, 1);
-		pid.setAbsoluteTolerance(TALON_TURN_THRESHOLD);
-		pid.setContinuous(true);
-
 		Drive.invertLeftTalon(false);
 		Drive.setRightFollower(true);
 	}
 
 	private static void endAuton() {
-		pid.free();
-
 		Drive.invertLeftTalon(true);
 		Drive.setRightFollower(false);
 	}
