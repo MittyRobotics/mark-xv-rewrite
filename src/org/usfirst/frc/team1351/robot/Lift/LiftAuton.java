@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class LiftAuton {
 	private static final double TICKS_PER_INCH = 0; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
-	private static final double THRESHOLD = 2.5f;
 
 	private static volatile double setpoint = 0;
 	private static volatile boolean enabled;
