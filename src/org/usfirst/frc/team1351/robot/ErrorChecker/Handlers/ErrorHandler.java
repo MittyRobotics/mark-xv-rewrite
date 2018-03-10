@@ -5,10 +5,12 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team1351.robot.ErrorChecker.Commands.TalonCommands.FeedbackSensor.TalonFeedbackSensorErrorCommand;
 import org.usfirst.frc.team1351.robot.ErrorChecker.Commands.TalonCommands.PDIF.TalonPDIFErrorCommand;
+import org.usfirst.frc.team1351.robot.Logger.Logger;
 
 import static com.ctre.phoenix.ErrorCode.OK;
 
 public abstract class ErrorHandler {
+	private ErrorCode e;
 
 
 	@Deprecated
@@ -29,6 +31,7 @@ public abstract class ErrorHandler {
 	 */
 
 	private void handleError(ErrorCode e) {
+		this.e = e;
 		if (e != OK) {
 			switch (e) {
 				case CAN_MSG_STALE:
@@ -140,145 +143,144 @@ public abstract class ErrorHandler {
 					handleFirmVersionCouldNotBeRetrieved();
 					break;
 			}
-			System.out.println(e);
 		} else {
-			System.out.println("Command was retired in order to work correctly.");
+			Logger.log("Command was retired in order to work correctly.", Logger.Scope.DRIVERSTATIONONLY);
 		}
 	}
 
 	private void handleFirmVersionCouldNotBeRetrieved() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleNotImplemented() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleFeatureNotSupported() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleGeneralWarning() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handlePulseWidthSensorNotPresent() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleInvalidHandle() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleIncompatibleMode() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleGainsAreNotSet() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleDistanceBetweenWheelsTooSmall() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleTicksPerRevZero() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleWheelRadiusTooSmall() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleModuleNotInitGetError() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleModuleNotInitSetError() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleGenModuleError() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handlePortModuleTypeMismatch() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleGenPortError() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleNotAllPIDValuesUpdated() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleSigNotUpdated() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleGeneralError() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleFirmwareTooOld() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleSensorNotPresent() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanOverflow() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handBufferFull() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanNoSessionsAvail() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleUnexpectedArbId() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanNoMoreTxJobs() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleTxTimeout() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanMsgNotFound() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleRxTimeout() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanInvalidParam() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleInvalidParamValue() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleTxFailed() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanTxFull() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 
 	private void handleCanMsgStale() {
-
+		Logger.log(e, Logger.Scope.BOTH);
 	}
 }
