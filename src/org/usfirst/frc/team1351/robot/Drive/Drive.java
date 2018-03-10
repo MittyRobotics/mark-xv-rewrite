@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import org.usfirst.frc.team1351.robot.ErrorChecker.ErrorChecker;
 
 public class Drive {
 	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
@@ -119,18 +120,17 @@ public class Drive {
 	 * @param D Derivative Constant
 	 */
 	static void setPIDF(double P, double I, double D) {
-		talons[RIGHT_DRIVE_TALONS[0]].config_kP(0, P, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].config_kI(0, I, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].config_kD(0, D, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].config_kF(0, 0, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+		ErrorChecker.handledConfig_kP(talons[RIGHT_DRIVE_TALONS[0]], 0, P, 0, "Drive");
+		ErrorChecker.handledConfig_kI(talons[RIGHT_DRIVE_TALONS[0]], 0, I, 0, "Drive");
+		ErrorChecker.handledConfig_kD(talons[RIGHT_DRIVE_TALONS[0]], 0, D, 0, "Drive");
+		ErrorChecker.handledConfig_kF(talons[RIGHT_DRIVE_TALONS[0]], 0, 0, 0, "Drive");
+		ErrorChecker.handledConfigSelectedFeedbackSensor(talons[RIGHT_DRIVE_TALONS[0]], ENCODER, 0, 1000, "Drive");
 
-
-		talons[LEFT_DRIVE_TALONS[0]].config_kP(0, P, 0);
-		talons[LEFT_DRIVE_TALONS[0]].config_kI(0, I, 0);
-		talons[LEFT_DRIVE_TALONS[0]].config_kD(0, D, 0);
-		talons[LEFT_DRIVE_TALONS[0]].config_kF(0, 0, 0);
-		talons[LEFT_DRIVE_TALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+		ErrorChecker.handledConfig_kP(talons[LEFT_DRIVE_TALONS[0]], 0, P, 0, "Drive");
+		ErrorChecker.handledConfig_kI(talons[LEFT_DRIVE_TALONS[0]], 0, I, 0, "Drive");
+		ErrorChecker.handledConfig_kD(talons[LEFT_DRIVE_TALONS[0]], 0, D, 0, "Drive");
+		ErrorChecker.handledConfig_kF(talons[LEFT_DRIVE_TALONS[0]], 0, 0, 0, "Drive");
+		ErrorChecker.handledConfigSelectedFeedbackSensor(talons[RIGHT_DRIVE_TALONS[0]], ENCODER, 0, 1000, "Drive");
 	}
 
 	/**
