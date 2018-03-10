@@ -7,7 +7,7 @@ public class Logger {
 		BOTH, BLACKBOXONLY, DRIVERSTATIONONLY
 	}
 
-	public void log(String message, Scope scope) {
+	public static void log(String message, Scope scope) {
 		switch (scope) {
 			case BOTH:
 				Broadcaster.broadcast(message);
@@ -24,7 +24,7 @@ public class Logger {
 		}
 	}
 
-	public void log(ErrorCode errorCode, Scope scope) {
+	public static void log(ErrorCode errorCode, Scope scope) {
 		switch (scope) {
 			case BOTH:
 				Broadcaster.broadcast(errorCode.name());
