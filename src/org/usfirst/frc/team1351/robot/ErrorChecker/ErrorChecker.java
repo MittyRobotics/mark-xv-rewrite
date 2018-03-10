@@ -85,7 +85,7 @@ public class ErrorChecker {
 	private static void sendTalonPDIFCommandToHandler(TalonPDIFErrorCommand command, WPI_TalonSRX target, int slotIdx, double value, int timeoutMs, String source) {
 		switch (source) {
 			case "drive":
-				DriveErrorHandler driveErrorHandler = new DriveErrorHandler("Drive");
+				DriveErrorHandler driveErrorHandler = new DriveErrorHandler();
 				driveErrorHandler.handle(command, target, slotIdx, value, timeoutMs);
 				break;
 
@@ -115,7 +115,7 @@ public class ErrorChecker {
 	private static void sendTalonFeedbackSensorCommandToHandler(TalonFeedbackSensorErrorCommand command, WPI_TalonSRX target, FeedbackDevice feedbackDevice, int slotIdx, int timeoutMs, String source) {
 		switch (source) {
 			case "drive":
-				DriveErrorHandler driveErrorHandler = new DriveErrorHandler("Drive");
+				DriveErrorHandler driveErrorHandler = new DriveErrorHandler();
 				driveErrorHandler.handle(command, target, feedbackDevice, slotIdx, timeoutMs);
 				break;
 
