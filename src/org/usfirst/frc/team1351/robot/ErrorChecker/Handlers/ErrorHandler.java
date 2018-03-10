@@ -9,7 +9,6 @@ import org.usfirst.frc.team1351.robot.ErrorChecker.Commands.TalonCommands.PDIF.T
 import static com.ctre.phoenix.ErrorCode.OK;
 
 public abstract class ErrorHandler {
-	String name;
 
 
 	@Deprecated
