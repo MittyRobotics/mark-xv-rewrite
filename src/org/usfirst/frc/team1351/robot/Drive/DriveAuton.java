@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @version 2018.1.1
  */
 public class DriveAuton {
-	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
+	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; // TODO Fix Values
 	private static final double MOVE_THRESHOLD = 10f;
 	private static final double TURN_THRESHOLD = 3f;
 
