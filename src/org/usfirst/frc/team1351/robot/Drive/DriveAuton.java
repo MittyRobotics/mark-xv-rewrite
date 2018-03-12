@@ -2,7 +2,6 @@ package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveAuton {
@@ -24,7 +23,7 @@ public class DriveAuton {
 
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			Drive.setLeftDriveEncoderTalon(ControlMode.Position, distance);
+			Drive.setLeftTalons(ControlMode.Position, distance);
 			if (Math.abs(Drive.getLeftError()) < MOVE_THRESHOLD) {
 				if (count > 1000) {
 					break;
@@ -52,7 +51,7 @@ public class DriveAuton {
 
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			Drive.setLeftDriveEncoderTalon(ControlMode.Position, degrees);
+			Drive.setLeftTalons(ControlMode.Position, degrees);
 			if (Math.abs(Drive.getLeftError()) < TURN_THRESHOLD) {
 				if (count > 1000) {
 					break;
@@ -79,12 +78,12 @@ public class DriveAuton {
 	}
 
 	private static void prepTurn() {
-		Drive.invertLeftTalon(false);
+		Drive.invertLeftTalons(false);
 		Drive.setRightFollower(true);
 	}
 
 	private static void endAuton() {
-		Drive.invertLeftTalon(true);
+		Drive.invertLeftTalons(true);
 		Drive.setRightFollower(false);
 	}
 
@@ -93,13 +92,8 @@ public class DriveAuton {
 		integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
 		derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
 
-		Drive.setRightDriveEncoderTalon(ControlMode.Position, 0);
-		Drive.setLeftDriveEncoderTalon(ControlMode.Position, 0);
+		Drive.setRightTalons(ControlMode.Position, 0);
+		Drive.setLeftTalons(ControlMode.Position, 0);
 		Drive.setPIDF(proportionalConstant, integralConstant, derivativeConstant);
-	}
-
-	public static void setGear(int gear) {
-		DriveAuton.gear = gear;
-		Drive.changeGear(gear);
 	}
 }

@@ -3,19 +3,19 @@ package org.usfirst.frc.team1351.robot.Drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class DriveTeleOp {
-    public static void setLeft(double value) {
-    	Drive.setLeftDriveEncoderTalon(ControlMode.PercentOutput, value);
-    }
+	public static void setLeft(double value) {
+		Drive.setLeftTalons(ControlMode.PercentOutput, value);
+	}
 
-    public static void setRight(double value) {
-		Drive.setLeftDriveEncoderTalon(ControlMode.PercentOutput, value);
+	public static void setRight(double value) {
+		Drive.setLeftTalons(ControlMode.PercentOutput, value);
 	}
 
 	public static void setGear(int gear) {
-    	Drive.changeGear(gear);
+		Drive.changeGear(gear);
 	}
 
 	public static void setRamp(double seconds) {
-    	Drive.ramp(seconds);
+		Drive.ramp(seconds);
 	}
 }
