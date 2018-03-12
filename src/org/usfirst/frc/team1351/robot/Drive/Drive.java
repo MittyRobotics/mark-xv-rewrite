@@ -157,14 +157,15 @@ public class Drive {
 	static void setPIDF(double P, double I, double D) {
 		ErrorChecker.handledConfig_kP(leftTalons[0], 0, P, 0, "Drive");
 		ErrorChecker.handledConfig_kI(leftTalons[0], 0, I, 0, "Drive");
+		ErrorChecker.handledConfig_kD(leftTalons[0], 0, D, 0, "Drive");
+		ErrorChecker.handledConfig_kF(leftTalons[0], 0, 0, 0, "Drive");
+		ErrorChecker.handledConfigSelectedFeedbackSensor(leftTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
 
 		ErrorChecker.handledConfig_kP(rightTalons[0], 0, P, 0, "Drive");
 		ErrorChecker.handledConfig_kI(rightTalons[0], 0, I, 0, "Drive");
 		ErrorChecker.handledConfig_kD(rightTalons[0], 0, D, 0, "Drive");
 		ErrorChecker.handledConfig_kF(rightTalons[0], 0, 0, 0, "Drive");
 		ErrorChecker.handledConfigSelectedFeedbackSensor(rightTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
-		ErrorChecker.handledConfig_kF(leftTalons[0], 0, 0, 0, "Drive");
-		ErrorChecker.handledConfigSelectedFeedbackSensor(leftTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
 	}
 
 	/**
