@@ -15,9 +15,6 @@ public class DriveAuton {
 	private static final double MOVE_THRESHOLD = 10f;
 	private static final double TURN_THRESHOLD = 3f;
 
-	private static double proportionalConstant;
-	private static double integralConstant;
-	private static double derivativeConstant;
 	private static int gear;
 
 	public static void move(int distance) {
@@ -92,9 +89,9 @@ public class DriveAuton {
 	}
 
 	public static void init() {
-		proportionalConstant = SmartDashboard.getNumber("Drive P: ", 0);
-		integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
-		derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
+		double proportionalConstant = SmartDashboard.getNumber("Drive P: ", 0);
+		double integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
+		double derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
 
 		Drive.setRightTalons(ControlMode.Position, 0);
 		Drive.setLeftTalons(ControlMode.Position, 0);
