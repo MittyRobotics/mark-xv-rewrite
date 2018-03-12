@@ -115,9 +115,11 @@ public class Drive {
 	 * Changes the gear that the robot is in
 	 * @param gear Gear to change into ( 1 - High Gear, 0 - Low Gear)
 	 */
+	static void setGear(int gear) {
 		switch (gear) {
 			case 0:
 				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
+				Drive.gear = gear;
 				break;
 
 			case 1:
