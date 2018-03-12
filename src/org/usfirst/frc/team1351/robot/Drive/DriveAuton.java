@@ -4,6 +4,12 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * Drive Autonomous
+ * @author looklotsofpeople
+ * @since 2018 Build Season
+ * @version 2018.1.0
+ */
 public class DriveAuton {
 	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
 	private static final double TALON_MOVE_THRESHOLD = 2.5f;
