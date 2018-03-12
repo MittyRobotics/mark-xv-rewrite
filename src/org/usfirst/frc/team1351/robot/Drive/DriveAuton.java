@@ -16,8 +16,6 @@ public class DriveAuton {
 	private static final double MOVE_THRESHOLD = 10f;
 	private static final double TURN_THRESHOLD = 3f;
 
-	private static int gear;
-
 	public static void move(int distance) {
 		// TODO Test
 		Logger.log("Executing Drive Move.", Logger.Scope.DRIVERSTATIONONLY);
