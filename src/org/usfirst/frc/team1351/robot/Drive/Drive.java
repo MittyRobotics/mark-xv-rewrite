@@ -244,7 +244,7 @@ public class Drive {
 
 	/**
 	 * Sets the Right Drive Talons to follow the Left Master Drive Talon
-	 * @param isFollower
+	 * @param isFollower Should Right be Follower
 	 */
 	static void setRightFollower(boolean isFollower) {
 		if (isFollower) {
