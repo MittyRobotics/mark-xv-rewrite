@@ -64,6 +64,8 @@ public class Drive {
 
 		// Sets Non-Primary Right Talons as Followers
 		if (rightTalons.length > 1) {
+			for (int i = 1; i < rightTalons.length; i++) {
+				rightTalons[i].set(ControlMode.Follower, rightTalons[0].getDeviceID());
 			}
 		}
 
