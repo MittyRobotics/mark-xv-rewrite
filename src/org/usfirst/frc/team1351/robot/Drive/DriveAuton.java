@@ -79,10 +79,12 @@ public class DriveAuton {
 	}
 
 	private static void prepMove() {
+		Drive.setGear(0);
 		Drive.setRightFollower(true);
 	}
 
 	private static void prepTurn() {
+		Drive.setGear(0);
 		Drive.invertLeftTalons(false);
 		Drive.setRightFollower(true);
 	}
