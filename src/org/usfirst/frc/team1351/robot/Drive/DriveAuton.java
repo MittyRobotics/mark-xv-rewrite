@@ -20,6 +20,7 @@ public class DriveAuton {
 
 	public static void move(int distance) {
 		distance *= TICKS_PER_INCH[gear];
+		// TODO Test
 		Logger.log("Executing Drive Move.", Logger.Scope.DRIVERSTATIONONLY);
 		prepMove();
 
@@ -47,6 +48,7 @@ public class DriveAuton {
 	}
 
 	public static void turn(int degrees) {
+		// TODO Add PIDController
 		Logger.log("Executing Drive Turn.", Logger.Scope.DRIVERSTATIONONLY);
 
 		prepTurn();
