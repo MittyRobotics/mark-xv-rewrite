@@ -18,7 +18,7 @@ public class DriveTeleOp {
 	}
 
 	public static void setGear(int gear) {
-		Drive.changeGear(gear);
+		Drive.setGear(gear);
 	}
 
 	public static void setRamp(double seconds) {
