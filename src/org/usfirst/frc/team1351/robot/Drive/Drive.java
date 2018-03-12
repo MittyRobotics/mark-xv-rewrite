@@ -128,7 +128,7 @@ public class Drive {
 				break;
 
 			default:
-				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
+				Logger.log("Gear {" + gear + "} Not Found. Not changing gear!", Logger.Scope.BOTH);
 				break;
 		}
 	}
