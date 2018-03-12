@@ -3,6 +3,7 @@ package org.usfirst.frc.team1351.robot.Drive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1351.robot.Logger.Logger;
 
 /**
  * Drive Autonomous
@@ -19,6 +20,7 @@ public class DriveAuton {
 
 	public static void move(int distance) {
 		distance *= TICKS_PER_INCH[gear];
+		Logger.log("Executing Drive Move.", Logger.Scope.DRIVERSTATIONONLY);
 		prepMove();
 
 
@@ -45,7 +47,7 @@ public class DriveAuton {
 	}
 
 	public static void turn(int degrees) {
-		System.out.println("Executing gyro turn");
+		Logger.log("Executing Drive Turn.", Logger.Scope.DRIVERSTATIONONLY);
 
 		prepTurn();
 		System.out.println(Drive.getGyro());
