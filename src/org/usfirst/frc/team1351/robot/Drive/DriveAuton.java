@@ -19,9 +19,10 @@ public class DriveAuton {
 	private static int gear;
 
 	public static void move(int distance) {
-		distance *= TICKS_PER_INCH[gear];
 		// TODO Test
 		Logger.log("Executing Drive Move.", Logger.Scope.DRIVERSTATIONONLY);
+
+		distance *= TICKS_PER_INCH[Drive.getGear()];
 		prepMove();
 
 
