@@ -33,17 +33,21 @@ public class Drive {
 
 		// Hardware Initialization
 
-		driveSolenoid = new DoubleSolenoid(0, 1);
-		gyro = new ADXRS450_Gyro();
-		leftTalons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length];
-		for (int i = 0; i < leftTalons.length; i++) {
-			if (leftTalons[i] != null) {
+		if (driveSolenoid == null) {
+			driveSolenoid = new DoubleSolenoid(0, 1);
+		}
+		if (gyro == null) {
+			gyro = new ADXRS450_Gyro();
+		}
+		if (leftTalons == null) {
+			leftTalons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length];
+			for (int i = 0; i < leftTalons.length; i++) {
 				leftTalons[i] = new WPI_TalonSRX(LEFT_DRIVE_TALONS[i]);
 			}
 		}
-		rightTalons = new WPI_TalonSRX[RIGHT_DRIVE_TALONS.length];
-		for (int i = 0; i < rightTalons.length; i++) {
-			if (rightTalons[i] != null) {
+		if (rightTalons == null) {
+			rightTalons = new WPI_TalonSRX[RIGHT_DRIVE_TALONS.length];
+			for (int i = 0; i < rightTalons.length; i++) {
 				rightTalons[i] = new WPI_TalonSRX(RIGHT_DRIVE_TALONS[i]);
 			}
 		}
