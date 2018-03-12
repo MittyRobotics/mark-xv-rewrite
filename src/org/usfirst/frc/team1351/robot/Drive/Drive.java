@@ -9,7 +9,7 @@ import org.usfirst.frc.team1351.robot.ErrorChecker.ErrorChecker;
 import org.usfirst.frc.team1351.robot.Logger.Logger;
 
 /**
- * Drive Code
+ * Drive Base
  * @author looklotsofpeople
  * @since 2018 Build Season
  * @version 2018.1.0
@@ -56,16 +56,14 @@ public class Drive {
 		// Setups Talon Following Modes
 
 		// Sets Non-Primary Left Talons as Followers
-		if (LEFT_DRIVE_TALONS.length > 1) {
-			for (int i = 1; i < LEFT_DRIVE_TALONS.length; i++) {
-				leftTalons[LEFT_DRIVE_TALONS[i]].set(ControlMode.Follower, rightTalons[0].getDeviceID());
+		if (leftTalons.length > 1) {
+			for (int i = 1; i < leftTalons.length; i++) {
+				leftTalons[0].set(ControlMode.Follower, leftTalons[0].getDeviceID());
 			}
 		}
 
 		// Sets Non-Primary Right Talons as Followers
-		if (RIGHT_DRIVE_TALONS.length > 1) {
-			for (int i = 1; i < LEFT_DRIVE_TALONS.length; i++) {
-				rightTalons[LEFT_DRIVE_TALONS[i]].set(ControlMode.Follower, leftTalons[0].getDeviceID());
+		if (rightTalons.length > 1) {
 			}
 		}
 
@@ -115,7 +113,6 @@ public class Drive {
 	 * Changes the gear that the robot is in
 	 * @param gear Gear to change into ( 1 - High Gear, 0 - Low Gear)
 	 */
-	static void changeGear(int gear) {
 		switch (gear) {
 			case 0:
 				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -123,10 +120,10 @@ public class Drive {
 
 			case 1:
 				driveSolenoid.set(DoubleSolenoid.Value.kForward);
+				Drive.gear = gear;
 				break;
 
 			default:
-				Logger.log("Gear {" + gear + "} Not Found. Defaulting Low.", Logger.Scope.BOTH);
 				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
 				break;
 		}
@@ -154,16 +151,14 @@ public class Drive {
 	 * @param D Derivative Constant
 	 */
 	static void setPIDF(double P, double I, double D) {
+		ErrorChecker.handledConfig_kP(leftTalons[0], 0, P, 0, "Drive");
+		ErrorChecker.handledConfig_kI(leftTalons[0], 0, I, 0, "Drive");
 
 		ErrorChecker.handledConfig_kP(rightTalons[0], 0, P, 0, "Drive");
 		ErrorChecker.handledConfig_kI(rightTalons[0], 0, I, 0, "Drive");
 		ErrorChecker.handledConfig_kD(rightTalons[0], 0, D, 0, "Drive");
 		ErrorChecker.handledConfig_kF(rightTalons[0], 0, 0, 0, "Drive");
 		ErrorChecker.handledConfigSelectedFeedbackSensor(rightTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
-
-		ErrorChecker.handledConfig_kP(leftTalons[0], 0, P, 0, "Drive");
-		ErrorChecker.handledConfig_kI(leftTalons[0], 0, I, 0, "Drive");
-		ErrorChecker.handledConfig_kD(leftTalons[0], 0, D, 0, "Drive");
 		ErrorChecker.handledConfig_kF(leftTalons[0], 0, 0, 0, "Drive");
 		ErrorChecker.handledConfigSelectedFeedbackSensor(leftTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
 	}
@@ -256,5 +251,9 @@ public class Drive {
 		} else {
 			rightTalons[0].set(ControlMode.Follower, rightTalons[0].getDeviceID());
 		}
+	}
+
+	static int getGear() {
+		return gear;
 	}
 }
