@@ -4,9 +4,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-
 public class Intake {
     private static final int[] INTAKE_TALONS = {8, 9};
+	private static final double INTAKE_SPEED = 0.4;
+	private static final double RELEASE_SPEED = 0.4;
 
     private static WPI_TalonSRX[] talons;
     private static DoubleSolenoid intakeExtend,  intakeClose;
@@ -60,4 +61,12 @@ public class Intake {
             intakeClose.set(DoubleSolenoid.Value.kReverse);
         }
     }
+
+	public static double getReleaseSpeed() {
+		return RELEASE_SPEED;
+	}
+
+	public static double getIntakeSpeed() {
+		return INTAKE_SPEED;
+	}
 }

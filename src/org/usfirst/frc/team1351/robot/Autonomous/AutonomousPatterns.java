@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1351.robot.Autonomous;
 
 import org.usfirst.frc.team1351.robot.Drive.DriveAuton;
+import org.usfirst.frc.team1351.robot.Intake.IntakeAuton;
 
 /**
  * Class that holds all of the patterns for autonomous.
@@ -11,11 +12,20 @@ import org.usfirst.frc.team1351.robot.Drive.DriveAuton;
  * Third Term: Target Structure
  */
 class AutonomousPatterns {
-	static void leftLeftSwitch() {
+	// TODO Confirm All Macros
+
+	//Naming Convention
+	/*
+	First Term: Starting Side
+	Second Term: Target Side
+	Third Term: Target Structure
+	 */
+
+  static void leftLeftSwitch() {
 		DriveAuton.move(12);
 		DriveAuton.turn(-90);
 		DriveAuton.move(20);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void middleLeftSwitch() {
@@ -23,7 +33,7 @@ class AutonomousPatterns {
 		DriveAuton.turn(30);
 		DriveAuton.move(115);
 		DriveAuton.turn(-30);
-		//TODO Realease
+		IntakeAuton.release();
 	}
 
 	static void leftRightSwitch() {
@@ -31,7 +41,7 @@ class AutonomousPatterns {
 		DriveAuton.turn(-37);
 		DriveAuton.move(165);
 		DriveAuton.turn(37);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void middleRightSwitch() {
@@ -39,14 +49,14 @@ class AutonomousPatterns {
 		DriveAuton.turn(-40);
 		DriveAuton.move(128);
 		DriveAuton.turn(40);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void rightRightSwitch() {
 		DriveAuton.move(141);
 		DriveAuton.turn(90);
 		DriveAuton.move(20);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void rightLeftSwitch() {
@@ -54,7 +64,7 @@ class AutonomousPatterns {
 		DriveAuton.turn(63);
 		DriveAuton.move(187);
 		DriveAuton.turn(-63);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void rightLeftScale() {
@@ -63,21 +73,21 @@ class AutonomousPatterns {
 		DriveAuton.move(162);
 		DriveAuton.turn(-90);
 		DriveAuton.move(38);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void rightRightScale() {
 		DriveAuton.move(283);
 		DriveAuton.turn(90);
 		DriveAuton.move(1);
-		//Todo Release
+		IntakeAuton.release();
 	}
 
 	static void leftLeftScale() {
 		DriveAuton.move(283);
 		DriveAuton.turn(-90);
 		DriveAuton.move(1);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	static void leftRightScale() {
@@ -86,7 +96,7 @@ class AutonomousPatterns {
 		DriveAuton.move(162);
 		DriveAuton.turn(90);
 		DriveAuton.move(38);
-		//TODO Release
+		IntakeAuton.release();
 	}
 
 	public static void middleLeftScale() {
