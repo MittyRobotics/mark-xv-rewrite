@@ -3,12 +3,21 @@ package org.usfirst.frc.team1351.robot.Autonomous;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * This class is responsible for selecting the correct Autonomous Pattern to be run in the situation.
+ */
 class AutonomousChooser {
+	/**
+	 * Places autonomous related exposed variables to the Smart Dashboard.
+	 */
 	static void init() {
 		SmartDashboard.putNumber("Starting Spot", 0);
 		SmartDashboard.putBoolean("Scale:", false);
 	}
 
+	/**
+	 * Uses exposed variables and the game message to select the correct pattern.
+	 */
 	static void choose() {
 		String matchConfigMessage = DriverStation.getInstance().getGameSpecificMessage().toLowerCase();
 		double startingSpotID = SmartDashboard.getNumber("Starting Spot", 0);

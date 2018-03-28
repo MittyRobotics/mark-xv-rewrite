@@ -5,83 +5,144 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
+import org.usfirst.frc.team1351.robot.ErrorChecker.ErrorChecker;
+import org.usfirst.frc.team1351.robot.Logger.Logger;
 
+/**
+ * Drive Base
+ * @author looklotsofpeople
+ * @since 2018 Build Season
+ * @version 2018.1.0
+ */
 public class Drive {
-	private static final FeedbackDevice ENCODER = FeedbackDevice.QuadEncoder;
-
-	private static WPI_TalonSRX[] talons;
-	private static DoubleSolenoid driveSolenoid;
-	private static ADXRS450_Gyro gyro;
-
 	private static final int[] LEFT_DRIVE_TALONS = {0, 1};
 	private static final int[] RIGHT_DRIVE_TALONS = {2, 3};
 
+	private static WPI_TalonSRX[] leftTalons;
+	private static WPI_TalonSRX[] rightTalons;
+	private static DoubleSolenoid driveSolenoid;
+	private static ADXRS450_Gyro gyro;
+
 	private static int gear;
 
+	/**
+	 * Initializes the Gyro and Sets Non-Primary Talons as Follower
+	 * Should Only Be Run Once, Although Will Not Be Fatal if Run More than Once
+	 */
 	public static void init() {
-//		driveSolenoid = new DoubleSolenoid(0, 1);
-		gyro = new ADXRS450_Gyro();
 
+		// Hardware Initialization
 
-		talons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length + RIGHT_DRIVE_TALONS.length];
-		for (int i = 0; i < talons.length; i++) {
-			talons[i] = new WPI_TalonSRX(i);
+		if (driveSolenoid == null) {
+			driveSolenoid = new DoubleSolenoid(0, 1);
+		}
+		if (gyro == null) {
+			gyro = new ADXRS450_Gyro();
+		}
+		if (leftTalons == null) {
+			leftTalons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length];
+			for (int i = 0; i < leftTalons.length; i++) {
+				leftTalons[i] = new WPI_TalonSRX(LEFT_DRIVE_TALONS[i]);
+			}
+		}
+		if (rightTalons == null) {
+			rightTalons = new WPI_TalonSRX[RIGHT_DRIVE_TALONS.length];
+			for (int i = 0; i < rightTalons.length; i++) {
+				rightTalons[i] = new WPI_TalonSRX(RIGHT_DRIVE_TALONS[i]);
+			}
 		}
 
 
-		//Sets Left encoder talon and sets the rest as Followers
-		talons[LEFT_DRIVE_TALONS[0]].set(ControlMode.PercentOutput, 0);
-		for (int i = 1; i < LEFT_DRIVE_TALONS.length; i++) {
-			talons[LEFT_DRIVE_TALONS[i]].set(ControlMode.Follower, talons[0].getDeviceID());
+		// Setups Talon Following Modes
+
+		// Sets Non-Primary Left Talons as Followers
+		if (leftTalons.length > 1) {
+			for (int i = 1; i < leftTalons.length; i++) {
+				leftTalons[0].set(ControlMode.Follower, leftTalons[0].getDeviceID());
+			}
 		}
 
-
-		//Sets Right encoder talons and sets the rest as Followers
-		talons[RIGHT_DRIVE_TALONS[0]].set(ControlMode.PercentOutput, 0);
-		for (int i = 1; i < LEFT_DRIVE_TALONS.length; i++) {
-			talons[LEFT_DRIVE_TALONS[i]].set(ControlMode.Follower, talons[0].getDeviceID());
+		// Sets Non-Primary Right Talons as Followers
+		if (rightTalons.length > 1) {
+			for (int i = 1; i < rightTalons.length; i++) {
+				rightTalons[i].set(ControlMode.Follower, rightTalons[0].getDeviceID());
+			}
 		}
 
-
-		//Inverts Left Talons
-		invertLeftTalon(true);
+		// Inverts Left Talons
+		invertLeftTalons(true);
 	}
 
-	static void invertLeftTalon(boolean shouldInvert) {
-		for (int LEFTDRIVETALON : LEFT_DRIVE_TALONS) {
-			talons[LEFTDRIVETALON].setInverted(shouldInvert);
+	/**
+	 * Inverts the Left Drive Talons
+	 * @param shouldInvert (True - Inverts, False - Removes Invert)
+	 */
+	static void invertLeftTalons(boolean shouldInvert) {
+		for (WPI_TalonSRX currentTalon : leftTalons) { // TODO See if All Talons Need to be Inverted or Just the Primary Talon
+			currentTalon.setInverted(shouldInvert);
 		}
 	}
 
-	static void setLeftDriveEncoderTalon(ControlMode controlMode, double value) {
-		talons[LEFT_DRIVE_TALONS[0]].set(controlMode, value);
+	/**
+	 * Inverts the Right Drive Talons
+	 * @param shouldInvert (True - Inverts, False - Removes Invert)
+	 */
+	static void invertRightTalons(boolean shouldInvert) {
+		for (WPI_TalonSRX talon : rightTalons) { // TODO See if All Talons Need to be Inverted or Just the Primary Talon
+			talon.setInverted(shouldInvert);
+		}
 	}
 
-	static void setRightDriveEncoderTalon(ControlMode controlMode, double value) {
-		talons[RIGHT_DRIVE_TALONS[0]].set(controlMode, value);
+	/**
+	 * Sets the Left side Master talon to a specified control mode and value
+	 * @param controlMode Control Mode of talon
+	 * @param value The value that the talon should be set to
+	 */
+	static void setLeftTalons(ControlMode controlMode, double value) {
+		leftTalons[0].set(controlMode, value);
 	}
 
-	static void changeGear(int gear) {
+	/**
+	 * Sets the Right side Master talon to a specified control mode and value
+	 * @param controlMode Control Mode of talon
+	 * @param value The value that the talon should be set to
+	 */
+	static void setRightTalons(ControlMode controlMode, double value) {
+		rightTalons[0].set(controlMode, value);
+	}
+
+	/**
+	 * Changes the gear that the robot is in
+	 * @param gear Gear to change into ( 1 - High Gear, 0 - Low Gear)
+	 */
+	static void setGear(int gear) {
 		switch (gear) {
 			case 0:
 				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
+				Drive.gear = gear;
 				break;
 
 			case 1:
 				driveSolenoid.set(DoubleSolenoid.Value.kForward);
+				Drive.gear = gear;
 				break;
 
 			default:
-				System.out.println("Gear Not Found. Defaulting Low");
-				driveSolenoid.set(DoubleSolenoid.Value.kReverse);
+				Logger.log("Gear {" + gear + "} Not Found. Not changing gear!", Logger.Scope.BOTH);
 				break;
 		}
 	}
 
+	/**
+	 * Determines how long it take to arrive at a specific speed
+	 * @param seconds The amount of time it would take to ramp to full speed
+	 */
 	static void ramp(double seconds) {
-		for (WPI_TalonSRX talon : talons) {
+		for (WPI_TalonSRX talon : leftTalons) {
+			talon.configOpenloopRamp(seconds, 0);
+		}
+
+		for (WPI_TalonSRX talon : rightTalons) {
 			talon.configOpenloopRamp(seconds, 0);
 		}
 	}
@@ -94,69 +155,110 @@ public class Drive {
 	 * @param D Derivative Constant
 	 */
 	static void setPIDF(double P, double I, double D) {
-		talons[RIGHT_DRIVE_TALONS[0]].config_kP(0, P, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].config_kI(0, I, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].config_kD(0, D, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].config_kF(0, 0, 0);
-		talons[RIGHT_DRIVE_TALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+		ErrorChecker.handledConfig_kP(leftTalons[0], 0, P, 0, "Drive");
+		ErrorChecker.handledConfig_kI(leftTalons[0], 0, I, 0, "Drive");
+		ErrorChecker.handledConfig_kD(leftTalons[0], 0, D, 0, "Drive");
+		ErrorChecker.handledConfig_kF(leftTalons[0], 0, 0, 0, "Drive");
+		ErrorChecker.handledConfigSelectedFeedbackSensor(leftTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
 
-
-		talons[LEFT_DRIVE_TALONS[0]].config_kP(0, P, 0);
-		talons[LEFT_DRIVE_TALONS[0]].config_kI(0, I, 0);
-		talons[LEFT_DRIVE_TALONS[0]].config_kD(0, D, 0);
-		talons[LEFT_DRIVE_TALONS[0]].config_kF(0, 0, 0);
-		talons[LEFT_DRIVE_TALONS[0]].configSelectedFeedbackSensor(ENCODER, 0, 1000);
+		ErrorChecker.handledConfig_kP(rightTalons[0], 0, P, 0, "Drive");
+		ErrorChecker.handledConfig_kI(rightTalons[0], 0, I, 0, "Drive");
+		ErrorChecker.handledConfig_kD(rightTalons[0], 0, D, 0, "Drive");
+		ErrorChecker.handledConfig_kF(rightTalons[0], 0, 0, 0, "Drive");
+		ErrorChecker.handledConfigSelectedFeedbackSensor(rightTalons[0], FeedbackDevice.QuadEncoder, 0, 1000, "Drive");
 	}
 
+	/**
+	 * Getter statement for the Gyro
+	 * @return Gyro
+	 */
 	static double getGyro() {
 		return gyro.getAngle();
 	}
 
+	/**
+	 * Resets the Gyro
+	 */
 	static void resetGyro() {
 		gyro.reset();
 	}
 
+	/**
+	 * Getter method for the Left Encoder
+	 * @return Left Master Drive Talon Encoder
+	 */
 	static int getLeftEncoder() {
-		return talons[LEFT_DRIVE_TALONS[0]].getSelectedSensorPosition(0);
+		return leftTalons[0].getSelectedSensorPosition(0);
 	}
 
+	/**
+	 * Getter method for the Right Encoder
+	 * @return Right Master Drive Encoder
+	 */
 	static int getRightEncoder() {
-		return talons[RIGHT_DRIVE_TALONS[0]].getSelectedSensorPosition(0);
+		return rightTalons[0].getSelectedSensorPosition(0);
 	}
 
+	/**
+	 * Getter method for the Left Encoder Error
+	 * @return Left Drive Error
+	 */
 	static int getLeftError() {
-		return talons[LEFT_DRIVE_TALONS[0]].getClosedLoopError(0);
+		return leftTalons[0].getClosedLoopError(0);
 	}
 
+	/**
+	 * Getter method for the Right Encoder Error
+	 * @return Right Drive Error
+	 */
 	static int getRightError() {
-		return talons[RIGHT_DRIVE_TALONS[0]].getClosedLoopError(0);
+		return rightTalons[0].getClosedLoopError(0);
 	}
 
+	/**
+	 * Getter method for the Left Drive Setpoint
+	 * @return Left Drive Setpoint
+	 */
 	static int getLeftTarget() {
-		return talons[LEFT_DRIVE_TALONS[0]].getClosedLoopTarget(0);
+		return leftTalons[0].getClosedLoopTarget(0);
 	}
 
+	/**
+	 * Getter method for the Right Drive Setpoint
+	 * @return Right Drive Setpoint
+	 */
 	static int getRightTarget() {
-		return talons[RIGHT_DRIVE_TALONS[0]].getClosedLoopTarget(0);
+		return rightTalons[0].getClosedLoopTarget(0);
 	}
 
-	static PIDOutput getLeftTalonInstance() {
-		return (PIDOutput) talons[LEFT_DRIVE_TALONS[0]];
+	@Deprecated
+	static WPI_TalonSRX getLeftTalonInstance() {
+		return leftTalons[0];
 	}
 
-	static PIDOutput getRightTalonInstance() {
-		return (PIDOutput) talons[RIGHT_DRIVE_TALONS[0]];
+	@Deprecated
+	static WPI_TalonSRX getRightTalonInstance() {
+		return rightTalons[0];
 	}
 
-	static PIDSource getGyroInstance() {
+	@Deprecated
+	static ADXRS450_Gyro getGyroInstance() {
 		return gyro;
 	}
 
+	/**
+	 * Sets the Right Drive Talons to follow the Left Master Drive Talon
+	 * @param isFollower Should Right be Follower
+	 */
 	static void setRightFollower(boolean isFollower) {
 		if (isFollower) {
-			talons[RIGHT_DRIVE_TALONS[0]].set(ControlMode.Follower, talons[LEFT_DRIVE_TALONS[0]].getDeviceID());
+			rightTalons[0].set(ControlMode.Follower, leftTalons[0].getDeviceID());
 		} else {
-			talons[RIGHT_DRIVE_TALONS[0]].set(ControlMode.PercentOutput, 0);
+			rightTalons[0].set(ControlMode.Follower, rightTalons[0].getDeviceID());
 		}
+	}
+
+	static int getGear() {
+		return gear;
 	}
 }

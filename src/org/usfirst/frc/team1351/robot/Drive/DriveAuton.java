@@ -2,32 +2,32 @@ package org.usfirst.frc.team1351.robot.Drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc.team1351.robot.Logger.Logger;
 
+/**
+ * Drive Autonomous
+ * @author looklotsofpeople
+ * @since 2018 Build Season
+ * @version 2018.1.1
+ */
 public class DriveAuton {
-	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; //Ticks per inch values (Low - 0, High - 1) TODO Fix Values
-	private static final double TALON_MOVE_THRESHOLD = 2.5f;
-	private static final double TALON_TURN_THRESHOLD = 0.5f;
+	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; // TODO Fix Values
 	private static final double MOVE_THRESHOLD = 10f;
 	private static final double TURN_THRESHOLD = 3f;
 
-	private static double proportionalConstant;
-	private static double integralConstant;
-	private static double derivativeConstant;
-	private static int gear;
-	private static PIDController pid;
-
 	public static void move(int distance) {
-		distance *= TICKS_PER_INCH[gear];
+		// TODO Test
+		Logger.log("Executing Drive Move.", Logger.Scope.DRIVERSTATIONONLY);
+
+		distance *= TICKS_PER_INCH[Drive.getGear()];
 		prepMove();
 
-		pid.setSetpoint(distance);
-		pid.enable();
 
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			if (Math.abs(pid.getError()) < MOVE_THRESHOLD) {
+			Drive.setLeftTalons(ControlMode.Position, distance);
+			if (Math.abs(Drive.getLeftError()) < MOVE_THRESHOLD) {
 				if (count > 1000) {
 					break;
 				}
@@ -43,22 +43,20 @@ public class DriveAuton {
 			}
 		}
 
-
 		endAuton();
 	}
 
 	public static void turn(int degrees) {
-		System.out.println("Executing gyro turn");
+		// TODO Add PIDController
+		Logger.log("Executing Drive Turn.", Logger.Scope.DRIVERSTATIONONLY);
 
 		prepTurn();
 		System.out.println(Drive.getGyro());
 
-		pid.setSetpoint(degrees);
-		pid.enable();
-
 		int count = 0;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isAutonomous()) {
-			if (Math.abs(pid.getError()) < TURN_THRESHOLD) {
+			Drive.setLeftTalons(ControlMode.Position, degrees);
+			if (Math.abs(Drive.getLeftError()) < TURN_THRESHOLD) {
 				if (count > 1000) {
 					break;
 				}
@@ -80,42 +78,28 @@ public class DriveAuton {
 	}
 
 	private static void prepMove() {
-		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
-		pid.setOutputRange(-1, 1);
-		pid.setAbsoluteTolerance(TALON_MOVE_THRESHOLD);
-
+		Drive.setGear(0);
 		Drive.setRightFollower(true);
 	}
 
 	private static void prepTurn() {
-		pid = new PIDController(proportionalConstant, integralConstant, derivativeConstant, Drive.getGyroInstance(), Drive.getLeftTalonInstance());
-		pid.setOutputRange(-1, 1);
-		pid.setAbsoluteTolerance(TALON_TURN_THRESHOLD);
-		pid.setContinuous(true);
-
-		Drive.invertLeftTalon(false);
+		Drive.setGear(0);
+		Drive.invertLeftTalons(false);
 		Drive.setRightFollower(true);
 	}
 
 	private static void endAuton() {
-		pid.free();
-
-		Drive.invertLeftTalon(true);
+		Drive.invertLeftTalons(true);
 		Drive.setRightFollower(false);
 	}
 
 	public static void init() {
-		proportionalConstant = SmartDashboard.getNumber("Drive P: ", 0);
-		integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
-		derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
+		double proportionalConstant = SmartDashboard.getNumber("Drive P: ", 0);
+		double integralConstant = SmartDashboard.getNumber("Drive I: ", 0);
+		double derivativeConstant = SmartDashboard.getNumber("Drive D: ", 0);
 
-		Drive.setRightDriveEncoderTalon(ControlMode.Position, 0);
-		Drive.setLeftDriveEncoderTalon(ControlMode.Position, 0);
+		Drive.setRightTalons(ControlMode.Position, 0);
+		Drive.setLeftTalons(ControlMode.Position, 0);
 		Drive.setPIDF(proportionalConstant, integralConstant, derivativeConstant);
-	}
-
-	public static void setGear(int gear) {
-		DriveAuton.gear = gear;
-		Drive.changeGear(gear);
 	}
 }
