@@ -70,13 +70,6 @@ public class Controller implements Runnable {
 				DriveTeleOp.setRamp(0);
 			}
 
-			//Throttle Thread
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
 
 
 

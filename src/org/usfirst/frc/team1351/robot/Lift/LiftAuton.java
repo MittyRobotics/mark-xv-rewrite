@@ -50,5 +50,6 @@ public class LiftAuton {
 				e.printStackTrace();
 			}
 		}
+		enabled = false;
 	}
 }
