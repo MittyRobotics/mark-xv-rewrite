@@ -16,59 +16,44 @@ import org.usfirst.frc.team1351.robot.lift.Lift;
 class AutonomousPatterns {
 	static void redLeftLeftSwitch() {
 		Intake.setArmsHardHold();
-		Lift.setSetpoint(Lift.SWITCH_HEIGHT);
-		Lift.start();
-		DriveAuton.move(FieldSpecifics.RED_LENGTH_TO_MIDDLE_OF_SWITCH - RobotSpecifics.BACK_TO_MIDDLE);
+		DriveAuton.move(FieldSpecifics.RED_LEFT_LENGTH_TO_MIDDLE_OF_SWITCH - RobotSpecifics.BACK_TO_MIDDLE);
 		DriveAuton.turn(90);
 		DriveAuton.move(FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_SWITCH - FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_CORNER_BEND - RobotSpecifics.SIDE_TO_MIDDLE - RobotSpecifics.FRONT_TO_MIDDLE);
-		Intake.setArmsRelease();
 	}
 
-	static void redLeftRightSwitch() {
-
+	static void redLeftForward() {
+		Intake.setArmsHardHold();
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE - RobotSpecifics.BACK_TO_MIDDLE - RobotSpecifics.FRONT_TO_MIDDLE);
 	}
 
 	static void redMiddleLeftSwitch() {
-
+		Intake.setArmsHardHold();
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE/2 - RobotSpecifics.BACK_TO_MIDDLE);
+		DriveAuton.turn(-90);
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_OF_FIELD_FROM_DRIVER_STATION/2 - (FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_SWITCH - FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_CORNER_BEND + FieldSpecifics.RED_WIDTH_FOR_SWITCH/2) + FieldSpecifics.RED_LENGTH_FOR_VAULT_TO_CENTER);
+		DriveAuton.turn(90);
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE/2 - RobotSpecifics.FRONT_TO_MIDDLE);
 	}
 
-	static void leftRightSwitch() {
-
+	static void redMiddleRightSwitch() {
+		Intake.setArmsHardHold();
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE/2 - RobotSpecifics.BACK_TO_MIDDLE);
+		DriveAuton.turn(90);
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_OF_FIELD_FROM_DRIVER_STATION/2 - (FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_SWITCH - FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_CORNER_BEND + FieldSpecifics.RED_WIDTH_FOR_SWITCH/2) - FieldSpecifics.RED_LENGTH_FOR_VAULT_TO_CENTER);
+		DriveAuton.turn(-90);
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE/2 - RobotSpecifics.FRONT_TO_MIDDLE);
 	}
 
-	static void middleRightSwitch() {
-
+	static void redRightForward() {
+		Intake.setArmsHardHold();
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE - RobotSpecifics.BACK_TO_MIDDLE - RobotSpecifics.FRONT_TO_MIDDLE);
 	}
 
-	static void rightRightSwitch() {
-
+	static void redRightRightSwitch() {
+		Intake.setArmsHardHold();
+		DriveAuton.move(FieldSpecifics.RED_RIGHT_LENGTH_TO_MIDDLE_OF_SWITCH - RobotSpecifics.BACK_TO_MIDDLE);
+		DriveAuton.turn(-90);
+		DriveAuton.move(FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_SWITCH - FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_CORNER_BEND - RobotSpecifics.SIDE_TO_MIDDLE - RobotSpecifics.FRONT_TO_MIDDLE);
 	}
 
-	static void rightLeftSwitch() {
-
-	}
-
-	static void rightLeftScale() {
-
-	}
-
-	static void rightRightScale() {
-
-	}
-
-	static void leftLeftScale() {
-
-	}
-
-	static void leftRightScale() {
-
-	}
-
-	public static void middleLeftScale() {
-
-	}
-
-	public static void middleRightScale() {
-
-	}
 }
