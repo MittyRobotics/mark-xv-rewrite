@@ -3,32 +3,57 @@ package org.usfirst.frc.team1351.robot.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DigitalInput;
 
-import static org.usfirst.frc.team1351.robot.lift.LiftConfiguration.TALON_IDS;
+public class Lift {
+	private static final int TALON_IDS[] = {9, 5};
+	private static final int TICKS_PER_INCH = 651;
 
-class Lift {
 	private static final FeedbackDevice encoder = FeedbackDevice.QuadEncoder;
-
 	private static WPI_TalonSRX[] talons;
-	private static DigitalInput[] limitSwitches;
+
+	private static Thread thread = new Thread(Lift::liftThread);
+	private static boolean shouldRun = false;
+
+	private static double setpoint = 0;
 
 	public static void init() {
 		talons = new WPI_TalonSRX[TALON_IDS.length];
 		for (int i = 0; i < TALON_IDS.length; i++) {
 			talons[i] = new WPI_TalonSRX(TALON_IDS[i]);
+			if (i > 0) {
+				talons[i].set(ControlMode.Follower, TALON_IDS[0]);
+			}
+		}
+		talons[0].config_kP(0, 1, 0);
+		talons[0].config_kI(0, 0, 0);
+		talons[0].config_kD(0, 0, 0);
+		talons[0].config_kF(0, 0, 0);
+		talons[0].configSelectedFeedbackSensor(encoder, 0, 0);
+	}
+
+	public static void setSetpoint(final double setpoint) {
+		Lift.setpoint = setpoint;
+	}
+
+	public static void start() {
+		shouldRun = true;
+		if (!thread.isAlive() && !thread.isInterrupted()) {
+			thread.start();
 		}
 	}
 
-	static void set(ControlMode controlMode, double value) {
-		talons[0].set(controlMode, value);
+	public static void stop() {
+		shouldRun = false;
 	}
 
-	static void setPIDF(double P, double I, double D) {
-		talons[0].config_kP(0, P, 0);
-		talons[0].config_kI(0, I, 0);
-		talons[0].config_kD(0, D, 0);
-		talons[0].config_kF(0, 0, 0);
-		talons[0].configSelectedFeedbackSensor(encoder, 0, 1000);
+	private static void liftThread() {
+		while (shouldRun) {
+			talons[0].set(ControlMode.Position, setpoint * TICKS_PER_INCH);
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

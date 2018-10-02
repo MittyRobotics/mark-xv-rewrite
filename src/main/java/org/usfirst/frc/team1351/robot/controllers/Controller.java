@@ -44,17 +44,16 @@ public class Controller implements Runnable {
 				}
 
 				// Ramping Toggle On
-				if (xboxController.getBumper(kRight)) {
-					DriveTeleOp.setRamp(0.5);
+				if (xboxController.getBumper(kRight) && !xboxController.getBumper(kLeft)) {
+					DriveTeleOp.setGear(0);
 				}
 
 				// Ramping Toggle Off
-				if (xboxController.getBumper(kLeft)) {
-					DriveTeleOp.setRamp(0);
+				if (xboxController.getBumper(kLeft) && !xboxController.getBumper(kRight)) {
+					DriveTeleOp.setGear(1);
 				}
 
 				// OPERATOR CONTROLS
-				// TODO Stuff
 
 
 				// THROTTLE THREAD
@@ -67,3 +66,16 @@ public class Controller implements Runnable {
 		}
 	}
 }
+
+/*
+Tank
+Right/Left Bumper-Low/High
+High Default
+Lift - Buttons
+Right - Lift Height
+Right Trigger - Intake Open/Close Toggle
+Middle Rright Joystick Button -
+Left Right Joystick Button - Scale
+Right Right Joystick - Switch
+Left Joystick - Rollers
+ */

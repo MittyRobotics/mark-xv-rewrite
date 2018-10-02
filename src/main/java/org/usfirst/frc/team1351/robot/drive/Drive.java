@@ -29,7 +29,7 @@ public class Drive {
 			}
 		}
 		if (shifter == null) {
-			shifter = new DoubleSolenoid(0, 1);
+			shifter = new DoubleSolenoid(6, 7);
 		}
 
 		for (int i = 1; i < leftTalons.length; i++) {
