@@ -12,7 +12,7 @@ class AutonomousChooser {
 	static void choose() {
 		String matchConfigMessage = DriverStation.getInstance().getGameSpecificMessage().toLowerCase();
 		double startingSpotID = SmartDashboard.getNumber("Starting Spot", 0);
-		boolean targetIsSwitch = SmartDashboard.putBoolean("Switch?", false);
+		boolean targetIsSwitch = SmartDashboard.getBoolean("Switch?", false);
 
 		if (targetIsSwitch) {
 			if (matchConfigMessage.charAt(0) == 'l') {

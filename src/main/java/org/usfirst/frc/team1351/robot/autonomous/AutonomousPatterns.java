@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1351.robot.autonomous;
 
 import org.usfirst.frc.team1351.robot.drive.DriveAuton;
+import org.usfirst.frc.team1351.robot.intake.Intake;
 import org.usfirst.frc.team1351.robot.lift.Lift;
 
 /**
@@ -14,10 +15,13 @@ import org.usfirst.frc.team1351.robot.lift.Lift;
  */
 class AutonomousPatterns {
 	static void redLeftLeftSwitch() {
-		Lift.setSetpoint();
+		Intake.setArmsHardHold();
+		Lift.setSetpoint(Lift.SWITCH_HEIGHT);
+		Lift.start();
 		DriveAuton.move(FieldSpecifics.RED_LENGTH_TO_MIDDLE_OF_SWITCH - RobotSpecifics.BACK_TO_MIDDLE);
 		DriveAuton.turn(90);
 		DriveAuton.move(FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_SWITCH - FieldSpecifics.RED_LENGTH_FROM_LEFT_WALL_TO_CORNER_BEND - RobotSpecifics.SIDE_TO_MIDDLE - RobotSpecifics.FRONT_TO_MIDDLE);
+		Intake.setArmsRelease();
 	}
 
 	static void redLeftRightSwitch() {

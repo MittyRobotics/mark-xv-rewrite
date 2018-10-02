@@ -42,6 +42,7 @@ public class Robot extends SampleRobot {
 	public void operatorControl() {
 		enable();
 		new Controller().run();
+		Lift.start();
 	}
 
 	@Override
@@ -51,6 +52,7 @@ public class Robot extends SampleRobot {
 
 	@Override
 	public void disabled() {
+		Lift.stop();
 		compressor.stop();
 	}
 

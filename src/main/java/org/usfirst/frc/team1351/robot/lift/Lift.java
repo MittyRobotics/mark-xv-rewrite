@@ -5,6 +5,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Lift {
+	public static final double SWITCH_HEIGHT = 10; // TODO
+	public static final double SCALE_HEIGHT = 100; // TODO
+
 	private static final int TALON_IDS[] = {9, 5};
 	private static final int TICKS_PER_INCH = 651;
 
