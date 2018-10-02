@@ -17,3 +17,6 @@ build.xml
 .classpath
 .project
 /bin/
+
+# Gradle #
+.gradle

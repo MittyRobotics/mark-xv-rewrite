@@ -1,3 +1,7 @@
+import edu.wpi.first.gradlerio.GradleRIOPlugin
+import edu.wpi.first.gradlerio.frc.FRCJavaArtifact
+import edu.wpi.first.gradlerio.frc.RoboRIO
+
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
@@ -9,7 +13,7 @@ def ROBOT_CLASS = "frc.robot.Robot"
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
     targets {
-        target("roborio", edu.wpi.first.gradlerio.frc.RoboRIO) {
+        target("roborio", RoboRIO) {
             // Team number is loaded either from the .wpilib/wpilib_preferences.json
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
@@ -18,7 +22,7 @@ deploy {
         }
     }
     artifacts {
-        artifact('frcJava', edu.wpi.first.gradlerio.frc.FRCJavaArtifact) {
+        artifact('frcJava', FRCJavaArtifact) {
             targets << "roborio"
             // Debug can be overridden by command line, for use with VSCode
             debug = getDebugOrDefault(false)
@@ -39,7 +43,7 @@ dependencies {
 // knows where to look for our Robot Class.
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-    manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+    manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
 // Force Java 8 Compatibility mode for deployed code, in case the develoment
