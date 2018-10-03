@@ -3,10 +3,6 @@ package org.usfirst.frc.team1351.robot.deprecated.Logger;
 import com.ctre.phoenix.ErrorCode;
 
 public class Logger {
-	public enum Scope {
-		BOTH, BLACKBOXONLY, DRIVERSTATIONONLY
-	}
-
 	public static void log(String message, Scope scope) {
 		switch (scope) {
 			case BOTH:
@@ -39,5 +35,9 @@ public class Logger {
 				Broadcaster.broadcast(errorCode.name());
 				break;
 		}
+	}
+
+	public enum Scope {
+		BOTH, BLACKBOXONLY, DRIVERSTATIONONLY
 	}
 }

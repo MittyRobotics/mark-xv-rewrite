@@ -13,11 +13,9 @@ public class Lift {
 
 	private static final FeedbackDevice encoder = FeedbackDevice.QuadEncoder;
 	private static WPI_TalonSRX[] talons;
-
-	private static Thread thread = new Thread(Lift::liftThread);
 	private static boolean shouldRun = false;
-
 	private static double setpoint = 0;
+	private static Thread thread = new Thread(Lift::liftThread);
 
 	public static void init() {
 		talons = new WPI_TalonSRX[TALON_IDS.length];

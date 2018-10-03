@@ -4,9 +4,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 
 /**
  * drive TeleOp
+ *
  * @author looklotsofpeople
- * @since 2018 Build Season
  * @version 2018.1.0
+ * @since 2018 Build Season
  */
 public class DriveTeleOp {
 	public static void setLeft(double value) {

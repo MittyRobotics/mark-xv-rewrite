@@ -14,7 +14,8 @@ public abstract class ErrorHandler {
 
 
 	@Deprecated
-	public void handle() {}
+	public void handle() {
+	}
 
 	public void handle(TalonPDIFErrorCommand command, WPI_TalonSRX target, int slotIdx, double value, int timeoutMs) {
 		handleError(command.run(target, slotIdx, value, timeoutMs));

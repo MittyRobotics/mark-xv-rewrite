@@ -6,9 +6,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * drive autonomous
+ *
  * @author looklotsofpeople
- * @since 2018 Build Season
  * @version 2018.1.1
+ * @since 2018 Build Season
  */
 public class DriveAuton {
 	private static final double[] TICKS_PER_INCH = {487.5f, 487.5f}; // TODO Fix Values

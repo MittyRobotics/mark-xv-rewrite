@@ -4,7 +4,11 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.FeedbackSensor.ConfigSelectedFeedbackSensor;
 import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.FeedbackSensor.TalonFeedbackSensorErrorCommand;
-import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.PDIF.*;
+import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.PDIF.ConfigD;
+import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.PDIF.ConfigF;
+import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.PDIF.ConfigI;
+import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.PDIF.ConfigP;
+import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Commands.TalonCommands.PDIF.TalonPDIFErrorCommand;
 import org.usfirst.frc.team1351.robot.deprecated.ErrorChecker.Handlers.DriveErrorHandler;
 
 import static com.ctre.phoenix.ErrorCode.OK;
@@ -32,12 +36,14 @@ public class ErrorChecker {
 			sendTalonPDIFCommandToHandler(command, target, slotIdx, value, timeoutMs, source);
 		}
 	}
+
 	public static void handledConfig_kD(WPI_TalonSRX target, int slotIdx, double value, int timeoutMs, String source) {
 		TalonPDIFErrorCommand command = new ConfigD();
 		if (command.run(target, slotIdx, value, timeoutMs) != OK) {
 			sendTalonPDIFCommandToHandler(command, target, slotIdx, value, timeoutMs, source);
 		}
 	}
+
 	public static void handledConfig_kF(WPI_TalonSRX target, int slotIdx, double value, int timeoutMs, String source) {
 		TalonPDIFErrorCommand command = new ConfigF();
 		if (command.run(target, slotIdx, value, timeoutMs) != OK) {

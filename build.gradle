@@ -9,45 +9,37 @@ plugins {
 
 def ROBOT_CLASS = "frc.robot.Robot"
 
-// Define my targets (RoboRIO) and artifacts (deployable files)
-// This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
     targets {
         target("roborio", RoboRIO) {
-            // Team number is loaded either from the .wpilib/wpilib_preferences.json
-            // or from command line. If not found an exception will be thrown.
-            // You can use getTeamOrDefault(team) instead of getTeamNumber if you
-            // want to store a team number in this file.
             team = getTeamNumber()
         }
     }
     artifacts {
         artifact('frcJava', FRCJavaArtifact) {
+            //noinspection GroovyAssignabilityCheck
             targets << "roborio"
-            // Debug can be overridden by command line, for use with VSCode
+            //noinspection GroovyAssignabilityCheck
             debug = getDebugOrDefault(false)
         }
     }
 }
 
-// Defining my dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX)
-// and NavX.
 dependencies {
+    //noinspection GroovyAssignabilityCheck
     compile wpilib()
+    //noinspection GroovyAssignabilityCheck
     compile ctre()
+    //noinspection GroovyAssignabilityCheck
     compile navx()
 }
 
-// Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
-// in order to make them all available at runtime. Also adding the manifest so WPILib
-// knows where to look for our Robot Class.
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-// Force Java 8 Compatibility mode for deployed code, in case the development
-// system is using Java 10.
+// Force Java 8 Compatibility mode for deployed code, in case the development system is using Java 10.
 compileJava {
     sourceCompatibility = 1.8
     targetCompatibility = 1.8

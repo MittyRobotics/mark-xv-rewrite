@@ -5,10 +5,10 @@ import edu.wpi.first.wpilibj.SampleRobot;
 import org.usfirst.frc.team1351.robot.autonomous.Autonomous;
 import org.usfirst.frc.team1351.robot.controllers.Controller;
 import org.usfirst.frc.team1351.robot.drive.Drive;
-import org.usfirst.frc.team1351.robot.drive.DriveAuton;
 import org.usfirst.frc.team1351.robot.intake.Intake;
 import org.usfirst.frc.team1351.robot.lift.Lift;
 
+@SuppressWarnings("deprecation")
 public class Robot extends SampleRobot {
 	final private Compressor compressor;
 

@@ -123,17 +123,6 @@ public class Drive {
 		}
 	}
 
-	static void setGear(int gear) {
-		switch (gear) {
-			case 0:
-				shifter.set(DoubleSolenoid.Value.kReverse);
-				break;
-			case 1:
-				shifter.set(DoubleSolenoid.Value.kForward);
-				break;
-		}
-	}
-
 	static void ramp(double seconds) {
 		for (final WPI_TalonSRX talon : leftTalons) {
 			talon.configOpenloopRamp(seconds, 0);
@@ -173,6 +162,17 @@ public class Drive {
 			return 1;
 		} else {
 			return 0;
+		}
+	}
+
+	static void setGear(int gear) {
+		switch (gear) {
+			case 0:
+				shifter.set(DoubleSolenoid.Value.kReverse);
+				break;
+			case 1:
+				shifter.set(DoubleSolenoid.Value.kForward);
+				break;
 		}
 	}
 }
