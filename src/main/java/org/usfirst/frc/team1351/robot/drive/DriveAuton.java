@@ -19,7 +19,7 @@ public class DriveAuton {
 
 	private static ADXRS450_Gyro gyro;
 
-	public static void init() {
+	static void init() {
 		SmartDashboard.putNumber("Drive Forward P: ", 0);
 		SmartDashboard.putNumber("Drive Forward I: ", 0);
 		SmartDashboard.putNumber("Drive Forward D: ", 0);

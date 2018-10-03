@@ -63,6 +63,8 @@ public class Drive {
 				configPIDF(PDIF[0], PDIF[1], PDIF[2], PDIF[3]);
 				break;
 		}
+
+		DriveAuton.init();
 	}
 
 	private static void reset() {

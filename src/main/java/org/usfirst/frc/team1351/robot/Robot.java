@@ -19,17 +19,31 @@ public class Robot extends SampleRobot {
 	@Override
 	public void robotInit() {
 		// Autonomous
-		Autonomous.init();
+		final Thread autonomousThread = new Thread(Autonomous::init);
+		autonomousThread.start();
 
 		// Drive
-		Drive.init();
-		DriveAuton.init();
+		final Thread driveThread = new Thread(Drive::init);
+		driveThread.start();
 
 		// Lift
-		Lift.init();
+		final Thread liftThread = new Thread(Lift::init);
+		liftThread.start();
 
 		// Intake
-		Intake.init();
+		final Thread intakeThread = new Thread(Intake::init);
+		intakeThread.start();
+
+
+		// Waits for Finish
+		try {
+			autonomousThread.join();
+			driveThread.join();
+			liftThread.join();
+			intakeThread.join();
+		} catch (final InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
