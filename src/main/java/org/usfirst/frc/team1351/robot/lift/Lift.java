@@ -36,6 +36,10 @@ public class Lift {
 		Lift.setpoint = setpoint;
 	}
 
+	public static double getSetpoint(final double setpoint) {
+		return setpoint;
+	}
+
 	public static void start() {
 		shouldRun = true;
 		if (!thread.isAlive() && !thread.isInterrupted()) {
