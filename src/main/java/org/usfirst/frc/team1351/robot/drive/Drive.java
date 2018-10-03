@@ -175,4 +175,12 @@ public class Drive {
 				break;
 		}
 	}
+
+	static WPI_TalonSRX getLeftTalon() {
+		return leftTalons[0];
+	}
+
+	static WPI_TalonSRX getRightTalon() {
+		return rightTalons[0];
+	}
 }
