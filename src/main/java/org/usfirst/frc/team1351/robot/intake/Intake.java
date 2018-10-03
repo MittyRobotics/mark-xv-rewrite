@@ -37,12 +37,12 @@ public class Intake {
 		}
 	}
 
-	public static synchronized void setArmsHardHold() {
+	public static synchronized void hold() {
 		intakeClose40.set(Value.kReverse); //40 branch off
 		intakeClose60.set(Value.kForward); //60 branch on
 	}
 
-	public static synchronized void setArmsRelease() {
+	public static synchronized void release() {
 		intakeClose40.set(Value.kForward); //40 branch on
 		intakeClose60.set(Value.kReverse); //60 branch off
 	}
