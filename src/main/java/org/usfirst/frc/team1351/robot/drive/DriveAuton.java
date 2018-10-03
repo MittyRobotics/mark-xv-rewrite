@@ -106,7 +106,7 @@ public class DriveAuton {
 		}
 
 		while (Math.abs(leftPidController.getError()) > TURN_THRESHOLD || Math.abs(rightPidController.getError()) > TURN_THRESHOLD) {
-			if (timer.get() > MOVE_TIMEOUT) {
+			if (timer.get() > TURN_TIMEOUT) {
 				break;
 			}
 			try {
