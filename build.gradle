@@ -46,7 +46,7 @@ jar {
     manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-// Force Java 8 Compatibility mode for deployed code, in case the develoment
+// Force Java 8 Compatibility mode for deployed code, in case the development
 // system is using Java 10.
 compileJava {
     sourceCompatibility = 1.8
