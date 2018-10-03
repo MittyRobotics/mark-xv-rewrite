@@ -16,30 +16,30 @@ class AutonomousChooser {
 				case 0:
 					switch (matchConfigMessage.charAt(0)) {
 						case 'l':
-							// TODO
+							AutonomousPatterns.redLeftLeftSwitch();
 							break;
 						case 'r':
-							// TODO
+							AutonomousPatterns.redLeftLeftForward();
 							break;
 					}
 					break;
 				case 1:
 					switch (matchConfigMessage.charAt(0)) {
 						case 'l':
-							// TODO
+							AutonomousPatterns.redMiddleLeftSwitch();
 							break;
 						case 'r':
-							// TODO
+							AutonomousPatterns.redMiddleRightSwitch();
 							break;
 					}
 					break;
 				case 2:
 					switch (matchConfigMessage.charAt(0)) {
 						case 'l':
-							// TODO
+							AutonomousPatterns.redRightRightForward();
 							break;
 						case 'r':
-							// TODO
+							AutonomousPatterns.redRightRightSwitch();
 							break;
 					}
 					break;
@@ -49,30 +49,30 @@ class AutonomousChooser {
 				case 0:
 					switch (matchConfigMessage.charAt(0)) {
 						case 'l':
-							// TODO
+							AutonomousPatterns.blueLeftLeftSwitch();
 							break;
 						case 'r':
-							// TODO
+							AutonomousPatterns.blueLeftLeftForward();
 							break;
 					}
 					break;
 				case 1:
 					switch (matchConfigMessage.charAt(0)) {
 						case 'l':
-							// TODO
+							AutonomousPatterns.blueMiddleLeftSwitch();
 							break;
 						case 'r':
-							// TODO
+							AutonomousPatterns.blueMiddleRightSwitch();
 							break;
 					}
 					break;
 				case 2:
 					switch (matchConfigMessage.charAt(0)) {
 						case 'l':
-							// TODO
+							AutonomousPatterns.blueRightRightForward();
 							break;
 						case 'r':
-							// TODO
+							AutonomousPatterns.blueRightRightSwitch();
 							break;
 					}
 					break;
