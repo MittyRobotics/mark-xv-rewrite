@@ -25,11 +25,15 @@ public class Lift {
 				talons[i].set(ControlMode.Follower, TALON_IDS[0]);
 			}
 		}
-		talons[0].config_kP(0, 1, 0);
+		talons[0].config_kP(0, 0.05, 0);
 		talons[0].config_kI(0, 0, 0);
 		talons[0].config_kD(0, 0, 0);
 		talons[0].config_kF(0, 0, 0);
 		talons[0].configSelectedFeedbackSensor(encoder, 0, 0);
+		talons[0].setSensorPhase(true);
+		talons[0].configContinuousCurrentLimit(25, 0);
+		talons[0].enableCurrentLimit(true);
+		talons[0].setSelectedSensorPosition(0, 0, 0); // TODO Clean
 	}
 
 	public static void setSetpoint(final double setpoint) {
@@ -60,5 +64,9 @@ public class Lift {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public static int getSensor() {
+		return talons[0].getSelectedSensorPosition(0);
 	}
 }

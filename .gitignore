@@ -20,3 +20,6 @@ build.xml
 
 # Gradle #
 .gradle
+
+# VS Code #
+/build
