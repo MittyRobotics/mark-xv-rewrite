@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.drive.DriveTeleOp;
+import frc.robot.lift.Lift;
 
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
@@ -31,7 +32,7 @@ public class Controller extends Thread {
 
 				// Right Side Tank drive
 				if (xboxController.getY(kRight) < -0.05 || xboxController.getY(kRight) > 0.05) {
-					DriveTeleOp.setRight(xboxController.getY(kLeft));
+					DriveTeleOp.setRight(xboxController.getY(kRight));
 				} else {
 					DriveTeleOp.setRight(0);
 				}
@@ -54,7 +55,18 @@ public class Controller extends Thread {
 				}
 
 				// OPERATOR CONTROLS
-
+				if (joysticks[1].getY() > 0.05 && Lift.getSetpoint() + 12 > 96){
+					Lift.setSetpoint(Lift.getSetpoint() + 0.1);
+				}
+				else if(joysticks[1].getY() < -0.05 && Lift.getSetpoint() - 12 < 0) {
+					Lift.setSetpoint(Lift.getSetpoint() - 0.1);
+				}
+				if(joysticks[1].getRawButton(5)){
+					Lift.setSetpoint(72); //scale height
+				}
+				if(joysticks[1].getRawButton(4)){
+					Lift.setSetpoint(36); //switch height
+				}
 
 				// THROTTLE THREAD
 				try {
