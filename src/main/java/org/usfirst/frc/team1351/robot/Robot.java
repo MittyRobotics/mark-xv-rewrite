@@ -10,15 +10,15 @@ import org.usfirst.frc.team1351.robot.intake.Intake;
 import org.usfirst.frc.team1351.robot.lift.Lift;
 
 @SuppressWarnings("deprecation")
-public class Robot extends SampleRobot {
-	private Compressor compressor;
+public final class Robot extends SampleRobot {
+	private final Compressor compressor;
 
 	public Robot() {
 		compressor = new Compressor();
 	}
 
 	@Override
-	public void robotInit() {
+	public final void robotInit() {
 		// Autonomous
 		final Thread autonomousThread = new Thread(Autonomous::init);
 		autonomousThread.start();
@@ -45,38 +45,37 @@ public class Robot extends SampleRobot {
 		} catch (final InterruptedException e) {
 			e.printStackTrace();
 		}
-		System.out.println("We Are Working Correctly");
 	}
 
 	@Override
-	public void autonomous() {
+	public final void autonomous() {
 		enable();
 		Autonomous.run();
 	}
 
 	@Override
-	public void operatorControl() {
+	public final void operatorControl() {
 		enable();
-		new Controller().run();
 		Lift.start();
+		new Controller().start();
 	}
 
 	@Override
-	public void test() {
+	public final void test() {
 		Lift.setSetpoint(24);
 		Lift.start();
-		while (DriverStation.getInstance().isTest() && DriverStation.getInstance().isEnabled()) {
+		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isTest()) {
 			System.out.println(Lift.getSensor());
 			try {
 				Thread.sleep(100);
-			} catch (InterruptedException e) {
+			} catch (final InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 	@Override
-	public void disabled() {
+	public final void disabled() {
 		Lift.stop();
 		compressor.stop();
 	}

@@ -3,7 +3,7 @@ package org.usfirst.frc.team1351.robot.autonomous;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-class AutonomousChooser {
+final class AutonomousChooser {
 	static void init() {
 		SmartDashboard.putBoolean("Blue", false);
 		SmartDashboard.putNumber("Starting Spot", 0);
@@ -14,66 +14,48 @@ class AutonomousChooser {
 		if (SmartDashboard.getBoolean("Blue", false)) {
 			switch ((int) SmartDashboard.getNumber("Starting Spot", 0)) {
 				case 0:
-					switch (matchConfigMessage.charAt(0)) {
-						case 'l':
-							AutonomousPatterns.redLeftLeftSwitch();
-							break;
-						case 'r':
-							AutonomousPatterns.redLeftLeftForward();
-							break;
+					if (matchConfigMessage.charAt(0) == 'l') {
+						AutonomousPatterns.redLeftLeftSwitch();
+					} else {
+						AutonomousPatterns.redLeftLeftForward(matchConfigMessage.charAt(1) == 'l');
 					}
 					break;
 				case 1:
-					switch (matchConfigMessage.charAt(0)) {
-						case 'l':
-							AutonomousPatterns.redMiddleLeftSwitch();
-							break;
-						case 'r':
-							AutonomousPatterns.redMiddleRightSwitch();
-							break;
+					if (matchConfigMessage.charAt(0) == 'l') {
+						AutonomousPatterns.redMiddleLeftSwitch();
+					} else {
+						AutonomousPatterns.redMiddleRightSwitch();
 					}
 					break;
 				case 2:
-					switch (matchConfigMessage.charAt(0)) {
-						case 'l':
-							AutonomousPatterns.redRightRightForward();
-							break;
-						case 'r':
-							AutonomousPatterns.redRightRightSwitch();
-							break;
+					if (matchConfigMessage.charAt(0) == 'l') {
+						AutonomousPatterns.redRightRightForward(matchConfigMessage.charAt(1) == 'r');
+					} else {
+						AutonomousPatterns.redRightRightSwitch();
 					}
 					break;
 			}
 		} else {
 			switch ((int) SmartDashboard.getNumber("Starting Spot", 0)) {
 				case 0:
-					switch (matchConfigMessage.charAt(0)) {
-						case 'l':
-							AutonomousPatterns.blueLeftLeftSwitch();
-							break;
-						case 'r':
-							AutonomousPatterns.blueLeftLeftForward();
-							break;
+					if (matchConfigMessage.charAt(0) == 'l') {
+						AutonomousPatterns.blueLeftLeftSwitch();
+					} else {
+						AutonomousPatterns.blueLeftLeftForward(matchConfigMessage.charAt(1) == 'l');
 					}
 					break;
 				case 1:
-					switch (matchConfigMessage.charAt(0)) {
-						case 'l':
-							AutonomousPatterns.blueMiddleLeftSwitch();
-							break;
-						case 'r':
-							AutonomousPatterns.blueMiddleRightSwitch();
-							break;
+					if (matchConfigMessage.charAt(0) == 'l') {
+						AutonomousPatterns.blueMiddleLeftSwitch();
+					} else {
+						AutonomousPatterns.blueMiddleRightSwitch();
 					}
 					break;
 				case 2:
-					switch (matchConfigMessage.charAt(0)) {
-						case 'l':
-							AutonomousPatterns.blueRightRightForward();
-							break;
-						case 'r':
-							AutonomousPatterns.blueRightRightSwitch();
-							break;
+					if (matchConfigMessage.charAt(0) == 'l') {
+						AutonomousPatterns.blueRightRightForward(matchConfigMessage.charAt(1) == 'r');
+					} else {
+						AutonomousPatterns.blueRightRightSwitch();
 					}
 					break;
 			}

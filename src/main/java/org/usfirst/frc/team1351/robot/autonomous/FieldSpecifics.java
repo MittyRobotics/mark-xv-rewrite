@@ -1,6 +1,6 @@
 package org.usfirst.frc.team1351.robot.autonomous;
 
-public class FieldSpecifics {
+final class FieldSpecifics { // TODO ALL
 	static final double RED_LENGTH_FOR_CROSSING_AUTON_LINE = -1; //140
 	static final double RED_LEFT_LENGTH_TO_MIDDLE_OF_SWITCH = -1; // 168
 	static final double RED_RIGHT_LENGTH_TO_MIDDLE_OF_SWITCH = -1; //168

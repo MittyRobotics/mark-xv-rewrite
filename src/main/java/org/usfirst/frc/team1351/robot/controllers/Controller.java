@@ -8,7 +8,7 @@ import org.usfirst.frc.team1351.robot.drive.DriveTeleOp;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
-public class Controller implements Runnable {
+public class Controller extends Thread {
 	@Override
 	public void run() {
 		final XboxController xboxController = new XboxController(0);
@@ -67,7 +67,7 @@ public class Controller implements Runnable {
 	}
 }
 
-/*
+/* TODO
 Tank
 Right/Left Bumper-Low/High
 High Default

@@ -5,131 +5,93 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class Drive {
+import static org.usfirst.frc.team1351.robot.Defaults.DRIVE_D;
+import static org.usfirst.frc.team1351.robot.Defaults.DRIVE_I;
+import static org.usfirst.frc.team1351.robot.Defaults.DRIVE_P;
+import static org.usfirst.frc.team1351.robot.Defaults.TURN_D;
+import static org.usfirst.frc.team1351.robot.Defaults.TURN_I;
+import static org.usfirst.frc.team1351.robot.Defaults.TURN_P;
+
+public final class Drive {
 	private static final int[] LEFT_DRIVE_TALONS = {0, 1};
 	private static final int[] RIGHT_DRIVE_TALONS = {2, 3};
-	private static final int[] PDIF = {1, 0, 0, 0};
 
 	private static WPI_TalonSRX[] leftTalons;
 	private static WPI_TalonSRX[] rightTalons;
 	private static DoubleSolenoid shifter;
 
 	public static void init() {
-		if (leftTalons == null) {
-			leftTalons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length];
-			for (int i = 0; i < leftTalons.length; i++) {
-				leftTalons[i] = new WPI_TalonSRX(LEFT_DRIVE_TALONS[i]);
+		leftTalons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length];
+		for (int i = 0; i < leftTalons.length; i++) {
+			leftTalons[i] = new WPI_TalonSRX(LEFT_DRIVE_TALONS[i]);
+			if (i > 0) {
+				leftTalons[i].set(ControlMode.Follower, LEFT_DRIVE_TALONS[0]);
 			}
 		}
-		if (rightTalons == null) {
-			rightTalons = new WPI_TalonSRX[RIGHT_DRIVE_TALONS.length];
-			for (int i = 0; i < rightTalons.length; i++) {
-				rightTalons[i] = new WPI_TalonSRX(RIGHT_DRIVE_TALONS[i]);
+		rightTalons = new WPI_TalonSRX[RIGHT_DRIVE_TALONS.length];
+		for (int i = 0; i < rightTalons.length; i++) {
+			rightTalons[i] = new WPI_TalonSRX(RIGHT_DRIVE_TALONS[i]);
+			if (i > 0) {
+				rightTalons[i].set(ControlMode.Follower, RIGHT_DRIVE_TALONS[0]);
 			}
 		}
-		if (shifter == null) {
-			shifter = new DoubleSolenoid(6, 7);
-		}
+		ramp(0.25); // TODO Remove When Kito is Ready for It
 
-		for (int i = 1; i < leftTalons.length; i++) {
-			leftTalons[0].set(ControlMode.Follower, leftTalons[0].getDeviceID());
-		}
-		for (int i = 1; i < rightTalons.length; i++) {
-			rightTalons[i].set(ControlMode.Follower, rightTalons[0].getDeviceID());
-		}
-
-		reset();
-
-		switch (PDIF.length) {
-			//noinspection ConstantConditions
-			case 0:
-				configPIDF(0, 0, 0);
-				break;
-			//noinspection ConstantConditions
-			case 1:
-				configPIDF(PDIF[0], 0, 0);
-				break;
-			//noinspection ConstantConditions
-			case 2:
-				configPIDF(PDIF[0], PDIF[1], 0);
-				break;
-			//noinspection ConstantConditions
-			case 3:
-				configPIDF(PDIF[0], PDIF[1], PDIF[2]);
-				break;
-			//noinspection ConstantConditions
-			case 4:
-				configPIDF(PDIF[0], PDIF[1], PDIF[2], PDIF[3]);
-				break;
-		}
+		shifter = new DoubleSolenoid(6, 7);
 
 		DriveAuton.init();
+
+		SmartDashboard.putNumber("Drive P", DRIVE_P);
+		SmartDashboard.putNumber("Drive I", DRIVE_I);
+		SmartDashboard.putNumber("Drive D", DRIVE_D);
+		SmartDashboard.putNumber("Turn P", TURN_P);
+		SmartDashboard.putNumber("Turn I", TURN_I);
+		SmartDashboard.putNumber("Turn D", TURN_D);
 	}
 
-	private static void reset() {
-		// TODO Put Anything That Needs to Be Reset
+	private static void ramp(@SuppressWarnings("SameParameterValue") final double seconds) {
 		for (final WPI_TalonSRX talon : leftTalons) {
-			talon.configClosedloopRamp(0, 0);
+			talon.configOpenloopRamp(seconds, 0);
 		}
 		for (final WPI_TalonSRX talon : rightTalons) {
-			talon.configClosedloopRamp(0, 0);
+			talon.configOpenloopRamp(seconds, 0);
 		}
 	}
 
-	static void configPIDF(double P, double I, double D, double... F) {
+	static void updatePID() {
+		final double P = SmartDashboard.getNumber("Drive P", DRIVE_P);
+		final double I = SmartDashboard.getNumber("Drive I", DRIVE_I);
+		final double D = SmartDashboard.getNumber("Drive D", DRIVE_D);
+
 		leftTalons[0].config_kP(0, P, 0);
 		leftTalons[0].config_kI(0, I, 0);
 		leftTalons[0].config_kD(0, D, 0);
-		if (F.length != 0) {
-			leftTalons[0].config_kF(0, F[0], 0);
-		} else {
-			leftTalons[0].config_kF(0, 0, 0);
-		}
 		leftTalons[0].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-
 		rightTalons[0].config_kP(0, P, 0);
 		rightTalons[0].config_kI(0, I, 0);
 		rightTalons[0].config_kD(0, D, 0);
-		if (F.length != 0) {
-			rightTalons[0].config_kF(0, F[0], 0);
-		} else {
-			rightTalons[0].config_kF(0, 0, 0);
-		}
 		rightTalons[0].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 
-	@SuppressWarnings("SameParameterValue")
-	static void setLeftTalons(ControlMode controlMode, double value) {
+	static void setLeftTalons(final ControlMode controlMode, final double value) {
 		leftTalons[0].set(controlMode, value);
 	}
 
-	@SuppressWarnings("SameParameterValue")
-	static void setRightTalons(ControlMode controlMode, double value) {
+	static void setRightTalons(final ControlMode controlMode, final double value) {
 		rightTalons[0].set(controlMode, value);
 	}
 
-	@SuppressWarnings("SameParameterValue")
-	static void invertLeftTalons(boolean shouldInvert) {
-		for (WPI_TalonSRX currentTalon : leftTalons) {
+	static void invertLeftTalons(final boolean shouldInvert) {
+		for (final WPI_TalonSRX currentTalon : leftTalons) {
 			currentTalon.setInverted(shouldInvert);
 		}
 	}
 
-	@SuppressWarnings("SameParameterValue")
-	static void invertRightTalons(boolean shouldInvert) {
-		for (WPI_TalonSRX talon : rightTalons) {
-			talon.setInverted(shouldInvert);
-		}
-	}
-
-	static void ramp(double seconds) {
-		for (final WPI_TalonSRX talon : leftTalons) {
-			talon.configOpenloopRamp(seconds, 0);
-		}
-
+	static void invertRightTalons(final boolean shouldInvert) {
 		for (final WPI_TalonSRX talon : rightTalons) {
-			talon.configOpenloopRamp(seconds, 0);
+			talon.setInverted(shouldInvert);
 		}
 	}
 
@@ -157,15 +119,7 @@ public class Drive {
 		return rightTalons[0].getClosedLoopTarget(0);
 	}
 
-	static int getGear() {
-		if (shifter.get() == Value.kForward) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
-
-	static void setGear(int gear) {
+	static void setGear(final int gear) {
 		switch (gear) {
 			case 0:
 				shifter.set(DoubleSolenoid.Value.kReverse);
@@ -173,6 +127,14 @@ public class Drive {
 			case 1:
 				shifter.set(DoubleSolenoid.Value.kForward);
 				break;
+		}
+	}
+
+	static int getGear() {
+		if (shifter.get() == Value.kForward) {
+			return 1;
+		} else {
+			return 0;
 		}
 	}
 
