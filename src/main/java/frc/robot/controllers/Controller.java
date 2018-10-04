@@ -55,17 +55,20 @@ public class Controller extends Thread {
 				}
 
 				// OPERATOR CONTROLS
-				if (joysticks[1].getY() > 0.05 && Lift.getSetpoint() + 12 > 96){
+				if (joysticks[1].getY() > 0.05 && Lift.getSetpoint() > 96){
 					Lift.setSetpoint(Lift.getSetpoint() + 0.1);
 				}
-				else if(joysticks[1].getY() < -0.05 && Lift.getSetpoint() - 12 < 0) {
+				else if(joysticks[1].getY() < -0.05 && Lift.getSetpoint() < 0) {
 					Lift.setSetpoint(Lift.getSetpoint() - 0.1);
 				}
 				if(joysticks[1].getRawButton(5)){
-					Lift.setSetpoint(72); //scale height
+					Lift.setSetpoint(84); //scale height
 				}
 				if(joysticks[1].getRawButton(4)){
 					Lift.setSetpoint(36); //switch height
+				}
+				if(joysticks[0].getY() > 0.05){
+					Intake.
 				}
 
 				// THROTTLE THREAD

@@ -23,11 +23,11 @@ public final class Intake {
 		intakeExtend = new DoubleSolenoid(4, 5);
 	}
 
-	static void intake() {
+	public static void intake() {
 		talons[0].set(ControlMode.PercentOutput, 1);
 	}
 
-	static void extake() {
+	public static void extake() {
 		talons[0].set(ControlMode.PercentOutput, -1);
 	}
 
