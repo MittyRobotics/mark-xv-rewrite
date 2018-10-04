@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.drive.DriveTeleOp;
+import frc.robot.intake.Intake;
 import frc.robot.lift.Lift;
 
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
@@ -12,6 +13,7 @@ import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 public class Controller extends Thread {
 	@Override
 	public void run() {
+		boolean isIntakeClosed = true;
 		final XboxController xboxController = new XboxController(0);
 
 		final Joystick[] joysticks = new Joystick[2];
@@ -68,7 +70,20 @@ public class Controller extends Thread {
 					Lift.setSetpoint(36); //switch height
 				}
 				if(joysticks[0].getY() > 0.05){
-					Intake.
+					Intake.extake();
+				}
+				else if(joysticks[0].getY() < -0.05){
+					Intake.intake();
+				}
+				if(joysticks[1].getTrigger()) {
+					if (isIntakeClosed) {
+						Intake.release();
+						isIntakeClosed = false;
+					}
+					else{
+						Intake.hold();
+						isIntakeClosed = true;
+					}
 				}
 
 				// THROTTLE THREAD
