@@ -4,10 +4,10 @@ import edu.wpi.first.gradlerio.frc.RoboRIO
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
+    id "edu.wpi.first.GradleRIO" version "2019.0.0-beta0-pre2"
 }
 
-def ROBOT_CLASS = "org.usfirst.frc.team1351.robot.Robot"
+def ROBOT_CLASS = "frc.robot.Robot"
 
 deploy {
     targets {

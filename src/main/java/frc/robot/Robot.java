@@ -1,13 +1,13 @@
-package org.usfirst.frc.team1351.robot;
+package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SampleRobot;
-import org.usfirst.frc.team1351.robot.autonomous.Autonomous;
-import org.usfirst.frc.team1351.robot.controllers.Controller;
-import org.usfirst.frc.team1351.robot.drive.Drive;
-import org.usfirst.frc.team1351.robot.intake.Intake;
-import org.usfirst.frc.team1351.robot.lift.Lift;
+import frc.robot.autonomous.Autonomous;
+import frc.robot.controllers.Controller;
+import frc.robot.drive.Drive;
+import frc.robot.intake.Intake;
+import frc.robot.lift.Lift;
 
 @SuppressWarnings("deprecation")
 public final class Robot extends SampleRobot {

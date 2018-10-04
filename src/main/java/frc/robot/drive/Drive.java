@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1351.robot.drive;
+package frc.robot.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -6,13 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static org.usfirst.frc.team1351.robot.Defaults.DRIVE_D;
-import static org.usfirst.frc.team1351.robot.Defaults.DRIVE_I;
-import static org.usfirst.frc.team1351.robot.Defaults.DRIVE_P;
-import static org.usfirst.frc.team1351.robot.Defaults.TURN_D;
-import static org.usfirst.frc.team1351.robot.Defaults.TURN_I;
-import static org.usfirst.frc.team1351.robot.Defaults.TURN_P;
+import frc.robot.Defaults;
 
 public final class Drive {
 	private static final int[] LEFT_DRIVE_TALONS = {0, 1};
@@ -43,12 +37,12 @@ public final class Drive {
 
 		DriveAuton.init();
 
-		SmartDashboard.putNumber("Drive P", DRIVE_P);
-		SmartDashboard.putNumber("Drive I", DRIVE_I);
-		SmartDashboard.putNumber("Drive D", DRIVE_D);
-		SmartDashboard.putNumber("Turn P", TURN_P);
-		SmartDashboard.putNumber("Turn I", TURN_I);
-		SmartDashboard.putNumber("Turn D", TURN_D);
+		SmartDashboard.putNumber("Drive P", Defaults.DRIVE_P);
+		SmartDashboard.putNumber("Drive I", Defaults.DRIVE_I);
+		SmartDashboard.putNumber("Drive D", Defaults.DRIVE_D);
+		SmartDashboard.putNumber("Turn P", Defaults.TURN_P);
+		SmartDashboard.putNumber("Turn I", Defaults.TURN_I);
+		SmartDashboard.putNumber("Turn D", Defaults.TURN_D);
 	}
 
 	private static void ramp(@SuppressWarnings("SameParameterValue") final double seconds) {
@@ -61,9 +55,9 @@ public final class Drive {
 	}
 
 	static void updatePID() {
-		final double P = SmartDashboard.getNumber("Drive P", DRIVE_P);
-		final double I = SmartDashboard.getNumber("Drive I", DRIVE_I);
-		final double D = SmartDashboard.getNumber("Drive D", DRIVE_D);
+		final double P = SmartDashboard.getNumber("Drive P", Defaults.DRIVE_P);
+		final double I = SmartDashboard.getNumber("Drive I", Defaults.DRIVE_I);
+		final double D = SmartDashboard.getNumber("Drive D", Defaults.DRIVE_D);
 
 		leftTalons[0].config_kP(0, P, 0);
 		leftTalons[0].config_kI(0, I, 0);

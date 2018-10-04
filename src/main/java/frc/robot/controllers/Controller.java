@@ -1,9 +1,9 @@
-package org.usfirst.frc.team1351.robot.controllers;
+package frc.robot.controllers;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import org.usfirst.frc.team1351.robot.drive.DriveTeleOp;
+import frc.robot.drive.DriveTeleOp;
 
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;

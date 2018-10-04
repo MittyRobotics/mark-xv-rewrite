@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1351.robot.intake;
+package frc.robot.intake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;

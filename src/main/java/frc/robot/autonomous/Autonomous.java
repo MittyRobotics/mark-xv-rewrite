@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1351.robot.autonomous;
+package frc.robot.autonomous;
 
 public final class Autonomous {
 	public static void init() {

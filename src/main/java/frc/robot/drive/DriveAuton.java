@@ -1,14 +1,11 @@
-package org.usfirst.frc.team1351.robot.drive;
+package frc.robot.drive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import static org.usfirst.frc.team1351.robot.Defaults.TURN_D;
-import static org.usfirst.frc.team1351.robot.Defaults.TURN_I;
-import static org.usfirst.frc.team1351.robot.Defaults.TURN_P;
+import frc.robot.Defaults;
 
 public final class DriveAuton {
 	private static final double[] TICKS_PER_INCH = {487.5d, 487.5d};
@@ -68,13 +65,13 @@ public final class DriveAuton {
 	public static void turn(final double angle) {
 		final double setpoint = gyro.getAngle() + angle;
 
-		final PIDController leftPidController = new PIDController(SmartDashboard.getNumber("Turn P", TURN_P),
-				SmartDashboard.getNumber("Turn I", TURN_I),
-				SmartDashboard.getNumber("Turn D", TURN_D),
+		final PIDController leftPidController = new PIDController(SmartDashboard.getNumber("Turn P", Defaults.TURN_P),
+				SmartDashboard.getNumber("Turn I", Defaults.TURN_I),
+				SmartDashboard.getNumber("Turn D", Defaults.TURN_D),
 				gyro, Drive.getLeftTalon());
-		final PIDController rightPidController = new PIDController(SmartDashboard.getNumber("Turn P", TURN_P),
-				SmartDashboard.getNumber("Turn I", TURN_I),
-				SmartDashboard.getNumber("Turn D", TURN_D),
+		final PIDController rightPidController = new PIDController(SmartDashboard.getNumber("Turn P", Defaults.TURN_P),
+				SmartDashboard.getNumber("Turn I", Defaults.TURN_I),
+				SmartDashboard.getNumber("Turn D", Defaults.TURN_D),
 				gyro, Drive.getRightTalon());
 
 		leftPidController.setOutputRange(-1, 1);

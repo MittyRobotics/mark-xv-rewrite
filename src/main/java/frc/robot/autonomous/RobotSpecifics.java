@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1351.robot.autonomous;
+package frc.robot.autonomous;
 
 final class RobotSpecifics { // TODO ALL
 	static final double BACK_TO_MIDDLE = -1;

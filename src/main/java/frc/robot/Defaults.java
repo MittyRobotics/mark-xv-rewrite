@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1351.robot;
+package frc.robot;
 
 public final class Defaults {
 	public static final double DRIVE_P = 0.2;

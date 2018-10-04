@@ -1,5 +1,6 @@
 # Compiled Class Files #
 *.class
+/out
 
 # Package Files #
 *.jar

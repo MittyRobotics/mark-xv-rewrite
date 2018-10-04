@@ -1,8 +1,8 @@
-package org.usfirst.frc.team1351.robot.autonomous;
+package frc.robot.autonomous;
 
-import org.usfirst.frc.team1351.robot.drive.DriveAuton;
-import org.usfirst.frc.team1351.robot.intake.Intake;
-import org.usfirst.frc.team1351.robot.lift.Lift;
+import frc.robot.drive.DriveAuton;
+import frc.robot.intake.Intake;
+import frc.robot.lift.Lift;
 
 /**
  * Class that holds all of the patterns for autonomous.

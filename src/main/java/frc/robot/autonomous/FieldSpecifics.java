@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1351.robot.autonomous;
+package frc.robot.autonomous;
 
 final class FieldSpecifics { // TODO ALL
 	static final double RED_LENGTH_FOR_CROSSING_AUTON_LINE = -1; //140
