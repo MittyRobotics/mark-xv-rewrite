@@ -62,7 +62,7 @@ public final class Lift {
 		}
 	}
 
-	public static double getSetpoint(final double setpoint) {
+	public static double getSetpoint() {
 		return setpoint;
 	}
 
