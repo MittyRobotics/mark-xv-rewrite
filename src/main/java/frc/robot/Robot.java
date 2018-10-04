@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SampleRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.controllers.Controller;
 import frc.robot.drive.Drive;
@@ -62,14 +63,14 @@ public final class Robot extends SampleRobot {
 
 	@Override
 	public final void test() {
-		Lift.setSetpoint(24);
-		Lift.start();
-		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isTest()) {
-			System.out.println(Lift.getSensor());
-			try {
-				Thread.sleep(100);
-			} catch (final InterruptedException e) {
-				e.printStackTrace();
+		final XboxController xboxController = new XboxController(1);
+		while (DriverStation.getInstance().isEnabled()) {
+			if (xboxController.getXButton()) {
+				Intake.hold();
+			} else if (xboxController.getYButton()) {
+				Intake.lower();
+			} else if (xboxController.getAButton()) {
+				Intake.release();
 			}
 		}
 	}

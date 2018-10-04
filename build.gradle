@@ -4,7 +4,7 @@ import edu.wpi.first.gradlerio.frc.RoboRIO
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.0.0-beta0-pre2"
+    id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
 }
 
 def ROBOT_CLASS = "frc.robot.Robot"

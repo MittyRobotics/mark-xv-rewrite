@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Defaults;
 
 public final class Lift {
-	public static final double SWITCH_HEIGHT = 10; // TODO
-	public static final double SCALE_HEIGHT = 100; // TODO
+	public static final double SWITCH_HEIGHT = 48;
+	public static final double SCALE_HEIGHT = 84; // TODO
 
 	private static final int TALON_IDS[] = {9, 5};
 	private static final int TICKS_PER_INCH = 651;
@@ -53,7 +53,13 @@ public final class Lift {
 	}
 
 	public static void setSetpoint(final double setpoint) {
-		Lift.setpoint = setpoint;
+		if (setpoint > 84) {
+			Lift.setpoint = 84;
+		} else if (setpoint < -1) {
+			Lift.setpoint = -1;
+		} else {
+			Lift.setpoint = setpoint;
+		}
 	}
 
 	public static double getSetpoint(final double setpoint) {
