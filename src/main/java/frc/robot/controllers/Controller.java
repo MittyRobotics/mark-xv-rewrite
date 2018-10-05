@@ -54,6 +54,8 @@ public final class Controller extends Thread {
 				Lift.setSetpoint(Lift.SWITCH_HEIGHT); //switch height
 			} else if (joysticks[1].getRawButton(5)) {
 				Lift.setSetpoint(Lift.SCALE_HEIGHT); //scale height
+			} else {
+				Lift.setSetpoint(Lift.getSetpoint());
 			}
 
 			if (joysticks[0].getY() > 0.05) {
