@@ -1,18 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.controllers.Controller;
 import frc.robot.drive.Drive;
-import frc.robot.drive.DriveTeleOp;
 import frc.robot.intake.Intake;
 import frc.robot.lift.Lift;
-
-import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
-import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
 @SuppressWarnings("deprecation")
 public final class Robot extends SampleRobot {
@@ -68,17 +62,6 @@ public final class Robot extends SampleRobot {
 	@Override
 	public final void test() {
 		compressor.start();
-		final XboxController xboxController = new XboxController(0);
-		while (DriverStation.getInstance().isEnabled()) {
-			// Left Side Tank drive
-			DriveTeleOp.setLeft(xboxController.getY(kLeft));
-			DriveTeleOp.setRight(xboxController.getY(kRight));
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	@Override

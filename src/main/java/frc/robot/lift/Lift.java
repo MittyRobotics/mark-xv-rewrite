@@ -7,6 +7,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Defaults;
 
+import java.lang.Thread.State;
+
 public final class Lift {
 	public static final double SWITCH_HEIGHT = 48;
 	public static final double SCALE_HEIGHT = 84; // TODO
@@ -63,10 +65,24 @@ public final class Lift {
 
 	public static synchronized void start() {
 		shouldRun = true;
-		if (!thread.isAlive() && !thread.isInterrupted()) {
+		if (!(thread.isAlive() || thread.isInterrupted())
+				&& (thread.getState() == State.NEW || thread.getState() == State.RUNNABLE)) {
 			configPID();
 			configAmpLimit();
-			thread.start();
+			try {
+				thread.start();
+			} catch (final IllegalThreadStateException handled) {
+				try {
+					Thread.sleep(100);
+				} catch (final InterruptedException e) {
+					e.printStackTrace();
+				}
+				try {
+					thread.start();
+				} catch (final IllegalThreadStateException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -83,9 +99,5 @@ public final class Lift {
 
 	public static void stop() {
 		shouldRun = false;
-	}
-
-	public static int getSensor() {
-		return talons[0].getSelectedSensorPosition(0);
 	}
 }
