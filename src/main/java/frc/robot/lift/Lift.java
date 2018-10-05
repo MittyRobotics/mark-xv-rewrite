@@ -3,11 +3,8 @@ package frc.robot.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Defaults;
-
-import java.lang.Thread.State;
 
 public final class Lift {
 	public static final double SWITCH_HEIGHT = 48;
@@ -18,19 +15,6 @@ public final class Lift {
 
 	private static WPI_TalonSRX[] talons;
 
-	private static final Thread thread = new Thread(new Runnable() {
-		@Override
-		public final void run() {
-			while (shouldRun && DriverStation.getInstance().isEnabled()) {
-				talons[0].set(ControlMode.Position, setpoint * TICKS_PER_INCH);
-				try {
-					Thread.sleep(10);
-				} catch (final InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	});
 	private static volatile boolean shouldRun = false;
 	private static volatile double setpoint = 0;
 
@@ -49,6 +33,9 @@ public final class Lift {
 		talons[0].enableCurrentLimit(true);
 		talons[0].setSelectedSensorPosition(0, 0, 0); // TODO("This Should be Hardware Set Not Programmed") Clean
 
+		configPID();
+		configAmpLimit();
+
 		SmartDashboard.putNumber("Lift P", Defaults.LIFT_P);
 		SmartDashboard.putNumber("Lift I", Defaults.LIFT_I);
 		SmartDashboard.putNumber("Lift D", Defaults.LIFT_D);
@@ -57,42 +44,28 @@ public final class Lift {
 
 	public static void setSetpoint(final double setpoint) {
 		Lift.setpoint = Math.max(-2, Math.min(84, setpoint));
+		if (shouldRun) {
+			talons[0].set(ControlMode.Position, setpoint * TICKS_PER_INCH);
+		} else {
+			talons[0].set(ControlMode.PercentOutput, 0);
+		}
 	}
 
 	public static double getSetpoint() {
 		return setpoint;
 	}
 
-	public static synchronized void start() {
+	public static void start() {
 		shouldRun = true;
-		if (!(thread.isAlive() || thread.isInterrupted())
-				&& (thread.getState() == State.NEW || thread.getState() == State.RUNNABLE)) {
-			configPID();
-			configAmpLimit();
-			try {
-				thread.start();
-			} catch (final IllegalThreadStateException handled) {
-				try {
-					Thread.sleep(100);
-				} catch (final InterruptedException e) {
-					e.printStackTrace();
-				}
-				try {
-					thread.start();
-				} catch (final IllegalThreadStateException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
-	private static void configPID() {
+	public static void configPID() {
 		talons[0].config_kP(0, SmartDashboard.getNumber("Lift P", Defaults.LIFT_P), 0);
 		talons[0].config_kI(0, SmartDashboard.getNumber("Lift I", Defaults.LIFT_I), 0);
 		talons[0].config_kD(0, SmartDashboard.getNumber("Lift D", Defaults.LIFT_D), 0);
 	}
 
-	private static void configAmpLimit() {
+	public static void configAmpLimit() {
 		talons[0].configContinuousCurrentLimit((int) SmartDashboard.getNumber("Lift Amp Limit", Defaults.LIFT_AMP_LIMIT), 0);
 		talons[0].enableCurrentLimit(true);
 	}

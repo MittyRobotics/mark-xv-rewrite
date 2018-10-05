@@ -62,6 +62,10 @@ public final class Robot extends SampleRobot {
 	@Override
 	public final void test() {
 		compressor.start();
+		Lift.configPID();
+		Lift.configAmpLimit();
+		Lift.start();
+		Lift.setSetpoint(24);
 	}
 
 	@Override
