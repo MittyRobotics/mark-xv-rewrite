@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Defaults;
 
 public final class Drive {
-	private static final int[] LEFT_DRIVE_TALONS = {0, 1};
-	private static final int[] RIGHT_DRIVE_TALONS = {2, 3};
+	private static final int[] LEFT_DRIVE_TALONS = {2, 3};
+	private static final int[] RIGHT_DRIVE_TALONS = {0, 1};
 
 	private static WPI_TalonSRX[] leftTalons;
 	private static WPI_TalonSRX[] rightTalons;
@@ -31,6 +31,7 @@ public final class Drive {
 				rightTalons[i].set(ControlMode.Follower, RIGHT_DRIVE_TALONS[0]);
 			}
 		}
+		invertLeftTalons(true);
 		ramp(0.25); // TODO Remove When Kito is Ready for It
 
 		shifter = new DoubleSolenoid(6, 7);

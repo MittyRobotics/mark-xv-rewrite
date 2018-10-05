@@ -3,6 +3,7 @@ package frc.robot.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Defaults;
 
@@ -18,7 +19,7 @@ public final class Lift {
 	private static final Thread thread = new Thread(new Runnable() {
 		@Override
 		public final void run() {
-			while (shouldRun) {
+			while (shouldRun && DriverStation.getInstance().isEnabled()) {
 				talons[0].set(ControlMode.Position, setpoint * TICKS_PER_INCH);
 				try {
 					Thread.sleep(10);
@@ -53,13 +54,7 @@ public final class Lift {
 	}
 
 	public static void setSetpoint(final double setpoint) {
-		if (setpoint > 84) {
-			Lift.setpoint = 84;
-		} else if (setpoint < -1) {
-			Lift.setpoint = -1;
-		} else {
-			Lift.setpoint = setpoint;
-		}
+		Lift.setpoint = Math.max(-2, Math.min(84, setpoint));
 	}
 
 	public static double getSetpoint() {

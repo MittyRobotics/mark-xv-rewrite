@@ -24,11 +24,15 @@ public final class Intake {
 	}
 
 	public static void intake() {
-		talons[0].set(ControlMode.PercentOutput, 1);
+		talons[0].set(ControlMode.PercentOutput, -1);
 	}
 
 	public static void extake() {
-		talons[0].set(ControlMode.PercentOutput, -1);
+		talons[0].set(ControlMode.PercentOutput, 1);
+	}
+
+	public static void halt() {
+		talons[0].set(ControlMode.PercentOutput, 0);
 	}
 
 	public static void hold() {
@@ -42,6 +46,6 @@ public final class Intake {
 	}
 
 	public static void lower() {
-		intakeExtend.set(DoubleSolenoid.Value.kForward);
+		intakeExtend.set(Value.kReverse);
 	}
 }

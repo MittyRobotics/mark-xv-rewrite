@@ -10,10 +10,9 @@ import frc.robot.lift.Lift;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kLeft;
 import static edu.wpi.first.wpilibj.GenericHID.Hand.kRight;
 
-public class Controller extends Thread {
+public final class Controller extends Thread {
 	@Override
 	public void run() {
-		boolean isIntakeClosed = true;
 		final XboxController xboxController = new XboxController(0);
 
 		final Joystick[] joysticks = new Joystick[2];
@@ -21,77 +20,65 @@ public class Controller extends Thread {
 			joysticks[i] = new Joystick(i + 1);
 		}
 
+		boolean isIntakeClosed = true;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isOperatorControl()) {
-			synchronized (this) {
-				// DRIVING CONTROLS
+			// DRIVING CONTROLS
 
-				// Left Side Tank drive
-				if (xboxController.getY(kLeft) < -0.05 || xboxController.getY(kLeft) > 0.05) {
-					DriveTeleOp.setLeft(xboxController.getY(kLeft));
+			// Left Side Tank drive
+			if (xboxController.getY(kLeft) < -0.05 || xboxController.getY(kLeft) > 0.05) {
+				DriveTeleOp.setLeft(xboxController.getY(kLeft));
+			} else {
+				DriveTeleOp.setLeft(0);
+			}
+
+			// Right Side Tank drive
+			if (xboxController.getY(kRight) < -0.05 || xboxController.getY(kRight) > 0.05) {
+				DriveTeleOp.setRight(xboxController.getY(kRight));
+			} else {
+				DriveTeleOp.setRight(0);
+			}
+
+			// Ramping Toggle
+			if (xboxController.getBumper(kRight)) {
+				DriveTeleOp.setGear(0);
+			} else if (xboxController.getBumper(kLeft)) {
+				DriveTeleOp.setGear(1);
+			}
+
+			// OPERATOR CONTROLS
+			if (Math.abs(joysticks[1].getY()) > 0.05) {
+				Lift.setSetpoint(Lift.getSetpoint() + (joysticks[1].getY() * 0.1));
+			} else if (joysticks[1].getRawButton(3)) {
+				Lift.setSetpoint(0);
+			} else if (joysticks[1].getRawButton(4)) {
+				Lift.setSetpoint(Lift.SWITCH_HEIGHT); //switch height
+			} else if (joysticks[1].getRawButton(5)) {
+				Lift.setSetpoint(Lift.SCALE_HEIGHT); //scale height
+			}
+
+			if (joysticks[0].getY() > 0.05) {
+				Intake.extake();
+			} else if (joysticks[0].getY() < -0.05) {
+				Intake.intake();
+			} else {
+				Intake.halt();
+			}
+
+			if (joysticks[1].getTrigger()) {
+				if (isIntakeClosed) {
+					Intake.release();
+					isIntakeClosed = !isIntakeClosed;
 				} else {
-					DriveTeleOp.setLeft(0);
+					Intake.hold();
+					isIntakeClosed = !isIntakeClosed;
 				}
+			}
 
-				// Right Side Tank drive
-				if (xboxController.getY(kRight) < -0.05 || xboxController.getY(kRight) > 0.05) {
-					DriveTeleOp.setRight(xboxController.getY(kRight));
-				} else {
-					DriveTeleOp.setRight(0);
-				}
-
-				// Manual Gear Hold : Will Override Switch Mode
-				if (xboxController.getTriggerAxis(kRight) >= 0.2) {
-					DriveTeleOp.setGear(0);
-				} else {
-					DriveTeleOp.setGear(1);
-				}
-
-				// Ramping Toggle On
-				if (xboxController.getBumper(kRight) && !xboxController.getBumper(kLeft)) {
-					DriveTeleOp.setGear(0);
-				}
-
-				// Ramping Toggle Off
-				if (xboxController.getBumper(kLeft) && !xboxController.getBumper(kRight)) {
-					DriveTeleOp.setGear(1);
-				}
-
-				// OPERATOR CONTROLS
-				if (joysticks[1].getY() > 0.05 && Lift.getSetpoint() > 96){
-					Lift.setSetpoint(Lift.getSetpoint() + 0.1);
-				}
-				else if(joysticks[1].getY() < -0.05 && Lift.getSetpoint() < 0) {
-					Lift.setSetpoint(Lift.getSetpoint() - 0.1);
-				}
-				if(joysticks[1].getRawButton(5)){
-					Lift.setSetpoint(84); //scale height
-				}
-				if(joysticks[1].getRawButton(4)){
-					Lift.setSetpoint(36); //switch height
-				}
-				if(joysticks[0].getY() > 0.05){
-					Intake.extake();
-				}
-				else if(joysticks[0].getY() < -0.05){
-					Intake.intake();
-				}
-				if(joysticks[1].getTrigger()) {
-					if (isIntakeClosed) {
-						Intake.release();
-						isIntakeClosed = false;
-					}
-					else{
-						Intake.hold();
-						isIntakeClosed = true;
-					}
-				}
-
-				// THROTTLE THREAD
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+			// THROTTLE THREAD
+			try {
+				sleep(10);
+			} catch (final InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
