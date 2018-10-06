@@ -20,6 +20,7 @@ public final class Drive {
 		leftTalons = new WPI_TalonSRX[LEFT_DRIVE_TALONS.length];
 		for (int i = 0; i < leftTalons.length; i++) {
 			leftTalons[i] = new WPI_TalonSRX(LEFT_DRIVE_TALONS[i]);
+			leftTalons[i].setInverted(false);
 			if (i > 0) {
 				leftTalons[i].set(ControlMode.Follower, LEFT_DRIVE_TALONS[0]);
 			}
@@ -27,11 +28,11 @@ public final class Drive {
 		rightTalons = new WPI_TalonSRX[RIGHT_DRIVE_TALONS.length];
 		for (int i = 0; i < rightTalons.length; i++) {
 			rightTalons[i] = new WPI_TalonSRX(RIGHT_DRIVE_TALONS[i]);
+			rightTalons[i].setInverted(true);
 			if (i > 0) {
 				rightTalons[i].set(ControlMode.Follower, RIGHT_DRIVE_TALONS[0]);
 			}
 		}
-		invertLeftTalons(true);
 		ramp(0.25); // TODO Remove When Kito is Ready for It
 
 		shifter = new DoubleSolenoid(6, 7);

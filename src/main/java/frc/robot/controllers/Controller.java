@@ -26,14 +26,14 @@ public final class Controller extends Thread {
 
 			// Left Side Tank drive
 			if (xboxController.getY(kLeft) < -0.05 || xboxController.getY(kLeft) > 0.05) {
-				DriveTeleOp.setLeft(xboxController.getY(kLeft));
+				DriveTeleOp.setLeft(-xboxController.getY(kLeft));
 			} else {
 				DriveTeleOp.setLeft(0);
 			}
 
 			// Right Side Tank drive
 			if (xboxController.getY(kRight) < -0.05 || xboxController.getY(kRight) > 0.05) {
-				DriveTeleOp.setRight(xboxController.getY(kRight));
+				DriveTeleOp.setRight(-xboxController.getY(kRight));
 			} else {
 				DriveTeleOp.setRight(0);
 			}
@@ -50,17 +50,9 @@ public final class Controller extends Thread {
 
 			// Lift
 			if (Math.abs(joysticks[1].getY()) > 0.05) {
-				Lift.setSetpoint(Lift.getSetpoint() + (joysticks[1].getY() * 0.1));
+				Lift.set(-joysticks[1].getY());
 			}
 
-			// Lift Presets
-			if (joysticks[1].getRawButton(3)) {
-				Lift.setSetpoint(0);
-			} else if (joysticks[1].getRawButton(4)) {
-				Lift.setSetpoint(Lift.SWITCH_HEIGHT);
-			} else if (joysticks[1].getRawButton(5)) {
-				Lift.setSetpoint(Lift.SCALE_HEIGHT);
-			}
 
 			// Intake
 			if (joysticks[0].getRawButton(3)) {
@@ -80,13 +72,9 @@ public final class Controller extends Thread {
 
 			// Intake Arms
 			if (joysticks[1].getTrigger()) {
-				if (isIntakeClosed) {
-					Intake.release();
-					isIntakeClosed = false;
-				} else {
-					Intake.hold();
-					isIntakeClosed = true;
-				}
+				Intake.toggle();
+			} else if (joysticks[0].getTrigger()) {
+				Intake.soft();
 			}
 
 

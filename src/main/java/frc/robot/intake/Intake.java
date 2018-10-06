@@ -11,6 +11,9 @@ public final class Intake {
 	private static WPI_TalonSRX[] talons;
 	private static DoubleSolenoid intakeExtend, intakeClose40, intakeClose60;
 
+	private static long time = 0;
+	private static Pressure pressure = Pressure.Hard;
+
 	public static void init() {
 		talons = new WPI_TalonSRX[INTAKE_TALONS.length];
 		talons[0] = new WPI_TalonSRX(INTAKE_TALONS[0]);
@@ -35,14 +38,36 @@ public final class Intake {
 		talons[0].set(ControlMode.PercentOutput, 0);
 	}
 
+	public static synchronized void toggle() {
+		if (System.currentTimeMillis() - time > 500) {
+			time = System.currentTimeMillis();
+			if (pressure == Pressure.Hard) {
+				release();
+			} else if (pressure == Pressure.Open) {
+				hold();
+			} else {
+				release();
+			}
+		}
+	}
+
 	public static void hold() {
 		intakeClose40.set(Value.kReverse); //40 branch off
 		intakeClose60.set(Value.kForward); //60 branch on
+		pressure = Pressure.Hard;
 	}
 
 	public static void release() {
 		intakeClose40.set(Value.kForward); //40 branch on
 		intakeClose60.set(Value.kReverse); //60 branch off
+		pressure = Pressure.Open;
+	}
+
+	public static synchronized void soft() {
+		time = System.currentTimeMillis();
+		intakeClose40.set(Value.kForward);
+		intakeClose60.set(Value.kForward);
+		pressure = Pressure.Soft;
 	}
 
 	public static void lower() {
@@ -51,5 +76,9 @@ public final class Intake {
 
 	public static void raise() {
 		intakeExtend.set(Value.kForward);
+	}
+
+	enum Pressure {
+		Hard, Open, Soft
 	}
 }
