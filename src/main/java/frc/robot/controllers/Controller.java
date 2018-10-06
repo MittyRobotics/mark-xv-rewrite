@@ -45,19 +45,31 @@ public final class Controller extends Thread {
 				DriveTeleOp.setGear(1);
 			}
 
+
 			// OPERATOR CONTROLS
+
+			// Lift
 			if (Math.abs(joysticks[1].getY()) > 0.05) {
 				Lift.setSetpoint(Lift.getSetpoint() + (joysticks[1].getY() * 0.1));
-			} else if (joysticks[1].getRawButton(3)) {
-				Lift.setSetpoint(0);
-			} else if (joysticks[1].getRawButton(4)) {
-				Lift.setSetpoint(Lift.SWITCH_HEIGHT); //switch height
-			} else if (joysticks[1].getRawButton(5)) {
-				Lift.setSetpoint(Lift.SCALE_HEIGHT); //scale height
-			} else {
-				Lift.setSetpoint(Lift.getSetpoint());
 			}
 
+			// Lift Presets
+			if (joysticks[1].getRawButton(3)) {
+				Lift.setSetpoint(0);
+			} else if (joysticks[1].getRawButton(4)) {
+				Lift.setSetpoint(Lift.SWITCH_HEIGHT);
+			} else if (joysticks[1].getRawButton(5)) {
+				Lift.setSetpoint(Lift.SCALE_HEIGHT);
+			}
+
+			// Intake
+			if (joysticks[0].getRawButton(3)) {
+				Intake.raise();
+			} else if (joysticks[0].getRawButton(2)) {
+				Intake.lower();
+			}
+
+			// Intake Rollers
 			if (joysticks[0].getY() > 0.05) {
 				Intake.extake();
 			} else if (joysticks[0].getY() < -0.05) {
@@ -66,15 +78,17 @@ public final class Controller extends Thread {
 				Intake.halt();
 			}
 
+			// Intake Arms
 			if (joysticks[1].getTrigger()) {
 				if (isIntakeClosed) {
 					Intake.release();
-					isIntakeClosed = !isIntakeClosed;
+					isIntakeClosed = false;
 				} else {
 					Intake.hold();
-					isIntakeClosed = !isIntakeClosed;
+					isIntakeClosed = true;
 				}
 			}
+
 
 			// THROTTLE THREAD
 			try {
@@ -85,16 +99,3 @@ public final class Controller extends Thread {
 		}
 	}
 }
-
-/* TODO
-Tank
-Right/Left Bumper-Low/High
-High Default
-Lift - Buttons
-Right - Lift Height
-Right Trigger - Intake Open/Close Toggle
-Middle Rright Joystick Button -
-Left Right Joystick Button - Scale
-Right Right Joystick - Switch
-Left Joystick - Rollers
- */

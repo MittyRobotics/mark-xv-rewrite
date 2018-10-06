@@ -48,4 +48,8 @@ public final class Intake {
 	public static void lower() {
 		intakeExtend.set(Value.kReverse);
 	}
+
+	public static void raise() {
+		intakeExtend.set(Value.kForward);
+	}
 }

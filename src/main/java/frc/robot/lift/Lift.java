@@ -72,5 +72,6 @@ public final class Lift {
 
 	public static void stop() {
 		shouldRun = false;
+		talons[0].set(ControlMode.PercentOutput, 0);
 	}
 }

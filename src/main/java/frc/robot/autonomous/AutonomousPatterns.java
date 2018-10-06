@@ -14,7 +14,7 @@ import frc.robot.lift.Lift;
  * Fourth Term: Objective
  * TODO Confirm ALL Patterns
  */
-final class AutonomousPatterns {
+public final class AutonomousPatterns {
 	static void redLeftLeftSwitch() {
 		ready();
 		DriveAuton.move(FieldSpecifics.RED_LEFT_LENGTH_TO_MIDDLE_OF_SWITCH - RobotSpecifics.BACK_TO_MIDDLE);
@@ -24,7 +24,7 @@ final class AutonomousPatterns {
 		Intake.release();
 	}
 
-	static void redLeftLeftForward(final boolean shouldLift) {
+	public static void redLeftLeftForward(final boolean shouldLift) {
 		ready();
 		DriveAuton.move(FieldSpecifics.RED_LENGTH_FOR_CROSSING_AUTON_LINE - RobotSpecifics.BACK_TO_MIDDLE - RobotSpecifics.FRONT_TO_MIDDLE);
 		if (shouldLift) {

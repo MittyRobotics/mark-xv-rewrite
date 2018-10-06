@@ -1,8 +1,11 @@
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
 import frc.robot.autonomous.Autonomous;
+import frc.robot.autonomous.AutonomousPatterns;
 import frc.robot.controllers.Controller;
 import frc.robot.drive.Drive;
 import frc.robot.intake.Intake;
@@ -18,6 +21,8 @@ public final class Robot extends SampleRobot {
 
 	@Override
 	public final void robotInit() {
+		System.out.println("1.0.0");
+
 		// Autonomous
 		final Thread autonomousThread = new Thread(Autonomous::init);
 		autonomousThread.start();
@@ -34,6 +39,10 @@ public final class Robot extends SampleRobot {
 		final Thread intakeThread = new Thread(Intake::init);
 		intakeThread.start();
 
+		// Camera
+		final UsbCamera usbCamera = new UsbCamera("Camera", 0);
+		CameraServer.getInstance().addCamera(usbCamera);
+
 
 		// Waits for Finish
 		try {
@@ -49,7 +58,7 @@ public final class Robot extends SampleRobot {
 	@Override
 	public final void autonomous() {
 		enable();
-		Autonomous.run();
+		AutonomousPatterns.redLeftLeftForward(true);
 	}
 
 	@Override
