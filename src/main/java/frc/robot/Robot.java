@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.SampleRobot;
 import frc.robot.autonomous.Autonomous;
 import frc.robot.controllers.Controller;
 import frc.robot.drive.Drive;
+import frc.robot.drive.DriveAuton;
+import frc.robot.drive.DriveTeleOp;
 import frc.robot.intake.Intake;
 import frc.robot.lift.Lift;
 
@@ -19,6 +21,8 @@ public final class Robot extends SampleRobot {
 
 	@Override
 	public final void robotInit() {
+		System.out.println("NO PID");
+
 		final Thread[] threads = {
 				new Thread(Autonomous::init),
 				new Thread(Drive::init),
@@ -39,12 +43,14 @@ public final class Robot extends SampleRobot {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 	@Override
 	public final void autonomous() {
 		enable();
-		Autonomous.run();
+		DriveTeleOp.setGear(1);
+		DriveAuton.move(140);
 	}
 
 	@Override

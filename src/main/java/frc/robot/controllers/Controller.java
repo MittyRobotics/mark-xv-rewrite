@@ -49,8 +49,10 @@ public final class Controller extends Thread {
 			// OPERATOR CONTROLS
 
 			// Lift
-			if (Math.abs(joysticks[1].getY()) > 0.05) {
+			if (Math.abs(joysticks[1].getY()) > 0.1) {
 				Lift.set(-joysticks[1].getY());
+			} else {
+				Lift.set(0);
 			}
 
 
