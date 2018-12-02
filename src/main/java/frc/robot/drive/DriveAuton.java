@@ -30,8 +30,6 @@ public final class DriveAuton {
 	}
 
 	public static void move(final double distance) {
-		Drive.updatePID();
-
 		Drive.setLeftTalons(ControlMode.Position, Drive.getLeftEncoder());
 		Drive.setRightTalons(ControlMode.Position, Drive.getRightEncoder());
 
@@ -118,17 +116,5 @@ public final class DriveAuton {
 
 		leftPidController.free();
 		rightPidController.free();
-	}
-
-	public static void jank() {
-		Drive.setLeftTalons(ControlMode.PercentOutput, 0.75);
-		Drive.setRightTalons(ControlMode.PercentOutput, 0.75);
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		Drive.setLeftTalons(ControlMode.PercentOutput, 0);
-		Drive.setRightTalons(ControlMode.PercentOutput, 0);
 	}
 }

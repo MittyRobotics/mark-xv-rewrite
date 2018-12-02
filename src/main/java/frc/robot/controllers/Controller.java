@@ -20,7 +20,6 @@ public final class Controller extends Thread {
 			joysticks[i] = new Joystick(i + 1);
 		}
 
-		boolean isIntakeClosed = true;
 		while (DriverStation.getInstance().isEnabled() && DriverStation.getInstance().isOperatorControl()) {
 			// DRIVING CONTROLS
 
@@ -82,7 +81,7 @@ public final class Controller extends Thread {
 
 			// THROTTLE THREAD
 			try {
-				sleep(10);
+				sleep(1);
 			} catch (final InterruptedException e) {
 				e.printStackTrace();
 			}

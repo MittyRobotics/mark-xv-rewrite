@@ -33,10 +33,12 @@ public final class Drive {
 				rightTalons[i].set(ControlMode.Follower, RIGHT_DRIVE_TALONS[0]);
 			}
 		}
-		ramp(0.25); // TODO Remove When Kito is Ready for It
+		ramp(0.1);
 
 		shifter = new DoubleSolenoid(6, 7);
 
+		updatePID(leftTalons);
+		updatePID(rightTalons);
 		DriveAuton.init();
 
 		SmartDashboard.putNumber("Drive P", Defaults.DRIVE_P);
@@ -54,21 +56,6 @@ public final class Drive {
 		for (final WPI_TalonSRX talon : rightTalons) {
 			talon.configOpenloopRamp(seconds, 0);
 		}
-	}
-
-	static void updatePID() {
-		final double P = SmartDashboard.getNumber("Drive P", Defaults.DRIVE_P);
-		final double I = SmartDashboard.getNumber("Drive I", Defaults.DRIVE_I);
-		final double D = SmartDashboard.getNumber("Drive D", Defaults.DRIVE_D);
-
-		leftTalons[0].config_kP(0, P, 0);
-		leftTalons[0].config_kI(0, I, 0);
-		leftTalons[0].config_kD(0, D, 0);
-		leftTalons[0].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		rightTalons[0].config_kP(0, P, 0);
-		rightTalons[0].config_kI(0, I, 0);
-		rightTalons[0].config_kD(0, D, 0);
-		rightTalons[0].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 
 	static void setLeftTalons(final ControlMode controlMode, final double value) {
@@ -115,6 +102,14 @@ public final class Drive {
 		return rightTalons[0].getClosedLoopTarget(0);
 	}
 
+	static int getGear() {
+		if (shifter.get() == Value.kForward) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
+
 	static void setGear(final int gear) {
 		switch (gear) {
 			case 0:
@@ -126,19 +121,22 @@ public final class Drive {
 		}
 	}
 
-	static int getGear() {
-		if (shifter.get() == Value.kForward) {
-			return 1;
-		} else {
-			return 0;
-		}
-	}
-
 	static WPI_TalonSRX getLeftTalon() {
 		return leftTalons[0];
 	}
 
 	static WPI_TalonSRX getRightTalon() {
 		return rightTalons[0];
+	}
+
+	private static void updatePID(final WPI_TalonSRX[] talons) {
+		final double P = SmartDashboard.getNumber("Drive P", Defaults.DRIVE_P);
+		final double I = SmartDashboard.getNumber("Drive I", Defaults.DRIVE_I);
+		final double D = SmartDashboard.getNumber("Drive D", Defaults.DRIVE_D);
+
+		talons[0].config_kP(0, P, 0);
+		talons[0].config_kI(0, I, 0);
+		talons[0].config_kD(0, D, 0);
+		talons[0].configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
 }

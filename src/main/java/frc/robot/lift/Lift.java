@@ -3,11 +3,9 @@ package frc.robot.lift;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Defaults;
 
 public final class Lift {
-	private static final int TALON_IDS[] = {9, 5};
+	private static final int[] TALON_IDS = {9, 5};
 
 	private static WPI_TalonSRX[] talons;
 
@@ -24,10 +22,5 @@ public final class Lift {
 
 	public static void set(final double value) {
 		talons[0].set(ControlMode.PercentOutput, value);
-	}
-
-	private static void configAmpLimit() {
-		talons[0].configContinuousCurrentLimit((int) SmartDashboard.getNumber("Lift Amp Limit", Defaults.LIFT_AMP_LIMIT), 0);
-		talons[0].enableCurrentLimit(true);
 	}
 }
